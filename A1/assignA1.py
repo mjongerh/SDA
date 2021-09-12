@@ -51,7 +51,7 @@ for line in input_file :   # loop over every line in the input file
     histogram_of_pt1.Fill( pt1+pt2 )
 
     # print some progress indicator
-    if line_counter % 1000 ==0 : print ("processed", line_counter," events.")
+    if line_counter % 100000 ==0 : print ("processed", line_counter," events.")
 
 # Done with the event loop!
 
@@ -94,7 +94,7 @@ for line in input_file :   # loop over every line in the input file
     # Fill our histogram with the values of Pt
     histogram_of_pt1_and_pt2.Fill( pt1,pt2 )
     # print some progress indicator
-    if line_counter % 1000 ==0 : print ("processed", line_counter," events.")
+    if line_counter % 100000 ==0 : print ("processed", line_counter," events.")
 
 # Done with the event loop!
 
@@ -140,7 +140,7 @@ for line in input_file :   # loop over every line in the input file
     if pt1 > 1000 and pt2 > 1000 : both_high_1TeV += 1
 
     # print some progress indicator
-    if line_counterc % 1000 ==0 : print ("processed", line_counter," events.")
+    if line_counterc % 100000 ==0 : print ("processed", line_counter," events.")
 
 # Done with the event loop!
 print ("Probability of event Pt1 > 1TeV = " + str(Pt1_high_1TeV/line_counterc))
@@ -197,7 +197,7 @@ for line in input_file :   # loop over every line in the input file
 
     
     # print some progress indicator
-    if line_countere % 1000 ==0 : print ("processed", line_countere," events.")
+    if line_countere % 100000 ==0 : print ("processed", line_countere," events.")
 
 # Done with the event loop!
 
