@@ -110,7 +110,7 @@ canv.cd(2)
 histogram_of_pt1_and_pt2.Draw("colz")
 
 # Assignment c&d
-line_counter = 0 #also functions as total number of events
+line_counterc = 0 #also functions as total number of events
 
 Pt1_high_1TeV = 0 #counter of Pt1 > 1TeV
 Pt2_high_1TeV = 0 #counter of Pt2 > 1TeV
@@ -121,7 +121,7 @@ for line in input_file :   # loop over every line in the input file
 
     # print the first 10 lines (always good to look at what your are doing)
     
-    line_counter += 1
+    line_counterc += 1
     if line_counter < 10 : print (" line " , line.strip()) # strip away newline 
 
     # skip any comment lines which start with '#'
@@ -130,7 +130,7 @@ for line in input_file :   # loop over every line in the input file
     
     # look at what we are doing:
 
-    if line_counter < 10 : print (" data = " , pt1, theta1, phi1, pt2, theta2, phi2 )
+    if line_counterc < 10 : print (" data = " , pt1, theta1, phi1, pt2, theta2, phi2 )
 
     # Keep track of statistics
     if pt1 > 1000 : Pt1_high_1TeV += 1
@@ -139,21 +139,21 @@ for line in input_file :   # loop over every line in the input file
     if pt1 > 1000 and pt2 > 1000 : both_high_1TeV += 1
 
     # print some progress indicator
-    if line_counter % 1000 ==0 : print ("processed", line_counter," events.")
+    if line_counterc % 1000 ==0 : print ("processed", line_counter," events.")
 
 # Done with the event loop!
-print ("Probability of event Pt1 > 1TeV = " + str(Pt1_high_1TeV/line_counter))
-print ("Probability of event Pt2 > 1TeV = " + str(Pt2_high_1TeV/line_counter))
-print ("Probability of event with pt1 or Pt2 > 1Tev " + str(any_high_1TeV/line_counter))
+print ("Probability of event Pt1 > 1TeV = " + str(Pt1_high_1TeV/line_counterc))
+print ("Probability of event Pt2 > 1TeV = " + str(Pt2_high_1TeV/line_counterc))
+print ("Probability of event with pt1 or Pt2 > 1Tev " + str(any_high_1TeV/line_counterc))
 
 #assignment d
-print ("Probability of event Pt1 > 1TeV AND Pt2 > 1TeV= " + str(both_high_1TeV/line_counter))
+print ("Probability of event Pt1 > 1TeV AND Pt2 > 1TeV= " + str(both_high_1TeV/line_counterc))
 print ("Probability of event Pt2 > 1TeV given Pt1 > 1TeV = " + str(both_high_1TeV/Pt1_high_1TeV)) 
 
 #comparison with equations and results from c
 print ("From equations and results from c:")
 # P(pt1>1TeV and pt2>1TeV) = P(pt1>1TeV) + P(pt2>1TeV) - P(pt1>1TeV or pt2>1TeV)
-P_pt1_and_pt2 = Pt1_high_1TeV/line_counter + Pt2_high_1TeV/line_counter - any_high_1TeV/line_counter
+P_pt1_and_pt2 = Pt1_high_1TeV/line_counterc + Pt2_high_1TeV/line_counterc - any_high_1TeV/line_counterc
 print ("Probability of event Pt1 > 1TeV AND Pt2 > 1TeV= " + str(P_pt1_and_pt2))
 # P(pt2>1TeV | pt1>1TeV) = P(pt1>1TeV | pt2>1TeV) * P(pt2>1TeV) / P(pt1>1TeV)
 P_pt2_lt1TeV_given_pt1_lt1TeV = (both_high_1TeV/Pt2_high_1TeV) * Pt2_high_1TeV / Pt1_high_1TeV
@@ -163,14 +163,14 @@ print ("Probability of event Pt2 > 1TeV given Pt1 > 1TeV= " + str(P_pt2_lt1TeV_g
 canv.cd(3)
 histogram_of_Minv = ROOT.TH1D("histogram_of_Minv","histogram of invariant mass", # name and title
                              100, 0,7000 )  # 100 bins between 0 and 7000 GeV
-line_counter = 0
+line_countere = 0
 
 for line in input_file :   # loop over every line in the input file
 
     # print the first 10 lines (always good to look at what your are doing)
     
-    line_counter += 1
-    if line_counter < 10 : print (" line " , line.strip()) # strip away newline 
+    line_countere += 1
+    if line_countere < 10 : print (" line " , line.strip()) # strip away newline 
 
     # skip any comment lines which start with '#'
     if line.startswith("#") : continue  
@@ -178,7 +178,7 @@ for line in input_file :   # loop over every line in the input file
     pt1, theta1, phi1, pt2, theta2, phi2 = [ float(x) for x in line.split() ]
     
     # look at what we are doing:
-    if line_counter < 10 : print (" data = " , pt1, theta1, phi1, pt2, theta2, phi2 )
+    if line_countere < 10 : print (" data = " , pt1, theta1, phi1, pt2, theta2, phi2 )
 
     # Calaculate relevant variables and fill them into histogram
     px1 = pt1 * sin(phi1)
@@ -196,7 +196,7 @@ for line in input_file :   # loop over every line in the input file
 
     
     # print some progress indicator
-    if line_counter % 1000 ==0 : print ("processed", line_counter," events.")
+    if line_countere % 1000 ==0 : print ("processed", line_countere," events.")
 
 # Done with the event loop!
 
