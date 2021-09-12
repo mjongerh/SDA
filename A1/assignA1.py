@@ -72,7 +72,7 @@ histogram_of_pt1_and_pt2 = ROOT.TH2D("histogram_of_pt1_and_pt2","histogram of Pt
                              100, 0,4000, 100, 0, 4000 )  # 100 bins between 0 and 4000 GeV
 
 line_counter = 0
-
+input_file.seek(0) #go back to the start of the file
 for line in input_file :   # loop over every line in the input file
 
     # print the first 10 lines (always good to look at what your are doing)
@@ -117,6 +117,7 @@ Pt2_high_1TeV = 0 #counter of Pt2 > 1TeV
 any_high_1TeV = 0 #counter of Pt1 > 1TeV OR Pt2 > 1TeV
 both_high_1TeV = 0 #counter of Pt1 > 1TeV AND Pt2 > 1TeV
 
+input_file.seek(0)
 for line in input_file :   # loop over every line in the input file
 
     # print the first 10 lines (always good to look at what your are doing)
@@ -164,7 +165,7 @@ canv.cd(3)
 histogram_of_Minv = ROOT.TH1D("histogram_of_Minv","histogram of invariant mass", # name and title
                              100, 0,7000 )  # 100 bins between 0 and 7000 GeV
 line_countere = 0
-
+input_file.seek(0)
 for line in input_file :   # loop over every line in the input file
 
     # print the first 10 lines (always good to look at what your are doing)
