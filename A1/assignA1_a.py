@@ -37,8 +37,7 @@ canv.cd(1)        # Switch to the first sub-canvas.
 # Now, we make our first histogram, to hold the value of the Pt
 # of the first muon. The ROOT class TH1D represents histograms.
 
-histogram_of_pt1 = ROOT.TH1D("histogram_of_pt1_pt2","histogram of Pt1 + Pt2", # name and title
-                             100, 0,7000 )  # 100 bins between 0 and 3000 GeV
+histogram_of_pt1 = ROOT.TH1D("histogram_of_pt1_pt2","histogram of Pt1 + Pt2",100, 0,7000 ) # name and title  # 100 bins between 0 and 3000 GeV
 
 
 # We are ready to open the datafile and loop over the lines/event 

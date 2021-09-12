@@ -31,12 +31,12 @@ ROOT.gStyle.SetTitleOffset(1.8,"y") # adjust with histogram.GetYaxis().SetTitleO
 canv = ROOT.TCanvas("canv","plots for SDA course - ROOT 1", 800,800 )
 
 #canv.Divide(2,2)  # See link above for documentation of the Divide method.
-#canv.cd(1)        # Switch to the first sub-canvas.
+#canv.cd(3)        # Switch to the first sub-canvas.
 
 
 # Now, we make our first histogram, to hold the value of the Pt
 # of the first muon. The ROOT class TH1D represents histograms.
-
+#canv.cd(3)
 histogram_of_Minv = ROOT.TH1D("histogram_of_Minv","histogram of invariant mass", # name and title
                              100, 0,7000 )  # 100 bins between 0 and 3000 GeV
 
