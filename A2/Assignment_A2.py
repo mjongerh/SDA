@@ -16,11 +16,22 @@ H =  [  0.675 , -0.607 , -0.119 ,  0.010,
        -0.133 ,  0.060 ,  0.477 , -0.078,
         0.024 , -0.299 , -0.186 ,  0.185 ]
 
-R = ROOT.TVectorD(4)
-R[0] = x[2]/x[0]
-R[1] = x[3]/x[1]
-R[2] = (x[6]-x[8]*x[2]/x[0])/x[4]
-R[3] = (x[7]-x[9]*x[3]/x[1])/x[5]
+def CreateR( x ):
+    """ A function that takes a 2d vector X and 
+        returns a 2d vector """ 
+
+    K = ROOT.TVectorD(4)
+    K[0] = x[2]/x[0]
+    K[1] = x[3]/x[1]
+    K[2] = (x[6]-x[8]*x[2]/x[0])/x[4]
+    K[3] = (x[7]-x[9]*x[3]/x[1])/x[5]
+    return K
+
+R = CreateR(x)
+#R[0] = x[2]/x[0]
+#R[1] = x[3]/x[1]
+#R[2] = (x[6]-x[8]*x[2]/x[0])/x[4]
+#R[3] = (x[7]-x[9]*x[3]/x[1])/x[5]
 
 Rerr = ROOT.TVectorD(4)
 Rerr[0] = R[0] * sqrt( (xerr[2]/x[2])**2 + (xerr[0]/x[0])**2 )
