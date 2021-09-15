@@ -45,7 +45,8 @@ print ("R=", R)
 print ("\nRerr = ", Rerr)
 
 Mcovar_R = make_TMatrixD (4,4, Rerr)
-print (Mcovar_R)
+print ("Mcovar_R", Mcovar_R)
+print ("Mcovar_R[0][0] = ", Mcovar_R[0][0])
 Vcoupling = Hmatrix * R
 Mcovar_coupling = Hmatrix * Mcovar_R * Hmatrix.trans()
 
