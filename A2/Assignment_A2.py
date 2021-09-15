@@ -15,6 +15,7 @@ H =  [  0.675 , -0.607 , -0.119 ,  0.010,
        -0.282 ,  1.331 ,  0.027 , -0.049,
        -0.133 ,  0.060 ,  0.477 , -0.078,
         0.024 , -0.299 , -0.186 ,  0.185 ]
+Hmatrix = make_TMatrixD (4,4, H)
 
 def CreateR( x ):
     """ A function that takes a 2d vector X and 
@@ -45,8 +46,8 @@ print ("\nRerr = ", Rerr)
 
 Mcovar_R = make_TMatrixD (4,4, Rerr)
 print (Mcovar_R)
-Vcoupling = H * R
-Mcovar_coupling = H * Mcovar_R * H.trans()
+Vcoupling = Hmatrix * R
+Mcovar_coupling = Hmatrix * Mcovar_R * Hmatrix.trans()
 
 print (Vcoupling)
 print (Mcovar_coupling)
