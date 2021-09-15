@@ -50,10 +50,9 @@ print ("Vcoupling = \n", Vcoupling)
 print ("Mcovar_coupling = \n", Mcovar_coupling)
 Verr_coupling = ROOT.TVectorD(4)
 for i in range(Vcoupling):
-    Verr_coupling[i] =  sqrt(Mcovar_coupling[i][i]
+    Verr_coupling[i] =  sqrt(Mcovar_coupling[i][i])
 
-#PrintVector(Vcoupling, Verr_coupling, "V")
-#print(Verr_coupling)
+PrintVector(Vcoupling, Verr_coupling, "V")
 
 graph = matrices.draw_contour( make_TVectorD(2,   [Vcoupling[0],Vcoupling[1]]),
                                make_TMatrixD(2,2, [Mcovar_coupling[0][0],Mcovar_coupling[1][0],Mcovar_coupling[0][1],Mcovar_coupling[1][1]] ))
