@@ -55,9 +55,9 @@ print ("Mcovar_coupling = \n", Mcovar_coupling)
 
 graph = matrices.draw_contour( make_TVectorD(2,   [Vcoupling[0],Vcoupling[1]]),
                                make_TMatrixD(2,2, [Mcovar_coupling[0][0],Mcovar_coupling[1][0],Mcovar_coupling[0][1],Mcovar_coupling[1][1]] ))
-graph.GetHistogram().SetXTitle("V0")
-graph.GetHistogram().SetYTitle("V1")
-
+graph.GetHistogram().SetXTitle("u_{L}^{2}")
+graph.GetHistogram().SetYTitle("d_{L}^{2}")
+graph.SetTitle("1-\sigma Contour plot of u_{L}^{2} versus d_{L}^{2}")
 #update the current canvas to redraw the graph
 ROOT.gPad.Modified()
 ROOT.gPad.Update()
