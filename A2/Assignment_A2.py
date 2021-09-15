@@ -58,6 +58,7 @@ graph = matrices.draw_contour( make_TVectorD(2,   [Vcoupling[0],Vcoupling[1]]),
 graph.GetHistogram().SetXTitle("u_{L}^{2}")
 graph.GetHistogram().SetYTitle("d_{L}^{2}")
 graph.SetTitle("1-\sigma\ Contour\ plot\ of\ u_{L}^{2}\ versus\ d_{L}^{2}")
+graph.SetTitleOffset(-1)
 #update the current canvas to redraw the graph
 ROOT.gPad.Modified()
 ROOT.gPad.Update()
