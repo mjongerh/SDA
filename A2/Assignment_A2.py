@@ -44,7 +44,7 @@ Rerr[3] = R[3] * sqrt( (((x[9]**2 * x[3]**2) / (x[1]**2))*((xerr[9]/x[9])**2 + (
 print ("R=", R)
 print ("\nRerr = ", Rerr)
 
-Mcovar_R = make_TMatrixD (4,4, Rerr[0]**2,Rerr[1]**2,Rerr[2]**2,Rerr[3]**2)
+Mcovar_R = make_TMatrixD(4,4, Rerr[0]**2,Rerr[1]**2,Rerr[2]**2,Rerr[3]**2) #Create covariance matrix of R, with the standard deviations as input
 print ("Mcovar_R\n", Mcovar_R)
 print ("Mcovar_R[0][0] = ", Mcovar_R[0][0])
 Vcoupling = Hmatrix * R
@@ -52,3 +52,12 @@ Mcovar_coupling = Hmatrix * Mcovar_R * Hmatrix.trans()
 
 print ("Vcoupling = \n", Vcoupling)
 print ("Mcovar_coupling = \n", Mcovar_coupling)
+
+graph = matrices.draw_contour( make_TVectorD(2,   [Vcoupling[0],Vcoupling[1]]),
+                               make_TMatrixD(2,2, [Mcovar_coupling[0][0],Mcovar_coupling[1][0],Mcovar_coupling[0][1],Mcovar_coupling[1][1]] ))
+graph.GetHistogram().SetXTitle("V0")
+graph.GetHistogram().SetYTitle("V1")
+
+#update the current canvas to redraw the graph
+ROOT.gPad.Modified()
+ROOT.gPad.Update()
