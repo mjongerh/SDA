@@ -22,7 +22,7 @@ R[1] = x[3]/x[1]
 R[2] = (x[6]-x[8]*x[2]/x[0])/x[4]
 R[3] = (x[7]-x[9]*x[3]/x[1])/x[5]
 
-Rerr = ROOT.TvectorD(4)
+Rerr = ROOT.TVectorD(4)
 Rerr[0] = R[0] * sqrt( (xerr[2]/x[2])**2 + (xerr[0]/x[0])**2 )
 Rerr[1] = R[1] * sqrt( (xerr[3]/x[3])**2 + (xerr[1]/x[1])**2 )
 Rerr[2] = R[2] * sqrt( (((x[8]**2 * x[2]**2) / (x[0]**2))((xerr[8]/x[8])**2 + (xerr[6]/x[6])**2 + (xerr[0]/x[0])**2)+xerr[6]**2) / (R[2]*x[4]) +(xerr[4]/x[4])**2 )
