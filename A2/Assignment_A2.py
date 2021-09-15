@@ -48,7 +48,9 @@ Mcovar_coupling = Hmatrix * Mcovar_R * Hmatrix.trans()
 
 print ("Vcoupling = \n", Vcoupling)
 print ("Mcovar_coupling = \n", Mcovar_coupling)
-Verr_coupling = ROOT.TVectorD(4, [sqrt(Mcovar_coupling[0][0]),sqrt(Mcovar_coupling[1][1]),sqrt(Mcovar_coupling[2][2]),sqrt(Mcovar_coupling[2][2]) ])
+Verr_coupling = ROOT.TVectorD(4)
+for i in range(Vcoupling):
+    Verr_coupling =  sqrt(Mcovar_coupling[i][i]
 PrintVector(Vcoupling, Verr_coupling, "V")
 
 graph = matrices.draw_contour( make_TVectorD(2,   [Vcoupling[0],Vcoupling[1]]),
