@@ -49,7 +49,7 @@ Mcovar_coupling = Hmatrix * Mcovar_R * Hmatrix.trans()
 print ("Vcoupling = \n", Vcoupling)
 print ("Mcovar_coupling = \n", Mcovar_coupling)
 Verr_coupling = ROOT.TVectorD(4)
-for i in range(Vcoupling):
+for i in range(len(Vcoupling)):
     Verr_coupling[i] =  sqrt(Mcovar_coupling[i][i])
 
 PrintVector(Vcoupling, Verr_coupling, "V")
