@@ -45,7 +45,9 @@ print ("R=", R)
 print ("\nRerr = ", Rerr)
 
 for i in range( len(R) ):
-    print ( "R%d  = %f +/- %f " % (i,"{:.2e}".format(R[i]),"{:.2e}".format(Rerr[i]) ) )
+    val = "{:.2e}".format(R[i])
+    err = "{:.2e}".format(Rerr[i])
+    print ( "R%d  = " % (i) + val  " +/- " + err )
 
 
 Mcovar_R = make_TMatrixD(4,4, Rerr[0]**2,Rerr[1]**2,Rerr[2]**2,Rerr[3]**2) #Create covariance matrix of R, with the standard deviations as input
