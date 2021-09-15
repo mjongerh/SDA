@@ -44,11 +44,11 @@ Rerr[3] = R[3] * sqrt( (((x[9]**2 * x[3]**2) / (x[1]**2))*((xerr[9]/x[9])**2 + (
 print ("R=", R)
 print ("\nRerr = ", Rerr)
 
-Mcovar_R = make_TMatrixD (4,4, Rerr[0],Rerr[1],Rerr[2],Rerr[3])
-print ("Mcovar_R", Mcovar_R)
+Mcovar_R = make_TMatrixD (4,4, Rerr[0]**2,Rerr[1]**2,Rerr[2]**2,Rerr[3]**2)
+print ("Mcovar_R\n", Mcovar_R)
 print ("Mcovar_R[0][0] = ", Mcovar_R[0][0])
 Vcoupling = Hmatrix * R
 Mcovar_coupling = Hmatrix * Mcovar_R * Hmatrix.trans()
 
-print (Vcoupling)
-print (Mcovar_coupling)
+print ("Vcoupling = \n", Vcoupling)
+print ("Mcovar_coupling = \n", Mcovar_coupling)
