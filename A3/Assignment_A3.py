@@ -14,12 +14,12 @@ canv = ROOT.TCanvas("canv","plots for SDA course - ROOT 1", 2400,2400 )
 canv.Divide(3,3)  # See link above for documentation of the Divide method.
 canv.cd(1)        # Switch to the first sub-canvas.
 
-histogram_of_x1 = ROOT.TH1D("histogram_of_x1","histogram of x1",100, 0, 10 ) # name and title  # 100 bins between 0 and 7000 GeV, since it is now the sum, the range has to be increased beyond 3TeV
-histogram_of_x2 = ROOT.TH1D("histogram_of_x2","histogram of x2",100, 0, 10 )
-histogram_of_u2 = ROOT.TH1D("histogram_of_u2","histogram of u2",100, 0, 10 )
-histogram_of_un = ROOT.TH1D("histogram_of_un","histogram of un",100, 0, 10 )
-histogram_of_u1 = ROOT.TH1D("histogram_of_u1","histogram of u1",100, 0, 10 )
-histogram_of_u10 = ROOT.TH1D("histogram_of_u10","histogram of u10",100, 0, 10 )
+histogram_of_x1 = ROOT.TH1D("histogram_of_x1","histogram of x1",100, 100, 10 ) # name and title  # 100 bins between 0 and 7000 GeV, since it is now the sum, the range has to be increased beyond 3TeV
+histogram_of_x2 = ROOT.TH1D("histogram_of_x2","histogram of x2",100, 100, 10 )
+histogram_of_u2 = ROOT.TH1D("histogram_of_u2","histogram of u2",100, 100, 10 )
+histogram_of_un = ROOT.TH1D("histogram_of_un","histogram of un",100, 100, 10 )
+histogram_of_u1 = ROOT.TH1D("histogram_of_u1","histogram of u1",100, 100, 10 )
+histogram_of_u10 = ROOT.TH1D("histogram_of_u10","histogram of u10",100, 100, 10 )
 
 Nval = 1000
 class FunctionsForMe :
