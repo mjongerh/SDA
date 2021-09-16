@@ -23,14 +23,21 @@ histogram_of_u10 = ROOT.TH1D("histogram_of_u10","histogram of u10",100, 0, 1 )
 
 Nval = 1000
 
+def RanCauchy(mean = 0.0, sigma = 1.0):
+    return (ROOT.gRandom.Gaus(mean,sigma)/ROOT.gRandom.Gaus(mean,sigma))
 
-def GenNumbers(func) :
-    RanFunc = getattr(ROOT.gRandom, func)
+def GenNumbers(func, mean = 0.0, sigma =1.0) :
+    if (func == 'Rndm'):
+        RanFunc = getattr(ROOT.gRandom, func)
+    elif (func == 'Gaus'):
+        RanFunc = getattr(ROOT.gRandom, func)
+    elif (func == 'Cauchy'):
+            RanFunc = RanCauchy()
     for i in range (5000) :
         x1 = 0
         Xsum = 0
         for j in range(Nval) :
-            Xsum += RanFunc()
+            Xsum = RanFunc(mean, sigma)
             if (j==0) :
                 histogram_of_x1.Fill(Xsum)
                 x1 = Xsum
