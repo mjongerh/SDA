@@ -29,7 +29,7 @@ for i in range (5000) :
     for j in range(Nval) :
         Xsum += ROOT.gRandom.Rndm()
         if (j==0) :
-            histogram_of_x1.Fill(Xsum/j)
+            histogram_of_x1.Fill(Xsum)
             x1 = Xsum
         if (j==1):
             histogram_of_u2.Fill(Xsum/j)
