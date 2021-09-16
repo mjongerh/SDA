@@ -32,7 +32,7 @@ def GenNumbers(func, mean = 0.0, sigma =1.0) :
     elif (func == 'Gaus'):
         RanFunc = getattr(ROOT.gRandom, func)
     elif (func == 'Cauchy'):
-            RanFunc = RanCauchy()
+        RanFunc = getattr(RanCauchy)
     for i in range (5000) :
         x1 = 0
         Xsum = 0
