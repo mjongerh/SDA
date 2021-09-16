@@ -37,7 +37,7 @@ def GenNumbers(func, mean = 0.0, sigma =1.0) :
         x1 = 0
         Xsum = 0
         for j in range(Nval) :
-            Xsum = RanFunc(mean, sigma)
+            Xsum += RanFunc(mean, sigma)
             if (j==0) :
                 histogram_of_x1.Fill(Xsum)
                 x1 = Xsum
