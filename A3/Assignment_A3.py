@@ -27,18 +27,19 @@ class FunctionsForMe :
         return (ROOT.gRandom.Gaus(mean,sigma)/ROOT.gRandom.Gaus(mean,sigma))
 
 def GenNumbers(func, mean = 0.0, sigma =1.0) :
-    if (func == 'Rndm'):
-        RanFunc = getattr(ROOT.gRandom, func)
-    elif (func == 'Gaus'):
-        RanFunc = getattr(ROOT.gRandom, func)
-    elif (func == 'Cauchy'):
+    if (func == 'Cauchy'):                              #Determine function for random numbers
         RanFunc = getattr(FunctionsForMe, 'RanCauchy')
+    else :
+        RanFunc = getattr(ROOT.gRandom, func)
+
     for i in range (5000) :
         x1 = 0
         Xsum = 0
         for j in range(Nval) :
             if (func == 'Rndm'):
                 Xsum += RanFunc()   #generate numbers
+            elif (func == 'Exp'):
+                Xsum += RanFunc(2)  #2, for exp(-x/2)
             else :
                 Xsum += RanFunc(mean, sigma)
 
@@ -53,7 +54,7 @@ def GenNumbers(func, mean = 0.0, sigma =1.0) :
             if (j==Nval-1):
                 histogram_of_un.Fill(Xsum/(j+1))
 
-GenNumbers('Rndm', 0.5, 0.1)  # 'Rndm' 'Gaus' 'Cauchy'
+GenNumbers('Rndm', 0.5, 0.1)  # 'Rndm' 'Gaus',mean,sigma 'Cauchy',mean,sigma (of the underlying gaus distos
 
 histogram_of_x1.Draw()
 MEANx1 = histogram_of_x1.GetMean()
