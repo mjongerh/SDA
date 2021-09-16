@@ -27,9 +27,19 @@ for i in range (2000) :
     histogram_of_u2.Fill(u2)
 
 histogram_of_x1.Draw()
+RMSx1 = histogram_of_x1.GetRMS()
+VARx1 = RMSx1**2
 canv.cd(2)
 histogram_of_x2.Draw()
+RMSx2 = histogram_of_x2.GetRMS()
+VARx2 = RMSx2**2
 canv.cd(3)
 histogram_of_u2.Draw()
+RMSu2 = histogram_of_u2.GetRMS()
+VARu2 = RMSu2**2
+
+print ("RMSx1 = %.2f\nRMSx2 = %.2f\nRMSu2 = %.2f\n", RMSx1, RMSx2, RMSu2)
+print ("VARx1 = %.2f\nVARx2 = %.2f\nVARu2 = %.2f\n", VARx1, VARx2, VARu2)
+
 
 
