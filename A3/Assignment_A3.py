@@ -27,17 +27,17 @@ for i in range (2000) :
     histogram_of_u2.Fill(u2)
 
 histogram_of_x1.Draw()
-MEANx1 = histogram_of_x1.getMean()
+MEANx1 = histogram_of_x1.GetMean()
 RMSx1 = histogram_of_x1.GetRMS()
 VARx1 = RMSx1**2
 canv.cd(2)
 histogram_of_x2.Draw()
-MEANx2 = histogram_of_x2.getMean()
+MEANx2 = histogram_of_x2.GetMean()
 RMSx2 = histogram_of_x2.GetRMS()
 VARx2 = RMSx2**2
 canv.cd(3)
 histogram_of_u2.Draw()
-MEANu2 = histogram_of_u2.getMean()
+MEANu2 = histogram_of_u2.GetMean()
 RMSu2 = histogram_of_u2.GetRMS()
 VARu2 = RMSu2**2
 
