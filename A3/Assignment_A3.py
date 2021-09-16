@@ -42,7 +42,7 @@ def GenNumbers(func) :
             if (j==Nval-1):
                 histogram_of_un.Fill(Xsum/(j+1))
 
-GenNumbers('Rndm')  # 'Rndm' 'Gaus'
+GenNumbers('Gaus')  # 'Rndm' 'Gaus'
 
 histogram_of_x1.Draw()
 MEANx1 = histogram_of_x1.GetMean()
