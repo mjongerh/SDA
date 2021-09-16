@@ -23,11 +23,16 @@ histogram_of_u10 = ROOT.TH1D("histogram_of_u10","histogram of u10",100, 0, 1 )
 
 Nval = 1000
 
+
+method_to_call = getattr(ROOT.gRandom, 'Rndm')
+result = method_to_call()
+
+
 for i in range (5000) :
     x1 = 0
     Xsum = 0
     for j in range(Nval) :
-        Xsum += ROOT.gRandom.Rndm()
+        Xsum += method_to_call()
         if (j==0) :
             histogram_of_x1.Fill(Xsum)
             x1 = Xsum
