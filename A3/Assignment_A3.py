@@ -28,15 +28,15 @@ for i in range (5000) :
     Xsum = 0
     for j in range(Nval) :
         Xsum += ROOT.gRandom.Rndm()
-        if (j==1) :
+        if (j==0) :
             histogram_of_x1.Fill(Xsum/j)
             x1 = Xsum
-        if (j==2):
+        if (j==1):
             histogram_of_u2.Fill(Xsum/j)
             histogram_of_x2.Fill(Xsum-x1)
-        if (j==10):
+        if (j==9):
             histogram_of_u10.Fill(Xsum/j)
-        if (j==Nval):
+        if (j==Nval-1):
             histogram_of_un.Fill(Xsum/j)
 
 
