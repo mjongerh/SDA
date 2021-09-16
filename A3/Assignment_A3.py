@@ -24,27 +24,25 @@ histogram_of_u10 = ROOT.TH1D("histogram_of_u10","histogram of u10",100, 0, 1 )
 Nval = 1000
 
 
-method_to_call = getattr(ROOT.gRandom, 'Rndm')
-result = method_to_call()
+def GenNumbers(func) :
+    RanFunc = getattr(ROOT.gRandom, func)
+    for i in range (5000) :
+        x1 = 0
+        Xsum = 0
+        for j in range(Nval) :
+            Xsum += RanFunc()
+            if (j==0) :
+                histogram_of_x1.Fill(Xsum)
+                x1 = Xsum
+            if (j==1):
+                histogram_of_u2.Fill(Xsum/(j+1))
+                histogram_of_x2.Fill(Xsum-x1)
+            if (j==9):
+                histogram_of_u10.Fill(Xsum/(j+1))
+            if (j==Nval-1):
+                histogram_of_un.Fill(Xsum/(j+1))
 
-
-for i in range (5000) :
-    x1 = 0
-    Xsum = 0
-    for j in range(Nval) :
-        Xsum += method_to_call()
-        if (j==0) :
-            histogram_of_x1.Fill(Xsum)
-            x1 = Xsum
-        if (j==1):
-            histogram_of_u2.Fill(Xsum/(j+1))
-            histogram_of_x2.Fill(Xsum-x1)
-        if (j==9):
-            histogram_of_u10.Fill(Xsum/(j+1))
-        if (j==Nval-1):
-            histogram_of_un.Fill(Xsum/(j+1))
-
-
+GenNumbers('Rndm')  # 'Rndm' 'Gaus'
 
 histogram_of_x1.Draw()
 MEANx1 = histogram_of_x1.GetMean()
