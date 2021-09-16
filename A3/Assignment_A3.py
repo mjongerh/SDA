@@ -32,12 +32,12 @@ for i in range (5000) :
             histogram_of_x1.Fill(Xsum)
             x1 = Xsum
         if (j==1):
-            histogram_of_u2.Fill(Xsum/j)
+            histogram_of_u2.Fill(Xsum/(j+1))
             histogram_of_x2.Fill(Xsum-x1)
         if (j==9):
-            histogram_of_u10.Fill(Xsum/j)
+            histogram_of_u10.Fill(Xsum/(j+1))
         if (j==Nval-1):
-            histogram_of_un.Fill(Xsum/j)
+            histogram_of_un.Fill(Xsum/(j+1))
 
 
 
@@ -63,10 +63,12 @@ MEANun = histogram_of_un.GetMean()
 RMSun = histogram_of_un.GetRMS()
 VARun = RMSun**2
 
+canv.Modified()
+canv.Update()
 
 
 print ("MEANx1 = %.2f\nMEANx2 = %.2f\nMEANu2 = %.2f\nMEANun = %.2f\n"%( MEANx1, MEANx2, MEANu2, MEANun))
-print ("VARx1 = %.2f\nVARx2 = %.2f\nVARu2 = %.2f\nVARun = %.2f\n"%( VARx1, VARx2, VARu2, VARun))
+print ("VARx1 = %.2f\nVARx2 = %.2f\nVARu2 = %.2f\nVARun = %f\n"%( VARx1, VARx2, VARu2, VARun))
 
 
 
