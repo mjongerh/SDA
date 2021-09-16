@@ -54,7 +54,7 @@ def GenNumbers(func, mean = 0.0, sigma =1.0) :
             if (j==Nval-1):
                 histogram_of_un.Fill(Xsum/(j+1))
 
-GenNumbers('Rndm', 0.5, 0.1)  # 'Rndm' 'Gaus',mean,sigma 'Cauchy',mean,sigma (of the underlying gaus distos
+GenNumbers('Exp', 0.5, 0.1)  # 'Rndm' 'Gaus',mean,sigma 'Cauchy',mean,sigma (of the underlying gaus distos
 
 histogram_of_x1.Draw()
 MEANx1 = histogram_of_x1.GetMean()
