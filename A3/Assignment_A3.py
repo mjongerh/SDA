@@ -51,7 +51,7 @@ def GenNumbers(func, mean = 0.0, sigma =1.0) :
                 histogram_of_u10.Fill(Xsum/(j+1))
             if (j==Nval-1):
                 histogram_of_un.Fill(Xsum/(j+1))
-    canv.cd(1)        # Showing the resulting histograms
+    canv.cd(1)        # Showing the resulting histograms and extracting relevant values
     histogram_of_x1.Draw()
     MEANx1 = histogram_of_x1.GetMean()
     RMSx1 = histogram_of_x1.GetRMS()
@@ -68,6 +68,9 @@ def GenNumbers(func, mean = 0.0, sigma =1.0) :
     VARu2 = RMSu2**2
     canv.cd(4)
     histogram_of_u10.Draw()
+    MEANu10 = histogram_of_u2.GetMean()
+    RMSu10 = histogram_of_u2.GetRMS()
+    VARu10 = RMSu2**2
     canv.cd(5)
     histogram_of_un.Draw()
     MEANun = histogram_of_un.GetMean()
@@ -78,11 +81,12 @@ def GenNumbers(func, mean = 0.0, sigma =1.0) :
     canv.Update()
     title = "Graphs for distribution: " + func
     canv.SetTitle(title)
-    canv.SaveAs(func+".png")
+    canv.SaveAs(func+".png") #save histograms for the viewing party later on
 
     print ("For function: " + func + " the values are:")
-    print ("MEANx1 = %.2f\nMEANx2 = %.2f\nMEANu2 = %.2f\nMEANun = %.2f\n"%( MEANx1, MEANx2, MEANu2, MEANun))
-    print ("VARx1 = %.2f\nVARx2 = %.2f\nVARu2 = %.2f\nVARun = %f\n"%( VARx1, VARx2, VARu2, VARun))
+    print ("MEANx1 = %.5f\nMEANx2 = %.5f\nMEANu2 = %.5f\nMEANu10 = %.5f\nMEANun = %.5f\n"%( MEANx1, MEANx2, MEANu2,MEANu10, MEANun))
+    print ("RMSx1 = %.5f\nRMSx2 = %.5f\nRMSu2 = %.5f\nRMSu10 = %.5f\nRMSun = %.5f\n"%( RMSx1, RMSx2, RMSu2,RMSu10, RMSun))
+    print ("VARx1 = %.5f\nVARx2 = %.5f\nVARu2 = %.5f\nVARu10 = %.5f\nVARun = %f\n"%( VARx1, VARx2, VARu2,VARu10, VARun))
 
 GenNumbers('Rndm')  # 'Rndm'; 'Exp'; 'Gaus',mean,sigma; 'Cauchy',mean,sigma (of the underlying gaus distos)
 GenNumbers('Exp')
