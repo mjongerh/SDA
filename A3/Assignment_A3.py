@@ -68,9 +68,9 @@ def GenNumbers(func, mean = 0.0, sigma =1.0) :
     VARu2 = RMSu2**2
     canv.cd(4)
     histogram_of_u10.Draw()
-    MEANu10 = histogram_of_u2.GetMean()
-    RMSu10 = histogram_of_u2.GetRMS()
-    VARu10 = RMSu2**2
+    MEANu10 = histogram_of_u10.GetMean()
+    RMSu10 = histogram_of_u10.GetRMS()
+    VARu10 = RMSu10**2
     canv.cd(5)
     histogram_of_un.Draw()
     MEANun = histogram_of_un.GetMean()
