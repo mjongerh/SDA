@@ -9,24 +9,14 @@ ROOT.gStyle.SetOptStat(0)           # Do not show statistics box
 ROOT.gStyle.SetPadLeftMargin(0.14)  # make room for y-title, adjust with pad.SetLeftMargin()
 ROOT.gStyle.SetTitleOffset(1.8,"y") # adjust with histogram.GetYaxis().SetTitleOffset)
 
-canv = ROOT.TCanvas("canv","plots for SDA course - ROOT 1", 2400,2400 )
-
-canv.Divide(3,3)  # See link above for documentation of the Divide method.
-canv.cd(1)        # Switch to the first sub-canvas.
-
-histogram_of_x1 = ROOT.TH1D("histogram_of_x1","histogram of x1",100, 100, 10 )
-histogram_of_x2 = ROOT.TH1D("histogram_of_x2","histogram of x2",100, 100, 10 )
-histogram_of_u2 = ROOT.TH1D("histogram_of_u2","histogram of u2",100, 100, 10 )
-histogram_of_un = ROOT.TH1D("histogram_of_un","histogram of un",100, 100, 10 )
-histogram_of_u1 = ROOT.TH1D("histogram_of_u1","histogram of u1",100, 100, 10 )
-histogram_of_u10 = ROOT.TH1D("histogram_of_u10","histogram of u10",100, 100, 10 )
-
 Nval = 1000
 class FunctionsForMe :
     def RanCauchy(mean = 0.0, sigma = 1.0):
         return (ROOT.gRandom.Gaus(mean,sigma)/ROOT.gRandom.Gaus(mean,sigma))
 
 def GenNumbers(func, mean = 0.0, sigma =1.0) :
+    canv = ROOT.TCanvas("canv","Dummy Title", 2400,2400 ) #Create a canvas for the art to be shown
+    canv.Divide(3,2)
 
     histogram_of_x1 = ROOT.TH1D("histogram_of_x1","histogram of x1",100, 100, 10 )
     histogram_of_x2 = ROOT.TH1D("histogram_of_x2","histogram of x2",100, 100, 10 )
@@ -44,7 +34,7 @@ def GenNumbers(func, mean = 0.0, sigma =1.0) :
         x1 = 0
         Xsum = 0
         for j in range(Nval) :
-            if (func == 'Rndm'):
+            if (func == 'Rndm'):    #Pick correct way of feeding the input values
                 Xsum += RanFunc()   #generate numbers
             elif (func == 'Exp'):
                 Xsum += RanFunc(2)  #2, for exp(-x/2)
@@ -61,6 +51,7 @@ def GenNumbers(func, mean = 0.0, sigma =1.0) :
                 histogram_of_u10.Fill(Xsum/(j+1))
             if (j==Nval-1):
                 histogram_of_un.Fill(Xsum/(j+1))
+    canv.cd(1)        # Showing the resulting histograms
     histogram_of_x1.Draw()
     MEANx1 = histogram_of_x1.GetMean()
     RMSx1 = histogram_of_x1.GetRMS()
@@ -88,9 +79,14 @@ def GenNumbers(func, mean = 0.0, sigma =1.0) :
     title = "Graphs for distribution: " + func
     canv.SetTitle(title)
     canv.SaveAs(func+".png")
+
+    print ("For function: " + func + " the values are:")
     print ("MEANx1 = %.2f\nMEANx2 = %.2f\nMEANu2 = %.2f\nMEANun = %.2f\n"%( MEANx1, MEANx2, MEANu2, MEANun))
     print ("VARx1 = %.2f\nVARx2 = %.2f\nVARu2 = %.2f\nVARun = %f\n"%( VARx1, VARx2, VARu2, VARun))
 
-GenNumbers('Exp', 0.5, 0.1)  # 'Rndm' 'Gaus',mean,sigma 'Cauchy',mean,sigma (of the underlying gaus distos
+GenNumbers('Rndm')  # 'Rndm'; 'Exp'; 'Gaus',mean,sigma; 'Cauchy',mean,sigma (of the underlying gaus distos)
+GenNumbers('Exp')
+GenNumbers('Gaus', 0.5, 0.1)
+GenNumbers('Cauchy', 0.5, 0.1)
 
 
