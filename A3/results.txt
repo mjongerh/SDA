@@ -1,0 +1,83 @@
+>>> 
+>>> 
+bash-4.2$ python -i Assignment_A3.py 
+Info in <TCanvas::Print>: file Rndm.png has been created
+For function: Rndm the values are:
+MEANx1 = 0.49450
+MEANx2 = 0.50332
+MEANu2 = 0.49891
+MEANu10 = 0.49891
+MEANun = 0.50016
+
+RMSx1 = 0.28675
+RMSx2 = 0.28964
+RMSu2 = 0.20539
+RMSu10 = 0.20539
+RMSun = 0.00890
+
+VARx1 = 0.08222
+VARx2 = 0.08389
+VARu2 = 0.04219
+VARu10 = 0.04219
+VARun = 0.000079
+
+Info in <TCanvas::Print>: file Exp.png has been created
+For function: Exp the values are:
+MEANx1 = 1.97908
+MEANx2 = 1.98271
+MEANu2 = 1.97721
+MEANu10 = 1.97721
+MEANun = 2.00073
+
+RMSx1 = 1.99187
+RMSx2 = 1.96883
+RMSu2 = 1.39755
+RMSu10 = 1.39755
+RMSun = 0.06376
+
+VARx1 = 3.96756
+VARx2 = 3.87631
+VARu2 = 1.95314
+VARu10 = 1.95314
+VARun = 0.004066
+
+Info in <TCanvas::Print>: file Gaus.png has been created
+For function: Gaus the values are:
+MEANx1 = 0.49886
+MEANx2 = 0.50228
+MEANu2 = 0.50056
+MEANu10 = 0.50056
+MEANun = 0.50002
+
+RMSx1 = 0.09700
+RMSx2 = 0.09948
+RMSu2 = 0.06922
+RMSu10 = 0.06922
+RMSun = 0.00316
+
+VARx1 = 0.00941
+VARx2 = 0.00990
+VARu2 = 0.00479
+VARu10 = 0.00479
+VARun = 0.000010
+
+Info in <TCanvas::Print>: file Cauchy.png has been created
+For function: Cauchy the values are:
+MEANx1 = 1.04474
+MEANx2 = 1.03591
+MEANu2 = 1.04203
+MEANu10 = 1.04203
+MEANun = 1.04621
+
+RMSx1 = 0.32035
+RMSx2 = 0.30947
+RMSu2 = 0.22512
+RMSu10 = 0.22512
+RMSun = 0.01032
+
+VARx1 = 0.10262
+VARx2 = 0.09577
+VARu2 = 0.05068
+VARu10 = 0.05068
+VARun = 0.000107
+
