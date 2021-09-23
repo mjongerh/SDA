@@ -123,7 +123,7 @@ def RandomEnergy():
         RanUni = ROOT.gRandom.Rndm()
         RanUni2 = ROOT.gRandom.Rndm()
         RanFunc = 1-(4/3)*RanUni2 * (1 - RanUni2)
-        if RunFunc  >= RanUni :
+        if RanFunc  >= RanUni :
             return RanUni2
         else: failsafe += 1
     print("Disaster happened, not a single energy was accepted")
