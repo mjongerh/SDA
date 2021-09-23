@@ -62,4 +62,4 @@ canv.Update()
 
 a= 8420 # meter
 rho0=1.225 #kg/m^3 != g/cm^3
-print( -a* log((380/(a*rho0)) + exp(-start_height/a) ))
+print( -a* log((380/(a*rho0)) + exp(-100000/a) ))
