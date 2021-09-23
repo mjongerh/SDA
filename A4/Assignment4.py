@@ -12,10 +12,10 @@ rho0=1.225 #kg/m^3 != g/cm^3
 mc2 = 0.510998950 * 299792458 * 299792458 # value of me *c^2
 MaxGen = 100 # Maximum generations computed
 Column_density = []
-Column_density[0] = 0
-Column_density[1] = 380 #photon
-Column_density[2] = 263 #electron
-Column_density[3] = 263 #positron
+Column_density.append(0)
+Column_density.append(380) #photon
+Column_density.append(263) #electron
+Column_density.append(263) #positron
 Generations = []
 
 def plot_shower( shower ,
