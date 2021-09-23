@@ -1,5 +1,5 @@
 import ROOT
-from math import *
+import math
 
 # provide better print functionality for ROOT TVector3
 ROOT.TVector3.__repr__ = ROOT.TVector3.__str__ = lambda v : "({:g},{:g},{:g})".format( v.X(), v.Y(), v.Z() )
