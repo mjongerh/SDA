@@ -1,5 +1,5 @@
 import ROOT
-import math
+from math import *
 
 # provide better print functionality for ROOT TVector3
 ROOT.TVector3.__repr__ = ROOT.TVector3.__str__ = lambda v : "({:g},{:g},{:g})".format( v.X(), v.Y(), v.Z() )
@@ -47,7 +47,7 @@ def compute_height(start_height, column_density) :
     a= 8420 # meter
     rho0=1.225 #kg/m^3 != g/cm^3
     RanCd= ROOT.gRandom.Exp(column_density)
-    end_height = -a* math.log(  (-RanCd/(a*rho0)) + math.exp(-start_height/a) )
+    end_height = -a* log(  (-RanCd/(a*rho0)) + exp(-start_height/a) )
 
     return end_height
 
