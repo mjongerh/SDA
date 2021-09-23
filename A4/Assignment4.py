@@ -113,9 +113,9 @@ def direction_at_angle( initial_direction, theta, phi ):
 
 def compute_height(start_height, column_density) :
     RanCd= ROOT.gRandom.Exp(column_density)
-    end_height = -a* log(  (RanCd/(a*rho0)) + exp(-start_height/a) )
-
-    return end_height
+    life_length = -a* log(  (RanCd/(a*rho0)) + exp(-start_height.Z()/a) )
+    
+    return life_length
 
 def RandomEnergy():
     failsafe = 0
@@ -187,7 +187,7 @@ for i in range(MaxGen) :
     for particle in Generations[i] :
         EndOfShower = 0
         #make them move        
-        particle.end_pos = compute_height(particle.start_pos, Column_density[particle.kind] )
+        particle.end_pos = particle.start_pos + compute_height(particle.start_pos, Column_density[particle.kind] ) * particle.direction
         #create 2 new particles, calc their properties
         NewParts = GenNewPart(particle)
         if NewParts == 0 : continue
