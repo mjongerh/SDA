@@ -59,3 +59,7 @@ for i in range(5000) :
 histogram.Draw()
 canv.Modified()
 canv.Update()
+
+a= 8420 # meter
+rho0=1.225 #kg/m^3 != g/cm^3
+print( -a* log((380/(a*rho0)) + exp(-start_height/a) ))
