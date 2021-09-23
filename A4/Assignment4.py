@@ -47,7 +47,7 @@ def compute_height(start_height, column_density) :
     a= 8420 # meter
     rho0=1.225 #kg/m^3 != g/cm^3
     RanCd= ROOT.gRandom.Exp(column_density)
-    end_height = -a* log(  (-RanCd/(a*rho0)) + exp(-start_height/a) )
+    end_height = -a* log(  (RanCd/(a*rho0)) + exp(-start_height/a) )
 
     return end_height
 
