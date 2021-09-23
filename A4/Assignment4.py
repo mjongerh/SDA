@@ -53,7 +53,7 @@ def compute_height(start_height, column_density) :
 
 canv = ROOT.TCanvas("canv","Dummy Title", 780,780 ) #Create a canvas for the art to be shown
 histogram = ROOT.TH1D("histogram_of_x1","histogram of x1",100, 100, 10 )
-for i in range(500) :
+for i in range(5000) :
     histogram.Fill(compute_height(100000, 380))
 
 histogram.Draw()
