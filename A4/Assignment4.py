@@ -57,3 +57,5 @@ for i in range(500) :
     histogram.Fill(compute_height(100000, 380))
 
 histogram.Draw()
+canv.Modified()
+canv.Update()
