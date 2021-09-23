@@ -178,7 +178,7 @@ theta       = 0.0001
 phi         = ROOT.gRandom.Rndm() * 2 * pi
 p.direction = direction_at_angle( ROOT.TVector3(0,0,-1), theta, phi )
 Particles.append( p )
-Generations[0] = Particles
+Generations.append(Particles)
 
 for i in range(MaxGen) :
     #create list for newly generated particles
@@ -198,6 +198,6 @@ for i in range(MaxGen) :
             EndOfShower += 1
     #gen[i+1] = NewParticles
     if EndOfShower==0 : break #Stop the loop when all particles are below 85 MeV
-    Generations[i+1] = NewParticles
+    Generations.append(NewParticles)
 
 plot_shower(Generations)
