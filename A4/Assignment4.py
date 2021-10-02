@@ -202,7 +202,7 @@ def CreateHeightDistribution(generations, nbins, startheight):
 canvAA = ROOT.TCanvas("canvAA","Dummy Title", 780,780 ) #Create a canvas for the art to be shown
 histogram = ROOT.TH1D("histogram_of_x1","histogram of x1",100, 100, 10 )
 for i in range(50000) :
-    histogram.Fill(compute_height(1000000, 380))
+    histogram.Fill(compute_height(ROOT.TVector3( 0,0,1000000 ), 380))
 
 histogram.Draw()
 canvAA.Modified()
