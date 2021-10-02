@@ -209,11 +209,14 @@ plot_shower(Generations, "Best Title ever", 150, StartHeight)
 #assignment c
 #####################
 Nbins = 100 #Slice the height in bins
+BinWidth =StartHeight/Nbins
 HeightDist = ROOT.TH1D("HeightDist", "distribution of particles at each height", Nbins, 0, StartHeight)
 for Gen in Generations :
     for Part in Gen :
-        A = floor(Part.end_pos.Z()/(StartHeight/Nbins)) #get the lowest bin the particle has been in
-        B = floor(Part.start_pos.Z()/(StartHeight/Nbins)) #get the highest bin
+        A = floor(Part.end_pos.Z()/BinWidth) #get the lowest bin the particle has been in
+        B = floor(Part.start_pos.Z()/BinWidth) #get the highest bin
+        print(Part.end_pos.Z()/BinWidth)
+        print(A)
         i = A
         while i<=B: #add 1 to all bins in between
             HeightDist.Fill(i)
