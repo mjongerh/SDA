@@ -249,20 +249,21 @@ Nbins = 100 #Slice the height in bins
 #####################
 HeightDistCanvC = ROOT.TCanvas("HeightDistCanvC","Height dist. of 10TeV photon", 2000,500 )
 HeightDistCanvC.Divide(5,2)
-PANIC=1
+PANIC=0
 EnergyList = numpy.logspace(5, 7, 10, dtype = 'float', endpoint=True).tolist()
 print(EnergyList)
 EnergyCoord =array( 'd' )
 HeightCoord = array( 'd' )
 BinRatio = startHeight/Nbins
+DistE = []
 for e in EnergyList:
     ShowerE = Shower(e, startHeight)
-    DistE = CreateHeightDistribution(ShowerE, Nbins, startHeight)
-    HeightDistCanvC.cd(PANIC)
-    PANIC += 1
-    DistE.Draw()
+    DistE[PANIC] = CreateHeightDistribution(ShowerE, Nbins, startHeight)
+    HeightDistCanvC.cd(PANIC+1)
+    DistE[PANIC].Draw()
     HeightDistCanvC.Modified()
     HeightDistCanvC.Update()
+    PANIC += 1
     MaxBin = DistE.GetMaximumBin()
     print("maxbin="+str(MaxBin))
     print("H=" + str(float(MaxBin*BinRatio)))
