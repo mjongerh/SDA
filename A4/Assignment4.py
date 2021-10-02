@@ -214,7 +214,7 @@ print("height at mean free path is: ",  -a* log((380/(a*rho0)) + exp(-100000/a) 
 #####################
 #assignment b
 #####################
-startHeight = 1000000 #in meter
+startHeight = 10000000 #in meter
 startEnergy = 100000 #in MeV
 
 #Shower100GeV = Shower(startEnergy,startHeight)
