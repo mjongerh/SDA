@@ -184,7 +184,7 @@ def Shower(startenergy, startheight):
 
 def CreateHeightDistribution(generations, nbins, startheight):
     BinWidth =startheight/nbins
-    HeightDist = ROOT.TH1D("HeightDist", "distribution of particles at each height", nbins, 0, startheight)
+    HeightDist = ROOT.TH1D(str(ROOT.gRandom.Rndm()), "distribution of particles at each height", nbins, 0, startheight)
     for Gen in generations :
         for Part in Gen :
             if Part.kind == 1: continue
