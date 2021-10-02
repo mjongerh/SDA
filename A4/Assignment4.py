@@ -131,7 +131,7 @@ def RandomEnergy():
     quit()
 
 def GenNewPart(oldparticle):
-    print("OLD" + str(oldparticle))
+    #print("OLD" + str(oldparticle))
     NewParticle1 = Particle()
     NewParticle2 = Particle()
     if oldparticle.kind == 1 : #if old = photon, gen electron + positron
@@ -175,7 +175,8 @@ Particles = []
 p = Particle() #Generate first photon
 p.kind = 1
 p.energy = 10000000  #in MeV
-p.start_pos =  ROOT.TVector3( 0,0,300000 ) #0,0,startheight
+StartHeight = 300000
+p.start_pos =  ROOT.TVector3( 0,0,StartHeight ) #0,0,startheight
 theta       = 0.0001
 phi         = ROOT.gRandom.Rndm() * 2 * pi
 p.direction = direction_at_angle( ROOT.TVector3(0,0,-1), theta, phi )
@@ -202,7 +203,23 @@ for i in range(MaxGen) :
     if EndOfShower==0 : break #Stop the loop when all particles are below 85 MeV
     Generations.append(NewParticles)
 
-plot_shower(Generations, "Best Title ever", 150, 300000)
+plot_shower(Generations, "Best Title ever", 150, StartHeight)
+
+#####################
+#assignment c
+#####################
+Nbins = 100 #Slice the height in bins
+HeightDist = ROOT.TH1D("HeightDist", "distribution of particles at each height", Nbins, 0, StartHeight)
+for Gen in Generations :
+    for Part in Gen :
+        A = floor(Part.end_pos.Z()/(StartHeight/Nbins)) #get the lowest bin the particle has been in
+        B = floor(Part.start_pos.Z()/(StartHeight/Nbins)) #get the highest bin
+        i = A
+        while i<=B: #add 1 to all bins in between
+            HeightDist.Fill(i)
+            i += 1
+HeightDistCanv = ROOT.TCanvas("HeightDistCanv","Dummy Title", 1000,1000 )
+HeightDist.Draw()
 
 
 ###############
