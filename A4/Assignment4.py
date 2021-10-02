@@ -125,7 +125,6 @@ def RandomEnergy():
         RanUni2 = ROOT.gRandom.Rndm()
         RanFunc = 1-(4/3)*RanUni2 * (1 - RanUni2)
         if RanFunc  >= RanUni :
-            TestRanE.Fill(RanUni2)
             return RanUni2
         else: failsafe += 1
     print("Disaster happened, not a single energy was accepted")
@@ -206,5 +205,11 @@ for i in range(MaxGen) :
 
 plot_shower(Generations, "Best Title ever", 1000, 500000)
 
+
+###############
+#TEST AREA ONLY, enter at your own risk
+###############
 TestCanvas = ROOT.TCanvas("canv","Dummy Title", 1000,1000 )
+for i in range(10000):
+    TestRanE.Fill(RandomEnergy())
 TestRanE.Draw()
