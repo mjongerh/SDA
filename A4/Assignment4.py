@@ -196,6 +196,8 @@ for i in range(MaxGen) :
             NewParticles.append(NewParts[0])
             NewParticles.append(NewParts[1])
             EndOfShower += 1
+        else :
+            particle.end_pos = particle.start_pos
     #gen[i+1] = NewParticles
     if EndOfShower==0 : break #Stop the loop when all particles are below 85 MeV
     Generations.append(NewParticles)
