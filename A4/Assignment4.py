@@ -130,7 +130,7 @@ def RandomEnergy():
     quit()
 
 def GenNewPart(oldparticle):
-    print("OLD" + oldparticle)
+    print("OLD" + str(oldparticle))
     NewParticle1 = Particle()
     NewParticle2 = Particle()
     if oldparticle.energy < 85: return 0 # Dont create new particles
@@ -147,7 +147,7 @@ def GenNewPart(oldparticle):
     phiRan = ROOT.gRandom.Rndm() * 2 * pi #random direction for phi
     NewParticle1.direction = direction_at_angle(oldparticle.direction, mc2/NewParticle1.energy, phiRan)
     NewParticle2.direction = direction_at_angle(oldparticle.direction, -mc2/NewParticle2.energy, 2*pi - phiRan)
-    print("NEW"+ NewParticle1 + NewParticle2)
+    print("NEW"+str(NewParticle1) + str(NewParticle2))
     return NewParticle1, NewParticle2
 
 
