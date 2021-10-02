@@ -248,7 +248,7 @@ Hdist10TeV.Draw()
 #####################
 EnergyList = numpy.logspace(100000, 10000000, 10, dtype = 'float', endpoint=True)
 EnergyCoord = []
-for i in Energylist:
+for i in EnergyList:
     EnergyCoord.append(EnergyList[i])
 HeightCoord = []
 
