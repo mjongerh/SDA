@@ -176,7 +176,7 @@ Particles = []
 p = Particle() #Generate first photon
 p.kind = 1
 p.energy = 100000  #in MeV
-p.start_pos =  ROOT.TVector3( 0,0,500000 ) #0,0,startheight
+p.start_pos =  ROOT.TVector3( 0,0,300000 ) #0,0,startheight
 theta       = 0.0001
 phi         = ROOT.gRandom.Rndm() * 2 * pi
 p.direction = direction_at_angle( ROOT.TVector3(0,0,-1), theta, phi )
@@ -203,7 +203,7 @@ for i in range(MaxGen) :
     if EndOfShower==0 : break #Stop the loop when all particles are below 85 MeV
     Generations.append(NewParticles)
 
-plot_shower(Generations, "Best Title ever", 1000, 500000)
+plot_shower(Generations, "Best Title ever", 500, 300000)
 
 
 ###############
