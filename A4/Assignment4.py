@@ -130,6 +130,7 @@ def RandomEnergy():
     quit()
 
 def GenNewPart(oldparticle):
+    print("OLD" + oldparticle)
     NewParticle1 = Particle()
     NewParticle2 = Particle()
     if oldparticle.energy < 85: return 0 # Dont create new particles
@@ -146,6 +147,7 @@ def GenNewPart(oldparticle):
     phiRan = ROOT.gRandom.Rndm() * 2 * pi #random direction for phi
     NewParticle1.direction = direction_at_angle(oldparticle.direction, mc2/NewParticle1.energy, phiRan)
     NewParticle2.direction = direction_at_angle(oldparticle.direction, -mc2/NewParticle2.energy, 2*pi - phiRan)
+    print("NEW"+ NewParticle1 + NewParticle2)
     return NewParticle1, NewParticle2
 
 
@@ -173,7 +175,7 @@ Particles = []
 p = Particle() #Generate first photon
 p.kind = 1
 p.energy = 100000  #in MeV
-p.start_pos =  ROOT.TVector3( 0,0,200000 ) #0,0,startheight
+p.start_pos =  ROOT.TVector3( 0,0,1000000 ) #0,0,startheight
 theta       = 0.0001
 phi         = ROOT.gRandom.Rndm() * 2 * pi
 p.direction = direction_at_angle( ROOT.TVector3(0,0,-1), theta, phi )
@@ -200,4 +202,4 @@ for i in range(MaxGen) :
     if EndOfShower==0 : break #Stop the loop when all particles are below 85 MeV
     Generations.append(NewParticles)
 
-plot_shower(Generations, "Best Title ever", 100, 200000)
+plot_shower(Generations, "Best Title ever", 1000, 1000000)
