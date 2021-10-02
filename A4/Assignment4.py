@@ -219,7 +219,7 @@ for Gen in Generations :
         print(A)
         i = A
         while i<=B: #add 1 to all bins in between
-            HeightDist.Fill(i)
+            HeightDist.Fill(i*BinWidth)
             i += 1
 HeightDistCanv = ROOT.TCanvas("HeightDistCanv","Dummy Title", 1000,1000 )
 HeightDist.Draw()
