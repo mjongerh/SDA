@@ -247,17 +247,18 @@ Hdist10TeV.Draw()
 #assignment d
 #####################
 EnergyList = numpy.logspace(100000, 10000000, 10, dtype = 'float', endpoint=True)
-EnergyCoord = EnergyList.tolist()
-HeightCoord = []
+EnergyCoord =array( 'd' )
+HeightCoord = array( 'd' )
 
 for e in EnergyList:
     ShowerE = Shower(e, startHeight)
     DistE = CreateHeightDistribution(ShowerE, Nbins, startHeight)
     MaxBin = DistE.GetMaximumBin()
+    EnergyCoord.append(e)
     HeightCoord.append(float(MaxBin*(startHeight/Nbins)))
 
 CanvMaxParticles = ROOT.TCanvas("CanvMaxParticles","Height of max particles as function of E", 1000,1000 )
-Graph = ROOT.TGraph(EnergyCoord, HeightCoord)
+Graph = ROOT.TGraph(10, EnergyCoord, HeightCoord)
 Graph.SetLogx()
 Graph.Draw()
 
