@@ -251,15 +251,15 @@ EnergyList = numpy.logspace(5, 7, 10, dtype = 'float', endpoint=True).tolist()
 print(EnergyList)
 EnergyCoord =array( 'd' )
 HeightCoord = array( 'd' )
-
+BinRatio = startHeight/Nbins
 for e in EnergyList:
     ShowerE = Shower(e, startHeight)
     DistE = CreateHeightDistribution(ShowerE, Nbins, startHeight)
     MaxBin = DistE.GetMaximumBin()
-    print("E="+str(e))
-    print("H=" + str(float(MaxBin*(startHeight/Nbins))))
+    print("maxbin="+str(MaxBin))
+    print("H=" + str(float(MaxBin*BinRatio)))
     EnergyCoord.append(e)
-    HeightCoord.append(float(MaxBin*(startHeight/Nbins)))
+    HeightCoord.append(float(MaxBin*BinRatio))
 
 CanvMaxParticles = ROOT.TCanvas("CanvMaxParticles","Height of max particles as function of E", 1000,1000 )
 Graph = ROOT.TGraph(10, EnergyCoord, HeightCoord)
