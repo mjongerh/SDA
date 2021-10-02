@@ -263,12 +263,12 @@ for e in EnergyList:
     DistE[PANIC].Draw()
     HeightDistCanvC.Modified()
     HeightDistCanvC.Update()
-    PANIC += 1
-    MaxBin = DistE.GetMaximumBin()
+    MaxBin = DistE[PANIC].GetMaximumBin()
     print("maxbin="+str(MaxBin))
     print("H=" + str(float(MaxBin*BinRatio)))
     EnergyCoord.append(e)
     HeightCoord.append(float(MaxBin*BinRatio))
+    PANIC += 1
 
 CanvMaxParticles = ROOT.TCanvas("CanvMaxParticles","Height of max particles as function of E", 1000,1000 )
 Graph = ROOT.TGraph(10, EnergyCoord, HeightCoord)
