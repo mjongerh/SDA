@@ -185,7 +185,7 @@ def Shower(startenergy, startheight):
 
 def CreateHeightDistribution(generations, nbins, startheight):
     BinWidth =startheight/nbins
-    HeightDist = ROOT.TH1D(str(ROOT.gRandom.Rndm()), "distribution of particles at each height", nbins,1,0) # 0, startheight)
+    HeightDist = ROOT.TH1D(str(ROOT.gRandom.Rndm()), "distribution of particles at each height", nbins, 0, startheight)
     for Gen in generations :
         for Part in Gen :
             if Part.kind == 1: continue
@@ -220,15 +220,15 @@ startHeight = 50000 #in meter
 startEnergy = 100000 #in MeV
 
 Shower100GeV = Shower(startEnergy,startHeight)
-plot1 = plot_shower(Shower100GeV, "Shower with photon of 100GeV", 150, startHeight, "canv100GeV")
+plot1 = plot_shower(Shower100GeV, "Shower with photon of 100GeV", 10, startHeight, "canv100GeV")
 
 startEnergy = 1000000 #in MeV
 Shower1TeV = Shower(startEnergy,startHeight)
-plot2 = plot_shower(Shower1TeV, "Shower with photon of 1TeV", 150, startHeight, "canv1TeV")
+plot2 = plot_shower(Shower1TeV, "Shower with photon of 1TeV", 15, startHeight, "canv1TeV")
 
 startEnergy = 10000000 #in MeV
 Shower10TeV = Shower(startEnergy,startHeight)
-plot3 = plot_shower(Shower10TeV, "Shower with photon of 10TeV", 150, startHeight, "canv10TeV")
+plot3 = plot_shower(Shower10TeV, "Shower with photon of 10TeV", 20, startHeight, "canv10TeV")
 
 #####################
 #assignment c
@@ -266,8 +266,6 @@ for e in EnergyList:
     HeightDistCanvC.Modified()
     HeightDistCanvC.Update()
     MaxBin = DistE[PANIC].GetMaximumBin()
-    print("maxbin="+str(MaxBin))
-    print("H=" + str(float(MaxBin*BinRatio)))
     EnergyCoord.append(e)
     HeightCoord.append(float(MaxBin*BinRatio))
     PANIC += 1
