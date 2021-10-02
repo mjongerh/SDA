@@ -209,7 +209,7 @@ plot_shower(Generations, "Best Title ever", 1000, 500000)
 ###############
 #TEST AREA ONLY, enter at your own risk
 ###############
-TestCanvas = ROOT.TCanvas("canv","Dummy Title", 1000,1000 )
+TestCanvas = ROOT.TCanvas("TestCanvas","Dummy Title", 1000,1000 )
 for i in range(10000):
     TestRanE.Fill(RandomEnergy())
 TestRanE.Draw()
