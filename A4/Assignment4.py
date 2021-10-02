@@ -174,7 +174,7 @@ Particles = []
 
 p = Particle() #Generate first photon
 p.kind = 1
-p.energy = 1000000  #in MeV
+p.energy = 10000000  #in MeV
 p.start_pos =  ROOT.TVector3( 0,0,300000 ) #0,0,startheight
 theta       = 0.0001
 phi         = ROOT.gRandom.Rndm() * 2 * pi
