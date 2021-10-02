@@ -216,7 +216,7 @@ def CreateHeightDistribution(generations, nbins, startheight):
 #####################
 #assignment b
 #####################
-startHeight = 100000 #in meter
+startHeight = 50000 #in meter
 startEnergy = 100000 #in MeV
 
 Shower100GeV = Shower(startEnergy,startHeight)
