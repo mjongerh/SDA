@@ -1,4 +1,5 @@
 import ROOT
+import numpy
 from math import *
 
 # provide better print functionality for ROOT TVector3
@@ -230,17 +231,35 @@ plot3 = plot_shower(Shower10TeV, "Shower with photon of 10TeV", 150, startHeight
 #assignment c
 #####################
 Nbins = 100 #Slice the height in bins
-HeightDistCanvA = ROOT.TCanvas("HeightDistCanvA","Hieght dist. of 100GeV photon", 1000,1000 )
+HeightDistCanvA = ROOT.TCanvas("HeightDistCanvA","Height dist. of 100GeV photon", 1000,1000 )
 Hdist100GeV = CreateHeightDistribution(Shower100GeV, Nbins, startHeight)
 Hdist100GeV.Draw()
 
-HeightDistCanvB = ROOT.TCanvas("HeightDistCanvB","Hieght dist. of 1TeV photon", 1000,1000 )
+HeightDistCanvB = ROOT.TCanvas("HeightDistCanvB","Height dist. of 1TeV photon", 1000,1000 )
 Hdist1TeV = CreateHeightDistribution(Shower1TeV, Nbins, startHeight)
 Hdist1TeV.Draw()
 
-HeightDistCanvC = ROOT.TCanvas("HeightDistCanvC","Hieght dist. of 10TeV photon", 1000,1000 )
+HeightDistCanvC = ROOT.TCanvas("HeightDistCanvC","Height dist. of 10TeV photon", 1000,1000 )
 Hdist10TeV = CreateHeightDistribution(Shower10TeV, Nbins, startHeight)
 Hdist10TeV.Draw()
+
+#####################
+#assignment d
+#####################
+EnergyList = numpy.logspace(100000, 10000000, 10)
+HeightCoord = []
+
+for e in EnergyList:
+    ShowerE = Shower(e, startHeight)
+    DistE = CreateHeightDistribution(ShowerE, Nbins, startHeight)
+    MaxBin = DistE.GetMaximumBin()
+    HeightCoord.append(MaxBin*(startHeight/Nbins))
+
+CanvMaxParticles = ROOT.TCanvas("CanvMaxParticles","Height of max particles as function of E", 1000,1000 )
+Graph = ROOT.TGraph(10, EnergyList, HeightCoord)
+Graph.SetLogx()
+Graph.Draw()
+
 
 ###############
 #TEST AREA ONLY, enter at your own risk
