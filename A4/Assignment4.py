@@ -171,13 +171,8 @@ def Shower(startenergy, startheight):
         for particle in Generations[i] :        #loop over particles in gen[i]
             EndOfShower = 0
             if particle.energy >= 85.0 :            #make them move if they have energy left
-                print(str(particle.start_pos))
-                TheMove = compute_height(particle.start_pos, Column_density[particle.kind] )
-                print(TheMove)
-                print(particle.direction)
-                particle.end_pos = particle.start_pos + (particle.start_pos.Z() - TheMove) * particle.direction #.Unit()
-                print(particle.end_pos)
-                print("New Particle")
+                HeightAtDecay = compute_height(particle.start_pos, Column_density[particle.kind] )
+                particle.end_pos = particle.start_pos + (particle.start_pos.Z() - HeightAtDecay) * particle.direction
                 NewParts = GenNewPart(particle)                #create 2 new particles, calc their properties
                 NewParticles.append(NewParts[0])
                 NewParticles.append(NewParts[1])
@@ -190,7 +185,7 @@ def Shower(startenergy, startheight):
 
 def CreateHeightDistribution(generations, nbins, startheight):
     BinWidth =startheight/nbins
-    HeightDist = ROOT.TH1D(str(ROOT.gRandom.Rndm()), "distribution of particles at each height", nbins, 0, startheight)
+    HeightDist = ROOT.TH1D(str(ROOT.gRandom.Rndm()), "distribution of particles at each height", nbins, 0, startheight/2)
     for Gen in generations :
         for Part in Gen :
             if Part.kind == 1: continue
@@ -205,17 +200,17 @@ def CreateHeightDistribution(generations, nbins, startheight):
 #####################
 #assignment a
 #####################
-canvAA = ROOT.TCanvas("canvAA","Dummy Title", 780,780 ) #Create a canvas for the art to be shown
-histogram = ROOT.TH1D("histogram_of_x1","histogram of x1",100, 100, 10 )
-for i in range(500) :
-    histogram.Fill(compute_height(ROOT.TVector3( 0,0,10000000 ), 380))
-    print(compute_height(ROOT.TVector3( 0,0,10000000 ), 380))
+#canvAA = ROOT.TCanvas("canvAA","Dummy Title", 780,780 ) #Create a canvas for the art to be shown
+#histogram = ROOT.TH1D("histogram_of_x1","histogram of x1",100, 100, 10 )
+#for i in range(500) :
+#    histogram.Fill(compute_height(ROOT.TVector3( 0,0,10000000 ), 380))
+#    print(compute_height(ROOT.TVector3( 0,0,10000000 ), 380))
 
-histogram.Draw()
-canvAA.Modified()
-canvAA.Update()
+#histogram.Draw()
+#canvAA.Modified()
+#canvAA.Update()
 
-print("height at mean free path is: ",  -a* log((380/(a*rho0)) + exp(-10000000/a) )) #sanity check
+#print("height at mean free path is: ",  -a* log((380/(a*rho0)) + exp(-10000000/a) )) #sanity check
 
 
 #####################
