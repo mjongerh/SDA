@@ -261,7 +261,14 @@ for e in EnergyList:
 CanvMaxParticles = ROOT.TCanvas("CanvMaxParticles","Height of max particles as function of E", 1000,1000 )
 Graph = ROOT.TGraph(10, EnergyCoord, HeightCoord)
 CanvMaxParticles.SetLogx()
-Graph.Draw()
+Graph.SetLineColor( 2 )
+Graph.SetLineWidth( 4 )
+Graph.SetMarkerColor( 4 )
+Graph.SetMarkerStyle( 21 )
+Graph.SetTitle( 'a simple graph' )
+Graph.GetXaxis().SetTitle( 'X title' )
+Graph.GetYaxis().SetTitle( 'Y title' )
+Graph.Draw( 'ACP' )
 
 
 ###############
