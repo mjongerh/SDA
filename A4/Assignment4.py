@@ -255,6 +255,8 @@ for e in EnergyList:
     ShowerE = Shower(e, startHeight)
     DistE = CreateHeightDistribution(ShowerE, Nbins, startHeight)
     MaxBin = DistE.GetMaximumBin()
+    print("E="+e)
+    print("H=" + float(MaxBin*(startHeight/Nbins)))
     EnergyCoord.append(e)
     HeightCoord.append(float(MaxBin*(startHeight/Nbins)))
 
