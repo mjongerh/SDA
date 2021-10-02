@@ -175,7 +175,7 @@ def Shower(startenergy, startheight):
                 TheMove = compute_height(particle.start_pos, Column_density[particle.kind] )
                 print(TheMove)
                 print(particle.direction)
-                particle.end_pos = particle.start_pos + TheMove * particle.direction #.Unit()
+                particle.end_pos = particle.start_pos + (particle.start_pos.Z() - TheMove) * particle.direction #.Unit()
                 print(particle.end_pos)
                 print("New Particle")
                 NewParts = GenNewPart(particle)                #create 2 new particles, calc their properties
