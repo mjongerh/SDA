@@ -4,20 +4,19 @@ from math import *
 # provide better print functionality for ROOT TVector3
 ROOT.TVector3.__repr__ = ROOT.TVector3.__str__ = lambda v : "({:g},{:g},{:g})".format( v.X(), v.Y(), v.Z() )
 #canv = ROOT.TCanvas("canv","Dummy Title", 1000,1000 ) #Create a canvas for the art to be shown
-TestRanE = ROOT.TH1D("TestRanE", "distribution of random energy", 100, 0, 1)
 ################
 # Global Settings
 ################
 a= 8420 # meter
 rho0=1.225 #kg/m^3 != g/cm^3
 mc2 = 0.510998950 #* 299792458 * 299792458 # value of me *c^2
-MaxGen = 100 # Maximum generations computed
+MaxGen = 1000 # Maximum generations computed
 Column_density = []
 Column_density.append(0)
 Column_density.append(380) #photon
 Column_density.append(263) #electron
 Column_density.append(263) #positron
-Generations = []
+Simulations = []
 
 def plot_shower( shower ,
                  title = "Worst title ever.",
@@ -150,7 +149,49 @@ def GenNewPart(oldparticle):
     #print("NEW"+str(NewParticle1) + str(NewParticle2))
     return NewParticle1, NewParticle2
 
+def Shower(startenergy, startheight):
+    Generations = []
+    Particles = []
+    
+    p = Particle() #Generate first photon
+    p.kind = 1
+    p.energy = startenergy  #in MeV
+    p.start_pos =  ROOT.TVector3( 0,0,startheight ) #0,0,startheight
+    theta       = 0.0001
+    phi         = ROOT.gRandom.Rndm() * 2 * pi
+    p.direction = direction_at_angle( ROOT.TVector3(0,0,-1), theta, phi )
+    Particles.append( p )
+    Generations.append(Particles)
+    
+    for i in range(MaxGen) :
+        NewParticles = []        #create list for newly generated particles
+        for particle in Generations[i] :        #loop over particles in gen[i]
+            EndOfShower = 0
+            if particle.energy >= 85.0 :            #make them move if they have energy left
+                particle.end_pos = particle.start_pos + compute_height(particle.start_pos, Column_density[particle.kind] ) * particle.direction
+                NewParts = GenNewPart(particle)                #create 2 new particles, calc their properties
+                NewParticles.append(NewParts[0])
+                NewParticles.append(NewParts[1])
+                EndOfShower += 1
+            else :
+                particle.end_pos = particle.start_pos
+        if EndOfShower==0 : break #Stop the loop when all particles are below 85 MeV
+        Generations.append(NewParticles)
+    return Generations
 
+def CreateHeightDistribution(generations, nbins, startheight):
+    BinWidth =startheight/nbins
+    HeightDist = ROOT.TH1D("HeightDist", "distribution of particles at each height", nbins, 0, startheight)
+    for Gen in generations :
+        for Part in Gen :
+            if Part.kind == 1: continue
+            A = floor(Part.end_pos.Z()/BinWidth) #get the lowest bin the particle has been in
+            B = floor(Part.start_pos.Z()/BinWidth) #get the highest bin
+            i = A
+            while i<=B: #add 1 to all bins in between
+                HeightDist.Fill(i*BinWidth)
+                i += 1
+    return HeightDist
 
 #####################
 #assignment a
@@ -170,65 +211,36 @@ def GenNewPart(oldparticle):
 #####################
 #assignment b
 #####################
-Particles = []
+startHeight = 300000 #in meter
+startEnergy = 100000 #in MeV
 
-p = Particle() #Generate first photon
-p.kind = 1
-p.energy = 1000000  #in MeV
-StartHeight = 300000
-p.start_pos =  ROOT.TVector3( 0,0,StartHeight ) #0,0,startheight
-theta       = 0.0001
-phi         = ROOT.gRandom.Rndm() * 2 * pi
-p.direction = direction_at_angle( ROOT.TVector3(0,0,-1), theta, phi )
-Particles.append( p )
-Generations.append(Particles)
+Shower100GeV = Shower(startEnergy,startHeight)
+plot1 = plot_shower(Shower100GeV, "Shower with photon of 100GeV", 150, startHeight)
 
-for i in range(MaxGen) :
-    #create list for newly generated particles
-    NewParticles = []
-    #loop over particles in gen[i]
-    for particle in Generations[i] :
-        EndOfShower = 0
-        #make them move if they have energy left
-        if particle.energy >= 85.0 :
-            particle.end_pos = particle.start_pos + compute_height(particle.start_pos, Column_density[particle.kind] ) * particle.direction
-            #create 2 new particles, calc their properties
-            NewParts = GenNewPart(particle)
-            NewParticles.append(NewParts[0])
-            NewParticles.append(NewParts[1])
-            EndOfShower += 1
-        else :
-            particle.end_pos = particle.start_pos
-    #gen[i+1] = NewParticles
-    if EndOfShower==0 : break #Stop the loop when all particles are below 85 MeV
-    Generations.append(NewParticles)
+startEnergy = 1000000 #in MeV
+Shower1TeV = Shower(startEnergy,startHeight)
+plot2 = plot_shower(Shower1TeV, "Shower with photon of 1TeV", 150, startHeight)
 
-plot_shower(Generations, "Best Title ever", 150, StartHeight)
+startEnergy = 10000000 #in MeV
+Shower10TeV = Shower(startEnergy,startHeight)
+plot3 = plot_shower(Shower10TeV, "Shower with photon of 10TeV", 150, startHeight)
 
 #####################
 #assignment c
 #####################
 Nbins = 100 #Slice the height in bins
-BinWidth =StartHeight/Nbins
-HeightDist = ROOT.TH1D("HeightDist", "distribution of particles at each height", Nbins, 0, StartHeight)
-for Gen in Generations :
-    for Part in Gen :
-        A = floor(Part.end_pos.Z()/BinWidth) #get the lowest bin the particle has been in
-        B = floor(Part.start_pos.Z()/BinWidth) #get the highest bin
-        print(Part.end_pos.Z()/BinWidth)
-        print(A)
-        i = A
-        while i<=B: #add 1 to all bins in between
-            HeightDist.Fill(i*BinWidth)
-            i += 1
-HeightDistCanv = ROOT.TCanvas("HeightDistCanv","Dummy Title", 1000,1000 )
-HeightDist.Draw()
-
+HeightDistCanvA = ROOT.TCanvas("HeightDistCanvA","Hieght dist. of 100GeV photon", 1000,1000 )
+CreateHeightDistribution(Shower100GeV, Nbins, startHeight).Draw()
+HeightDistCanvB = ROOT.TCanvas("HeightDistCanvB","Hieght dist. of 1TeV photon", 1000,1000 )
+CreateHeightDistribution(Shower1TeV, Nbins, startHeight).Draw()
+HeightDistCanvC = ROOT.TCanvas("HeightDistCanvC","Hieght dist. of 10TeV photon", 1000,1000 )
+CreateHeightDistribution(Shower10TeV, Nbins, startHeight).Draw()
 
 ###############
 #TEST AREA ONLY, enter at your own risk
 ###############
 #TestCanvas = ROOT.TCanvas("TestCanvas","Dummy Title", 1000,1000 )
+#TestRanE = ROOT.TH1D("TestRanE", "distribution of random energy", 100, 0, 1)
 #for i in range(10000):
 #    TestRanE.Fill(RandomEnergy())
 #TestRanE.Draw()
