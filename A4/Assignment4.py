@@ -1,5 +1,6 @@
 import ROOT
 import numpy
+from array import array
 from math import *
 
 # provide better print functionality for ROOT TVector3
