@@ -152,11 +152,11 @@ def GenNewPart(oldparticle):
     Theta2 = 0.0
     if NewParticle1.energy >=85 :
         Theta1 = mc2/NewParticle1.energy
-        NewParticle1.direction = direction_at_angle(oldparticle.direction, Theta1, phiRan)
+        NewParticle1.direction = direction_at_angle(oldparticle.direction, 0.01, phiRan)
     if abs(Theta1 > 0.1): print("T1 = " + str(Theta1) + "    E1 = " + str(NewParticle1.energy))
     if NewParticle1.energy >=85 :
         Theta2 = -mc2/NewParticle2.energy
-        NewParticle2.direction = direction_at_angle(oldparticle.direction, Theta2, pi + phiRan)
+        NewParticle2.direction = direction_at_angle(oldparticle.direction, -0.01, pi + phiRan)
     if abs(Theta2 > 0.1):print("T2 = " + str(Theta2) +"    E2 = " + str(NewParticle2.energy))
 #print("NEW"+str(NewParticle1) + str(NewParticle2))
     return NewParticle1, NewParticle2
