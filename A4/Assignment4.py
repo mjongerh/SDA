@@ -171,7 +171,7 @@ def Shower(startenergy, startheight):
         for particle in Generations[i] :        #loop over particles in gen[i]
             EndOfShower = 0
             if particle.energy >= 85.0 :            #make them move if they have energy left
-                particle.end_pos = particle.start_pos + compute_height(particle.start_pos, Column_density[particle.kind] ) * particle.direction
+                particle.end_pos = particle.start_pos + compute_height(particle.start_pos, Column_density[particle.kind] ) * particle.direction.Unit()
                 NewParts = GenNewPart(particle)                #create 2 new particles, calc their properties
                 NewParticles.append(NewParts[0])
                 NewParticles.append(NewParts[1])
