@@ -258,7 +258,7 @@ BinRatio = startHeight/Nbins
 DistE = []
 for e in EnergyList:
     ShowerE = Shower(e, startHeight)
-    DistE[PANIC] = CreateHeightDistribution(ShowerE, Nbins, startHeight)
+    DistE.append(CreateHeightDistribution(ShowerE, Nbins, startHeight))
     HeightDistCanvC.cd(PANIC+1)
     DistE[PANIC].Draw()
     HeightDistCanvC.Modified()
