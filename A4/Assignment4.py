@@ -248,7 +248,7 @@ Nbins = 100 #Slice the height in bins
 #assignment d
 #####################
 HeightDistCanvC = ROOT.TCanvas("HeightDistCanvC","Height dist. of 10TeV photon", 2000,500 )
-HeightDistCanvC.divide(5,2)
+HeightDistCanvC.Divide(5,2)
 PANIC=1
 EnergyList = numpy.logspace(5, 7, 10, dtype = 'float', endpoint=True).tolist()
 print(EnergyList)
