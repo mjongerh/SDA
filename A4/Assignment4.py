@@ -134,7 +134,6 @@ def GenNewPart(oldparticle):
     print("OLD" + str(oldparticle))
     NewParticle1 = Particle()
     NewParticle2 = Particle()
-    if oldparticle.energy < 85: return 0 # Dont create new particles
     if oldparticle.kind == 1 : #if old = photon, gen electron + positron
         NewParticle1.kind = 2
         NewParticle2.kind = 3
@@ -148,7 +147,7 @@ def GenNewPart(oldparticle):
     phiRan = ROOT.gRandom.Rndm() * 2 * pi #random direction for phi
     NewParticle1.direction = direction_at_angle(oldparticle.direction, mc2/NewParticle1.energy, phiRan)
     NewParticle2.direction = direction_at_angle(oldparticle.direction, -mc2/NewParticle2.energy, 2*pi - phiRan)
-    print("NEW"+str(NewParticle1) + str(NewParticle2))
+    #print("NEW"+str(NewParticle1) + str(NewParticle2))
     return NewParticle1, NewParticle2
 
 
@@ -189,13 +188,11 @@ for i in range(MaxGen) :
     #loop over particles in gen[i]
     for particle in Generations[i] :
         EndOfShower = 0
-        #make them move        
-        particle.end_pos = particle.start_pos + compute_height(particle.start_pos, Column_density[particle.kind] ) * particle.direction
-        #create 2 new particles, calc their properties
-        NewParts = GenNewPart(particle)
-        if NewParts == 0 : continue
-        #and add to list NewParticles
-        else :
+        #make them move if they have energy left
+        if particle.energy >= 85.0 :
+            particle.end_pos = particle.start_pos + compute_height(particle.start_pos, Column_density[particle.kind] ) * particle.direction
+            #create 2 new particles, calc their properties
+            NewParts = GenNewPart(particle)
             NewParticles.append(NewParts[0])
             NewParticles.append(NewParts[1])
             EndOfShower += 1
