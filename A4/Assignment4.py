@@ -4,6 +4,7 @@ from math import *
 # provide better print functionality for ROOT TVector3
 ROOT.TVector3.__repr__ = ROOT.TVector3.__str__ = lambda v : "({:g},{:g},{:g})".format( v.X(), v.Y(), v.Z() )
 #canv = ROOT.TCanvas("canv","Dummy Title", 1000,1000 ) #Create a canvas for the art to be shown
+TestRanE = ROOT.TH1D("TestRanE", "distribution of random energy", 100, 0, 1)
 ################
 # Global Settings
 ################
@@ -124,6 +125,7 @@ def RandomEnergy():
         RanUni2 = ROOT.gRandom.Rndm()
         RanFunc = 1-(4/3)*RanUni2 * (1 - RanUni2)
         if RanFunc  >= RanUni :
+            TestRanE.Fill(RanUni2)
             return RanUni2
         else: failsafe += 1
     print("Disaster happened, not a single energy was accepted")
@@ -175,7 +177,7 @@ Particles = []
 p = Particle() #Generate first photon
 p.kind = 1
 p.energy = 100000  #in MeV
-p.start_pos =  ROOT.TVector3( 0,0,1000000 ) #0,0,startheight
+p.start_pos =  ROOT.TVector3( 0,0,500000 ) #0,0,startheight
 theta       = 0.0001
 phi         = ROOT.gRandom.Rndm() * 2 * pi
 p.direction = direction_at_angle( ROOT.TVector3(0,0,-1), theta, phi )
@@ -202,4 +204,7 @@ for i in range(MaxGen) :
     if EndOfShower==0 : break #Stop the loop when all particles are below 85 MeV
     Generations.append(NewParticles)
 
-plot_shower(Generations, "Best Title ever", 1000, 1000000)
+plot_shower(Generations, "Best Title ever", 1000, 500000)
+
+TestCanvas = ROOT.TCanvas("canv","Dummy Title", 1000,1000 )
+TestRanE.Draw()
