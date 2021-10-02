@@ -261,6 +261,8 @@ for e in EnergyList:
     HeightDistCanvC.cd(PANIC)
     PANIC += 1
     DistE.Draw()
+    HeightDistCanvC.Modified()
+    HeightDistCanvC.Update()
     MaxBin = DistE.GetMaximumBin()
     print("maxbin="+str(MaxBin))
     print("H=" + str(float(MaxBin*BinRatio)))
