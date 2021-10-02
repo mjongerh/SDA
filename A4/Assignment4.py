@@ -185,7 +185,7 @@ def Shower(startenergy, startheight):
 
 def CreateHeightDistribution(generations, nbins, startheight):
     BinWidth =startheight/nbins
-    HeightDist = ROOT.TH1D(str(ROOT.gRandom.Rndm()), "distribution of particles at each height", nbins, 0, startheight/2)
+    HeightDist = ROOT.TH1D(str(ROOT.gRandom.Rndm()), "distribution of particles at each height", nbins,1,0) # 0, startheight)
     for Gen in generations :
         for Part in Gen :
             if Part.kind == 1: continue
@@ -219,32 +219,32 @@ def CreateHeightDistribution(generations, nbins, startheight):
 startHeight = 100000 #in meter
 startEnergy = 100000 #in MeV
 
-#Shower100GeV = Shower(startEnergy,startHeight)
-#plot1 = plot_shower(Shower100GeV, "Shower with photon of 100GeV", 150, startHeight, "canv100GeV")
+Shower100GeV = Shower(startEnergy,startHeight)
+plot1 = plot_shower(Shower100GeV, "Shower with photon of 100GeV", 150, startHeight, "canv100GeV")
 
-#startEnergy = 1000000 #in MeV
-#Shower1TeV = Shower(startEnergy,startHeight)
-#plot2 = plot_shower(Shower1TeV, "Shower with photon of 1TeV", 150, startHeight, "canv1TeV")
+startEnergy = 1000000 #in MeV
+Shower1TeV = Shower(startEnergy,startHeight)
+plot2 = plot_shower(Shower1TeV, "Shower with photon of 1TeV", 150, startHeight, "canv1TeV")
 
-#startEnergy = 10000000 #in MeV
-#Shower10TeV = Shower(startEnergy,startHeight)
-#plot3 = plot_shower(Shower10TeV, "Shower with photon of 10TeV", 150, startHeight, "canv10TeV")
+startEnergy = 10000000 #in MeV
+Shower10TeV = Shower(startEnergy,startHeight)
+plot3 = plot_shower(Shower10TeV, "Shower with photon of 10TeV", 150, startHeight, "canv10TeV")
 
 #####################
 #assignment c
 #####################
 Nbins = 100 #Slice the height in bins
-#HeightDistCanvA = ROOT.TCanvas("HeightDistCanvA","Height dist. of 100GeV photon", 1000,1000 )
-#Hdist100GeV = CreateHeightDistribution(Shower100GeV, Nbins, startHeight)
-#Hdist100GeV.Draw()
+HeightDistCanvA = ROOT.TCanvas("HeightDistCanvA","Height dist. of 100GeV photon", 1000,1000 )
+Hdist100GeV = CreateHeightDistribution(Shower100GeV, Nbins, startHeight)
+Hdist100GeV.Draw()
 
-#HeightDistCanvB = ROOT.TCanvas("HeightDistCanvB","Height dist. of 1TeV photon", 1000,1000 )
-#Hdist1TeV = CreateHeightDistribution(Shower1TeV, Nbins, startHeight)
-#Hdist1TeV.Draw()
+HeightDistCanvB = ROOT.TCanvas("HeightDistCanvB","Height dist. of 1TeV photon", 1000,1000 )
+Hdist1TeV = CreateHeightDistribution(Shower1TeV, Nbins, startHeight)
+Hdist1TeV.Draw()
 
-#HeightDistCanvC = ROOT.TCanvas("HeightDistCanvC","Height dist. of 10TeV photon", 1000,1000 )
-#Hdist10TeV = CreateHeightDistribution(Shower10TeV, Nbins, startHeight)
-#Hdist10TeV.Draw()
+HeightDistCanvC = ROOT.TCanvas("HeightDistCanvC","Height dist. of 10TeV photon", 1000,1000 )
+Hdist10TeV = CreateHeightDistribution(Shower10TeV, Nbins, startHeight)
+Hdist10TeV.Draw()
 
 #####################
 #assignment d
