@@ -2,6 +2,7 @@ import ROOT
 import numpy
 from array import array
 from math import *
+from datetime import datetime
 
 # provide better print functionality for ROOT TVector3
 ROOT.TVector3.__repr__ = ROOT.TVector3.__str__ = lambda v : "({:g},{:g},{:g})".format( v.X(), v.Y(), v.Z() )
@@ -19,7 +20,7 @@ Column_density.append(380) #photon
 Column_density.append(263) #electron
 Column_density.append(263) #positron
 Simulations = []
-
+ROOT.gRandom.SetSeed(datetime())
 def plot_shower( shower ,
                  title = "Worst title ever.",
                  xysize = 10, 
@@ -150,12 +151,12 @@ def GenNewPart(oldparticle):
     if NewParticle1.energy >=85 :
         Theta1 = mc2/NewParticle1.energy
         NewParticle1.direction = direction_at_angle(oldparticle.direction, Theta1, phiRan)
-        if abs(Theta1 > 0.01): print("T1 = " + str(Theta1) + "    E1 = " + str(NewParticle1.energy))
+    if abs(Theta1 > 0.1): print("T1 = " + str(Theta1) + "    E1 = " + str(NewParticle1.energy))
     if NewParticle1.energy >=85 :
         Theta2 = -mc2/NewParticle2.energy
-        if abs(Theta2 > 0.01):print("T2 = " + str(Theta2) +"    E2 = " + str(NewParticle2.energy))
         NewParticle2.direction = direction_at_angle(oldparticle.direction, Theta2, pi + phiRan)
-    #print("NEW"+str(NewParticle1) + str(NewParticle2))
+    if abs(Theta2 > 0.1):print("T2 = " + str(Theta2) +"    E2 = " + str(NewParticle2.energy))
+#print("NEW"+str(NewParticle1) + str(NewParticle2))
     return NewParticle1, NewParticle2
 
 def Shower(startenergy, startheight):
