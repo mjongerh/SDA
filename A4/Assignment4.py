@@ -257,7 +257,7 @@ for e in EnergyList:
     HeightCoord.append(float(MaxBin*(startHeight/Nbins)))
 
 CanvMaxParticles = ROOT.TCanvas("CanvMaxParticles","Height of max particles as function of E", 1000,1000 )
-Graph = ROOT.TGraph(10, EnergyCoord, HeightCoord)
+Graph = ROOT.TGraph(EnergyCoord, HeightCoord)
 Graph.SetLogx()
 Graph.Draw()
 
