@@ -20,7 +20,7 @@ Column_density.append(380) #photon
 Column_density.append(263) #electron
 Column_density.append(263) #positron
 Simulations = []
-ROOT.gRandom.SetSeed(datetime())
+ROOT.gRandom.SetSeed(datetime.now())
 def plot_shower( shower ,
                  title = "Worst title ever.",
                  xysize = 10, 
