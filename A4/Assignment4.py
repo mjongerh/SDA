@@ -21,7 +21,8 @@ Simulations = []
 def plot_shower( shower ,
                  title = "Worst title ever.",
                  xysize = 10, 
-                 zsize = 50000 ):
+                 zsize = 50000, 
+                 canvastitle = ""):
 
     """
     Plot a list of particles. 
@@ -43,7 +44,7 @@ def plot_shower( shower ,
 
     # make canvas and draw our dummy histogram
 
-    c = ROOT.TCanvas("canv","canvas title", 500,600)
+    c = ROOT.TCanvas(canvastitle,"canvas title", 500,600)
 
     #c.linelist = []
 
@@ -215,26 +216,31 @@ startHeight = 300000 #in meter
 startEnergy = 100000 #in MeV
 
 Shower100GeV = Shower(startEnergy,startHeight)
-plot1 = plot_shower(Shower100GeV, "Shower with photon of 100GeV", 150, startHeight)
+plot1 = plot_shower(Shower100GeV, "Shower with photon of 100GeV", 150, startHeight, "canv100GeV")
 
 startEnergy = 1000000 #in MeV
 Shower1TeV = Shower(startEnergy,startHeight)
-plot2 = plot_shower(Shower1TeV, "Shower with photon of 1TeV", 150, startHeight)
+plot2 = plot_shower(Shower1TeV, "Shower with photon of 1TeV", 150, startHeight, "canv1TeV")
 
 startEnergy = 10000000 #in MeV
 Shower10TeV = Shower(startEnergy,startHeight)
-plot3 = plot_shower(Shower10TeV, "Shower with photon of 10TeV", 150, startHeight)
+plot3 = plot_shower(Shower10TeV, "Shower with photon of 10TeV", 150, startHeight, "canv10TeV")
 
 #####################
 #assignment c
 #####################
 Nbins = 100 #Slice the height in bins
 HeightDistCanvA = ROOT.TCanvas("HeightDistCanvA","Hieght dist. of 100GeV photon", 1000,1000 )
-CreateHeightDistribution(Shower100GeV, Nbins, startHeight).Draw()
+Hdist100GeV = CreateHeightDistribution(Shower100GeV, Nbins, startHeight)
+Hdist100GeV.Draw()
+
 HeightDistCanvB = ROOT.TCanvas("HeightDistCanvB","Hieght dist. of 1TeV photon", 1000,1000 )
-CreateHeightDistribution(Shower1TeV, Nbins, startHeight).Draw()
+Hdist1TeV = CreateHeightDistribution(Shower1TeV, Nbins, startHeight)
+Hdist1TeV.Draw()
+
 HeightDistCanvC = ROOT.TCanvas("HeightDistCanvC","Hieght dist. of 10TeV photon", 1000,1000 )
-CreateHeightDistribution(Shower10TeV, Nbins, startHeight).Draw()
+Hdist10TeV = CreateHeightDistribution(Shower10TeV, Nbins, startHeight)
+Hdist10TeV.Draw()
 
 ###############
 #TEST AREA ONLY, enter at your own risk
