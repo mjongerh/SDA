@@ -199,16 +199,16 @@ def CreateHeightDistribution(generations, nbins, startheight):
 #####################
 #assignment a
 #####################
-#canv = ROOT.TCanvas("canv","Dummy Title", 780,780 ) #Create a canvas for the art to be shown
-#histogram = ROOT.TH1D("histogram_of_x1","histogram of x1",100, 100, 10 )
-#for i in range(5000) :
-#    histogram.Fill(compute_height(100000, 380))
+canvAA = ROOT.TCanvas("canvAA","Dummy Title", 780,780 ) #Create a canvas for the art to be shown
+histogram = ROOT.TH1D("histogram_of_x1","histogram of x1",100, 100, 10 )
+for i in range(50000) :
+    histogram.Fill(compute_height(1000000, 380))
 
-#histogram.Draw()
-#canv.Modified()
-#canv.Update()
+histogram.Draw()
+canvAA.Modified()
+canvAA.Update()
 
-#print("height at mean free path is: ",  -a* log((380/(a*rho0)) + exp(-100000/a) )) #sanity check
+print("height at mean free path is: ",  -a* log((380/(a*rho0)) + exp(-100000/a) )) #sanity check
 
 
 #####################
