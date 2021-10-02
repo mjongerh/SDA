@@ -148,6 +148,8 @@ def GenNewPart(oldparticle):
     NewParticle1.energy = RandomEnergy() * oldparticle.energy
     NewParticle2.energy = oldparticle.energy - NewParticle1.energy
     phiRan = ROOT.gRandom.Rndm() * 2 * pi #random direction for phi
+    Theta1 = 0.0
+    Theta2 = 0.0
     if NewParticle1.energy >=85 :
         Theta1 = mc2/NewParticle1.energy
         NewParticle1.direction = direction_at_angle(oldparticle.direction, Theta1, phiRan)
