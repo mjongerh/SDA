@@ -9,7 +9,7 @@ ROOT.TVector3.__repr__ = ROOT.TVector3.__str__ = lambda v : "({:g},{:g},{:g})".f
 ################
 a= 8420 # meter
 rho0=1.225 #kg/m^3 != g/cm^3
-mc2 = 0.510998950 * 299792458 * 299792458 # value of me *c^2
+mc2 = 0.510998950 #* 299792458 * 299792458 # value of me *c^2
 MaxGen = 100 # Maximum generations computed
 Column_density = []
 Column_density.append(0)
