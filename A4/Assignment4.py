@@ -221,7 +221,7 @@ def HAWCmap(generations, heigthinput):
 canvFirstInt = ROOT.TCanvas("canvFirstInt","Height of the first interaction", 780,780 ) #Create a canvas for the art to be shown
 hFirstInt = ROOT.TH1D("histogram_of_x1","Height of the first interaction",100, 100, 10 )
 for i in range(500) :
-    histogram.Fill(compute_height(ROOT.TVector3( 0,0,10000000 ), 380))
+    hFirstInt.Fill(compute_height(ROOT.TVector3( 0,0,10000000 ), 380))
     print(compute_height(ROOT.TVector3( 0,0,10000000 ), 380))
 hFirstInt.GetXaxis().SetTitle( 'Height (m)' )
 hFirstInt.GetYaxis().SetTitle( 'Number first events' )
