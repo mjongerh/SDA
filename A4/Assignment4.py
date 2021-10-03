@@ -13,7 +13,7 @@ TestRanT = ROOT.TH1D("TestRanT", "distribution of random energy", 100, 1, 0)
 ################
 a= 8420 # meter
 rho0=1.225 #kg/m^3 != g/cm^3
-mc2 = 0.510998950 #* 299792458 * 299792458 # value of me *c^2
+mc2 = 0.0510998950 #* 299792458 * 299792458 # value of me *c^2
 MaxGen = 1000 # Maximum generations computed
 Column_density = []
 Column_density.append(0)
@@ -150,7 +150,7 @@ def GenNewPart(oldparticle):
     NewParticle2.energy = oldparticle.energy - NewParticle1.energy
     phiRan = ROOT.gRandom.Rndm() * 2 * pi #random direction for phi
     if NewParticle1.energy >= 85.0 :
-        Theta1 = 0.00006 #0.510998950/NewParticle1.energy
+        Theta1 = mc2/NewParticle1.energy
         TestRanT.Fill(Theta1)
         if abs(Theta1) > 0.01 : print("T1= "+ str(Theta1) + "    E1= " + str(NewParticle1.energy))
         NewParticle1.direction = direction_at_angle(oldparticle.direction, Theta1, phiRan)
@@ -159,7 +159,7 @@ def GenNewPart(oldparticle):
         NewParticle1.end_pos = NewParticle1.start_pos
     
     if NewParticle2.energy >= 85.0 :
-        Theta2 = -0.00006 #-0.510998950/NewParticle2.energy
+        Theta2 = -mc2/NewParticle2.energy
         TestRanT.Fill(Theta2)
         if abs(Theta2) > 0.01 : print("T2= "+ str(Theta2) + "    E2= " + str(NewParticle2.energy))
         NewParticle2.direction = direction_at_angle(oldparticle.direction, Theta2, pi + phiRan)
