@@ -6,7 +6,7 @@ from math import *
 # provide better print functionality for ROOT TVector3
 ROOT.TVector3.__repr__ = ROOT.TVector3.__str__ = lambda v : "({:g},{:g},{:g})".format( v.X(), v.Y(), v.Z() )
 #canv = ROOT.TCanvas("canv","Dummy Title", 1000,1000 ) #Create a canvas for the art to be shown
-for s in range(12345): ROOT.gRandom.Rndm() #scramble start seed
+for s in range(123): ROOT.gRandom.Rndm() #scramble start seed
 ################
 # Global Settings
 ################
