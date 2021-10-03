@@ -6,7 +6,7 @@ from math import *
 # provide better print functionality for ROOT TVector3
 ROOT.TVector3.__repr__ = ROOT.TVector3.__str__ = lambda v : "({:g},{:g},{:g})".format( v.X(), v.Y(), v.Z() )
 #canv = ROOT.TCanvas("canv","Dummy Title", 1000,1000 ) #Create a canvas for the art to be shown
-for s in range(3141): ROOT.gRandom.Rndm() #scramble start seed
+for s in range(12345): ROOT.gRandom.Rndm() #scramble start seed
 ################
 # Global Settings
 ################
@@ -249,23 +249,23 @@ plot3 = plot_shower(Shower10TeV, "Shower with photon of 10TeV", 10, startHeight*
 #assignment c
 #####################
 Nbins = 100 #Slice the height in bins
-HeightDistCanvA = ROOT.TCanvas("HeightDistCanvA","Height dist. of 100GeV photon", 1000,1000 )
-Hdist100GeV = CreateHeightDistribution(Shower100GeV, Nbins, startHeight)
-Hdist100GeV.GetXaxis().SetTitle( 'Height (m)' )
-Hdist100GeV.GetYaxis().SetTitle( 'Number of charged particles' )
-Hdist100GeV.Draw()
+#HeightDistCanvA = ROOT.TCanvas("HeightDistCanvA","Height dist. of 100GeV photon", 1000,1000 )
+#Hdist100GeV = CreateHeightDistribution(Shower100GeV, Nbins, startHeight)
+#Hdist100GeV.GetXaxis().SetTitle( 'Height (m)' )
+#Hdist100GeV.GetYaxis().SetTitle( 'Number of charged particles' )
+#Hdist100GeV.Draw()
 
-HeightDistCanvB = ROOT.TCanvas("HeightDistCanvB","Height dist. of 1TeV photon", 1000,1000 )
-Hdist1TeV = CreateHeightDistribution(Shower1TeV, Nbins, startHeight)
-Hdist1TeV.GetXaxis().SetTitle( 'Height (m)' )
-Hdist1TeV.GetYaxis().SetTitle( 'Number of charged particles' )
-Hdist1TeV.Draw()
+#HeightDistCanvB = ROOT.TCanvas("HeightDistCanvB","Height dist. of 1TeV photon", 1000,1000 )
+#Hdist1TeV = CreateHeightDistribution(Shower1TeV, Nbins, startHeight)
+#Hdist1TeV.GetXaxis().SetTitle( 'Height (m)' )
+#Hdist1TeV.GetYaxis().SetTitle( 'Number of charged particles' )
+#Hdist1TeV.Draw()
 
-HeightDistCanvC = ROOT.TCanvas("HeightDistCanvC","Height dist. of 10TeV photon", 1000,1000 )
-Hdist10TeV = CreateHeightDistribution(Shower10TeV, Nbins, startHeight)
-Hdist10TeV.GetXaxis().SetTitle( 'Height (m)' )
-Hdist10TeV.GetYaxis().SetTitle( 'Number of charged particles' )
-Hdist10TeV.Draw()
+#HeightDistCanvC = ROOT.TCanvas("HeightDistCanvC","Height dist. of 10TeV photon", 1000,1000 )
+#Hdist10TeV = CreateHeightDistribution(Shower10TeV, Nbins, startHeight)
+#Hdist10TeV.GetXaxis().SetTitle( 'Height (m)' )
+#Hdist10TeV.GetYaxis().SetTitle( 'Number of charged particles' )
+#Hdist10TeV.Draw()
 
 #####################
 #assignment d
