@@ -7,6 +7,7 @@ from datetime import datetime
 # provide better print functionality for ROOT TVector3
 ROOT.TVector3.__repr__ = ROOT.TVector3.__str__ = lambda v : "({:g},{:g},{:g})".format( v.X(), v.Y(), v.Z() )
 #canv = ROOT.TCanvas("canv","Dummy Title", 1000,1000 ) #Create a canvas for the art to be shown
+TestRanT = ROOT.TH1D("TestRanT", "distribution of random energy", 100, 1, 0)
 ################
 # Global Settings
 ################
@@ -150,6 +151,8 @@ def GenNewPart(oldparticle):
     phiRan = ROOT.gRandom.Rndm() * 2 * pi #random direction for phi
     Theta1 = 0.510998950/NewParticle1.energy
     Theta2 = -0.510998950/NewParticle2.energy
+    TestRanT.Fill(Theta1)
+    TestRanT.Fill(Theta2)
     NewParticle1.direction = direction_at_angle(oldparticle.direction, Theta1, phiRan)
     NewParticle2.direction = direction_at_angle(oldparticle.direction, Theta2,  pi+phiRan)
     #print("NEW"+str(NewParticle1) + str(NewParticle2))
@@ -290,8 +293,8 @@ CanvMaxParticles.Modified()
 ###############
 #TEST AREA ONLY, enter at your own risk
 ###############
-#TestCanvas = ROOT.TCanvas("TestCanvas","Dummy Title", 1000,1000 )
+TestCanvas = ROOT.TCanvas("TestCanvas","Dummy Title", 1000,1000 )
 #TestRanE = ROOT.TH1D("TestRanE", "distribution of random energy", 100, 0, 1)
 #for i in range(10000):
 #    TestRanE.Fill(RandomEnergy())
-#TestRanE.Draw()
+TestRanT.Draw()
