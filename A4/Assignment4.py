@@ -233,8 +233,8 @@ def HAWCmap(generations, heigthinput):
 startHeight = 50000 #in meter
 startEnergy = 100000 #in MeV
 
-#Shower100GeV = Shower(startEnergy,startHeight)
-#plot1 = plot_shower(Shower100GeV, "Shower with photon of 100GeV", 10, startHeight, "canv100GeV")
+Shower100GeV = Shower(startEnergy,startHeight)
+plot1 = plot_shower(Shower100GeV, "Shower with photon of 100GeV", 10, startHeight, "canv100GeV")
 
 #startEnergy = 1000000 #in MeV
 #Shower1TeV = Shower(startEnergy,startHeight)
