@@ -85,7 +85,7 @@ class Particle(object):
     def __init__( self ) :
 
         self.direction  = ROOT.TVector3(0,0,0)
-        self.energy     = 0
+        self.energy     = 0.0
         self.kind       = 0 # 1 = gamma, 2 = electron, 3 = positron
         self.start_pos  = ROOT.TVector3(0,0,0)
         self.end_pos    = ROOT.TVector3(0,0,0)
@@ -153,6 +153,9 @@ def GenNewPart(oldparticle):
     Theta2 = -0.510998950/NewParticle2.energy
     TestRanT.Fill(Theta1)
     TestRanT.Fill(Theta2)
+    if abs(Theta1) > 0.01 : print("T1= "+ str(Theta1) + "    E1= " + str(NewParticle1.energy))
+    if abs(Theta1) > 0.01 : print("T2= "+ str(Theta2) + "    E2= " + str(NewParticle2.energy))
+
     NewParticle1.direction = direction_at_angle(oldparticle.direction, Theta1, phiRan)
     NewParticle2.direction = direction_at_angle(oldparticle.direction, Theta2,  pi+phiRan)
     #print("NEW"+str(NewParticle1) + str(NewParticle2))
