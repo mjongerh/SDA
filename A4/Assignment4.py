@@ -248,9 +248,9 @@ startEnergy = 100000 #in MeV
 #assignment c
 #####################
 Nbins = 100 #Slice the height in bins
-#HeightDistCanvA = ROOT.TCanvas("HeightDistCanvA","Height dist. of 100GeV photon", 1000,1000 )
-#Hdist100GeV = CreateHeightDistribution(Shower100GeV, Nbins, startHeight)
-#Hdist100GeV.Draw()
+HeightDistCanvA = ROOT.TCanvas("HeightDistCanvA","Height dist. of 100GeV photon", 1000,1000 )
+Hdist100GeV = CreateHeightDistribution(Shower100GeV, Nbins, startHeight)
+Hdist100GeV.Draw()
 
 #HeightDistCanvB = ROOT.TCanvas("HeightDistCanvB","Height dist. of 1TeV photon", 1000,1000 )
 #Hdist1TeV = CreateHeightDistribution(Shower1TeV, Nbins, startHeight)
