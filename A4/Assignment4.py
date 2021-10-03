@@ -201,11 +201,11 @@ def CreateHeightDistribution(generations, nbins, startheight):
                 i += 1
     return HeightDist
 
-def HAWCmap(generations, heigth):
+def HAWCmap(generations, heigthinput):
     hHAWCmap = ROOT.TH2D("hHAWCmap", "distribution of particles at height of HAWC", 100, -10,10, 100, -10, 10)
     for Gen in generations:
         for Part in Gen:
-            if Part.end_pos.Z() < height and Part.start_pos.Z() > height:
+            if Part.end_pos.Z() < heigthinput and Part.start_pos.Z() > heigthinput:
                 X = (Part.end_pos.X()+Part.start_pos.X())/2
                 Y = (Part.end_pos.Y()+Part.start_pos.Y())/2
                 hHAWCmap.Fill(X,Y)
