@@ -333,11 +333,11 @@ YaverageRadius = 0.0
 TestCanvas = ROOT.TCanvas("TestCanvas","Dummy Title", 1000,1000 )
 map = 0
 for k in range(Ntest):
-    HAWCshower = Shower(2000000, startHeight) #Energy at approx 100 particles@HAWC
+    HAWCshower = Shower(5000000, startHeight) #Energy at approx 100 particles@HAWC
     map = HAWCmap(HAWCshower, 4100)
     XaverageRadius += map.GetRMS(1)/Ntest
     YaverageRadius += map.GetRMS(2)/Ntest
-map.Draw()
+map.Draw("colz")
 print("HAWC radius results:")
 print("X Average radius = " + str(XaverageRadius))
 print("Y Average radius = " + str(YaverageRadius))
