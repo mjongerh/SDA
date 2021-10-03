@@ -194,7 +194,7 @@ def Shower(startenergy, startheight):
                 NewParticles.append(NewParts[0])
                 NewParticles.append(NewParts[1])
                 EndOfShower += 1
-            else :
+            else : #Otherwise they stop instantly
                 particle.end_pos = particle.start_pos
         if EndOfShower==0 : break #Stop the loop when all particles are below 85 MeV
         Generations.append(NewParticles)
@@ -266,18 +266,14 @@ Hdist10TeV.Draw()
 #####################
 #assignment d
 #####################
-#HeightDistCanvC = ROOT.TCanvas("HeightDistCanvC","Height dist. of 10TeV photon", 2000,500 )
-#HeightDistCanvC.Divide(5,2)
 Naverage = 10
-EnergyList = [100000.0, 150000.0, 250000.0, 500000.0, 750000.0, 1250000.0, 3000000.0, 3500000.0, 6000000.0, 10000000.0]
-#numpy.logspace(5, 7, 10, dtype = 'float', endpoint=True).tolist()
+EnergyList = [100000.0, 150000.0, 250000.0, 500000.0, 750000.0, 1250000.0, 2000000.0, 3500000.0, 6000000.0, 10000000.0]
 print(EnergyList)
 EnergyCoord =array( 'd' )
 EnergyCoordErr =array( 'd' )
 HeightCoord = array( 'd' )
 HeightCoordErr = array( 'd' )
 BinRatio = startHeight/Nbins
-#DistE = []
 AverageHeight = [0]*Naverage
 
 for p in range(Naverage):
@@ -302,14 +298,14 @@ for e in EnergyList:
 CanvMaxParticles = ROOT.TCanvas("CanvMaxParticles","Height of max particles as function of E", 1000,1000 )
 Graph = ROOT.TGraphErrors(10, EnergyCoord, HeightCoord, EnergyCoordErr, HeightCoordErr)
 CanvMaxParticles.SetLogx()
-Graph.SetLineColor( 2 )
-Graph.SetLineWidth( 4 )
-Graph.SetMarkerColor( 4 )
-Graph.SetMarkerStyle( 21 )
-Graph.SetTitle( 'a simple graph' )
-Graph.GetXaxis().SetTitle( 'X title' )
-Graph.GetYaxis().SetTitle( 'Y title' )
-Graph.Draw( 'AP' )
+#Graph.SetLineColor( 2 )
+#Graph.SetLineWidth( 4 )
+#Graph.SetMarkerColor( 4 )
+#Graph.SetMarkerStyle( 21 )
+Graph.SetTitle( 'H_{max} versus Energy' )
+Graph.GetXaxis().SetTitle( 'Energy initial photon (GeV/c^2)' )
+Graph.GetYaxis().SetTitle( 'Height of maximum amount of charged particles' )
+Graph.Draw("ap")
 CanvMaxParticles.Update()
 CanvMaxParticles.Modified()
 
