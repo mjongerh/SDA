@@ -2,25 +2,23 @@ import ROOT
 import numpy
 from array import array
 from math import *
-from datetime import datetime
 
 # provide better print functionality for ROOT TVector3
 ROOT.TVector3.__repr__ = ROOT.TVector3.__str__ = lambda v : "({:g},{:g},{:g})".format( v.X(), v.Y(), v.Z() )
 #canv = ROOT.TCanvas("canv","Dummy Title", 1000,1000 ) #Create a canvas for the art to be shown
-TestRanT = ROOT.TH1D("TestRanT", "distribution of random energy", 100, 1, 0)
+for s in range(31415): ROOT.gRandom.Rndm() #scramble start seed
 ################
 # Global Settings
 ################
 a= 8420 # meter
 rho0=1.225 #kg/m^3 != g/cm^3
 mc2 = 0.510998950 #* 299792458 * 299792458 # value of me *c^2
-MaxGen = 1000 # Maximum generations computed
+MaxGen = 10000 # Maximum generations computed
 Column_density = []
 Column_density.append(0)
 Column_density.append(380) #photon
 Column_density.append(263) #electron
 Column_density.append(263) #positron
-Simulations = []
 
 def plot_shower( shower ,
                  title = "Worst title ever.",
@@ -220,9 +218,7 @@ def HAWCmap(generations, heigthinput):
 #####################
 canvFirstInt = ROOT.TCanvas("canvFirstInt","Height of the first interaction", 780,780 ) #Create a canvas for the art to be shown
 hFirstInt = ROOT.TH1D("histogram_of_x1","Height of the first interaction",100, 100, 10 )
-for i in range(500) :
-    hFirstInt.Fill(compute_height(ROOT.TVector3( 0,0,10000000 ), 380))
-    print(compute_height(ROOT.TVector3( 0,0,10000000 ), 380))
+for i in range(500) : hFirstInt.Fill(compute_height(ROOT.TVector3( 0,0,10000000 ), 380))
 hFirstInt.GetXaxis().SetTitle( 'Height (m)' )
 hFirstInt.GetYaxis().SetTitle( 'Number first events' )
 hFirstInt.Draw()
@@ -286,7 +282,7 @@ AverageHeight = [0]*len(EnergyList)
 HAWCparticles = [0]*len(EnergyList)
 HAWCCoord = array( 'd' )
 
-for p in range(Naverage):
+for p in range(Naverage): #Generate showers, extract relevant values and average
     i=0
     for e in EnergyList:
         ShowerE = Shower(e, startHeight)
@@ -296,7 +292,7 @@ for p in range(Naverage):
         HAWCparticles[i] += DistE.GetBinContent(int(4100/BinHeight))/Naverage
         i += 1
 
-for j in AverageHeight : 
+for j in AverageHeight : #turn data into arrays for graph
     HeightCoord.append(j)
     HeightCoordErr.append(j/sqrt(Naverage))
 for e in EnergyList: 
@@ -339,11 +335,11 @@ YaverageRadius = 0.0
 map = 0
 for k in range(Ntest):
     HAWCshower = Shower(2500000, startHeight) #Energy at approx 100 particles@HAWC
-    map = HAWCmap(HAWCshower, 4100.0)
+    map = HAWCmap(HAWCshower, 4100.0) #Generate XY maps of the showers
     XaverageRadius += map.GetRMS(1)/Ntest
     YaverageRadius += map.GetRMS(2)/Ntest
 MapCanvas = ROOT.TCanvas("MapCanvas","Map of XY plane HAWC", 1000,1000 )
-gStyle.SetOptStat()
+MapCanvas.SetOptStat()
 map.Draw("colz")
 MapCanvas/Modified()
 MapCanvas.Update()
