@@ -43,7 +43,7 @@ def plot_shower( shower ,
     ROOT.TGaxis.SetMaxDigits(3)
     h.GetXaxis().SetTitleOffset(1.7)
     h.GetYaxis().SetTitleOffset(1.7)
-    h.GetZaxis().SetTitleOffset(1.7)
+    h.GetZaxis().SetTitleOffset(1.0)
     h.SetXTitle("x-axis (km)")
     h.SetYTitle("y-axis (km)")
     h.SetZTitle("Height (m)")
@@ -235,15 +235,15 @@ startHeight = 50000 #in meter
 startEnergy = 100000 #in MeV
 
 Shower100GeV = Shower(startEnergy,startHeight)
-plot1 = plot_shower(Shower100GeV, "Shower with photon of 100GeV", 10, startHeight, "canv100GeV")
+plot1 = plot_shower(Shower100GeV, "Shower with photon of 100GeV", 10, startHeight*0.75, "canv100GeV")
 
 startEnergy = 1000000 #in MeV
 Shower1TeV = Shower(startEnergy,startHeight)
-plot2 = plot_shower(Shower1TeV, "Shower with photon of 1TeV", 10, startHeight, "canv1TeV")
+plot2 = plot_shower(Shower1TeV, "Shower with photon of 1TeV", 10, startHeight*0.75, "canv1TeV")
 
 startEnergy = 10000000 #in MeV
 Shower10TeV = Shower(startEnergy,startHeight)
-plot3 = plot_shower(Shower10TeV, "Shower with photon of 10TeV", 10, startHeight, "canv10TeV")
+plot3 = plot_shower(Shower10TeV, "Shower with photon of 10TeV", 10, startHeight*0.75, "canv10TeV")
 
 #####################
 #assignment c
