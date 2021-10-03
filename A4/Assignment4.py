@@ -327,7 +327,7 @@ HAWCCoord = array( 'd' )
 #CanvHAWC.Update()
 #CanvHAWC.Modified()
 
-Ntest =1
+Ntest = 10
 XaverageRadius = 0.0
 YaverageRadius = 0.0
 TestCanvas = ROOT.TCanvas("TestCanvas","Dummy Title", 1000,1000 )
