@@ -234,16 +234,16 @@ print("height at mean free path is: ",  -a* log((380/(a*rho0)) + exp(-10000000/a
 startHeight = 50000 #in meter
 startEnergy = 100000 #in MeV
 
-Shower100GeV = Shower(startEnergy,startHeight)
-plot1 = plot_shower(Shower100GeV, "Shower with photon of 100GeV", 10, startHeight*0.75, "canv100GeV")
+#Shower100GeV = Shower(startEnergy,startHeight)
+#plot1 = plot_shower(Shower100GeV, "Shower with photon of 100GeV", 10, startHeight*0.75, "canv100GeV")
 
-startEnergy = 1000000 #in MeV
-Shower1TeV = Shower(startEnergy,startHeight)
-plot2 = plot_shower(Shower1TeV, "Shower with photon of 1TeV", 10, startHeight*0.75, "canv1TeV")
+#startEnergy = 1000000 #in MeV
+#Shower1TeV = Shower(startEnergy,startHeight)
+#plot2 = plot_shower(Shower1TeV, "Shower with photon of 1TeV", 10, startHeight*0.75, "canv1TeV")
 
-startEnergy = 10000000 #in MeV
-Shower10TeV = Shower(startEnergy,startHeight)
-plot3 = plot_shower(Shower10TeV, "Shower with photon of 10TeV", 10, startHeight*0.75, "canv10TeV")
+#startEnergy = 10000000 #in MeV
+#Shower10TeV = Shower(startEnergy,startHeight)
+#plot3 = plot_shower(Shower10TeV, "Shower with photon of 10TeV", 10, startHeight*0.75, "canv10TeV")
 
 #####################
 #assignment c
@@ -329,7 +329,7 @@ HAWCCoord = array( 'd' )
 #####################
 #assignment e
 #####################
-Ntest = 10
+Ntest = 100
 XaverageRadius = 0.0
 YaverageRadius = 0.0
 map = 0
