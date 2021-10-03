@@ -263,6 +263,7 @@ HeightCoordErr = array( 'd' )
 BinHeight = startHeight/Nbins
 AverageHeight = [0]*len(EnergyList)
 HAWCparticles = [0]*len(EnergyList)
+HAWCCoord = array( 'd' )
 
 for p in range(Naverage):
     i=0
@@ -280,7 +281,8 @@ for j in AverageHeight :
 for e in EnergyList: 
     EnergyCoord.append(e)
     EnergyCoordErr.append(0)
-    
+for h in HAWCparticles:
+    HAWCCoord.append(h)
 
 CanvMaxParticles = ROOT.TCanvas("CanvMaxParticles","Height of max particles as function of E", 1000,1000 )
 Graph = ROOT.TGraphErrors(len(EnergyList), EnergyCoord, HeightCoord, EnergyCoordErr, HeightCoordErr)
@@ -298,7 +300,7 @@ CanvMaxParticles.Modified()
 
 
 CanvHAWC = ROOT.TCanvas("CanvHAWC","HAWC measured particles versus Energy", 1000,1000 )
-GraphHAWC = ROOT.TGraph(len(EnergyList), EnergyCoord, HAWCparticles)
+GraphHAWC = ROOT.TGraph(len(EnergyList), EnergyCoord, HAWCCoord)
 CanvHAWC.SetLogx()
 #GraphHAWC.SetLineColor( 2 )
 #GraphHAWC.SetLineWidth( 4 )
