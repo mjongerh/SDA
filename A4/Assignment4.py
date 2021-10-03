@@ -287,7 +287,7 @@ for h in HAWCparticles:
 CanvMaxParticles = ROOT.TCanvas("CanvMaxParticles","Height of max particles as function of E", 1000,1000 )
 Graph = ROOT.TGraphErrors(len(EnergyList), EnergyCoord, HeightCoord, EnergyCoordErr, HeightCoordErr)
 CanvMaxParticles.SetLogx()
-GraphFit = Graph.Fit("expo")
+GraphFit = Graph.Fit("pol3")
 #GraphFit.SetLineColor(2)
 #Graph.SetLineColor( 2 )
 #Graph.SetLineWidth( 4 )
