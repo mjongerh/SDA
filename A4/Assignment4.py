@@ -223,16 +223,16 @@ def CreateHeightDistribution(generations, nbins, startheight):
 startHeight = 50000 #in meter
 startEnergy = 100000 #in MeV
 
-Shower100GeV = Shower(startEnergy,startHeight)
-plot1 = plot_shower(Shower100GeV, "Shower with photon of 100GeV", 10, startHeight, "canv100GeV")
+#Shower100GeV = Shower(startEnergy,startHeight)
+#plot1 = plot_shower(Shower100GeV, "Shower with photon of 100GeV", 10, startHeight, "canv100GeV")
 
-startEnergy = 1000000 #in MeV
-Shower1TeV = Shower(startEnergy,startHeight)
-plot2 = plot_shower(Shower1TeV, "Shower with photon of 1TeV", 10, startHeight, "canv1TeV")
+#startEnergy = 1000000 #in MeV
+#Shower1TeV = Shower(startEnergy,startHeight)
+#plot2 = plot_shower(Shower1TeV, "Shower with photon of 1TeV", 10, startHeight, "canv1TeV")
 
-startEnergy = 10000000 #in MeV
-Shower10TeV = Shower(startEnergy,startHeight)
-plot3 = plot_shower(Shower10TeV, "Shower with photon of 10TeV", 10, startHeight, "canv10TeV")
+#startEnergy = 10000000 #in MeV
+#Shower10TeV = Shower(startEnergy,startHeight)
+#plot3 = plot_shower(Shower10TeV, "Shower with photon of 10TeV", 10, startHeight, "canv10TeV")
 
 #####################
 #assignment c
@@ -260,8 +260,9 @@ EnergyCoord =array( 'd' )
 EnergyCoordErr =array( 'd' )
 HeightCoord = array( 'd' )
 HeightCoordErr = array( 'd' )
-BinRatio = startHeight/Nbins
-AverageHeight = [0]*Naverage
+BinHeight = startHeight/Nbins
+AverageHeight = [0]*len(EnergyList)
+HAWCparticles = [0]*len(EnergyList)
 
 for p in range(Naverage):
     i=0
@@ -269,7 +270,8 @@ for p in range(Naverage):
         ShowerE = Shower(e, startHeight)
         DistE = (CreateHeightDistribution(ShowerE, Nbins, startHeight))
         MaxBin = DistE.GetMaximumBin()
-        AverageHeight[i] += MaxBin*BinRatio/Naverage
+        AverageHeight[i] += MaxBin*BinHeight/Naverage
+        HAWCparticles[i] += GetBinContent(int(4100/BinHeight))/Naverage
         i += 1
 
 for j in AverageHeight : 
@@ -281,7 +283,7 @@ for e in EnergyList:
     
 
 CanvMaxParticles = ROOT.TCanvas("CanvMaxParticles","Height of max particles as function of E", 1000,1000 )
-Graph = ROOT.TGraphErrors(10, EnergyCoord, HeightCoord, EnergyCoordErr, HeightCoordErr)
+Graph = ROOT.TGraphErrors(len(EnergyList), EnergyCoord, HeightCoord, EnergyCoordErr, HeightCoordErr)
 CanvMaxParticles.SetLogx()
 #Graph.SetLineColor( 2 )
 #Graph.SetLineWidth( 4 )
@@ -294,6 +296,20 @@ Graph.Draw("ap")
 CanvMaxParticles.Update()
 CanvMaxParticles.Modified()
 
+
+CanvHAWC = ROOT.TCanvas("CanvHAWC","HAWC measured particles versus Energy", 1000,1000 )
+GraphHAWC = ROOT.TGraph(len(EnergyList), EnergyCoord, HAWCparticles)
+CanvHAWC.SetLogx()
+#GraphHAWC.SetLineColor( 2 )
+#GraphHAWC.SetLineWidth( 4 )
+#GraphHAWC.SetMarkerColor( 4 )
+GraphHAWC.SetMarkerStyle(3)
+GraphHAWC.SetTitle( 'HAWC measured particles versus Energy' )
+GraphHAWC.GetXaxis().SetTitle( 'Energy initial photon (GeV/c^2)' )
+GraphHAWC.GetYaxis().SetTitle( 'Number of particles measured by HAWC' )
+GraphHAWC.Draw("ap")
+CanvHAWC.Update()
+CanvHAWC.Modified()
 ###############
 #TEST AREA ONLY, enter at your own risk
 ###############
