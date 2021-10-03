@@ -45,7 +45,7 @@ def plot_shower( shower ,
     
     h.GetXaxis().SetTitleOffset(1.7)
     h.GetYaxis().SetTitleOffset(1.7)
-    h.GetZaxis().SetTitleOffset(1.7)
+    #h.GetZaxis().SetTitleOffset(1.7)
     h.SetXTitle("x-axis (km)")
     h.SetYTitle("y-axis (km)")
     h.SetZTitle("Height (m)")
