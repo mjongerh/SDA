@@ -159,7 +159,7 @@ def GenNewPart(oldparticle):
         NewParticle1.end_pos = NewParticle1.start_pos
     
     if NewParticle2.energy >= 85.0 :
-        Theta2 = 0.510998950/NewParticle2.energy
+        Theta2 = -0.510998950/NewParticle2.energy
         TestRanT.Fill(Theta2)
         if abs(Theta2) > 0.01 : print("T2= "+ str(Theta2) + "    E2= " + str(NewParticle2.energy))
         NewParticle2.direction = direction_at_angle(oldparticle.direction, Theta2, pi + phiRan)
@@ -189,7 +189,7 @@ def Shower(startenergy, startheight):
             EndOfShower = 0
             if particle.energy >= 85.0 :            #make them move if they have energy left
                 HeightAtDecay = compute_height(particle.start_pos, Column_density[particle.kind] )
-                particle.end_pos = particle.start_pos + (particle.start_pos.Z() - HeightAtDecay) * particle.direction
+                particle.end_pos = particle.start_pos + (particle.start_pos.Z() - HeightAtDecay) * particle.direction.unit()
                 NewParts = GenNewPart(particle)                #create 2 new particles, calc their properties
                 NewParticles.append(NewParts[0])
                 NewParticles.append(NewParts[1])
