@@ -339,6 +339,7 @@ for k in range(Ntest):
     XaverageRadius += map.GetRMS(1)/Ntest
     YaverageRadius += map.GetRMS(2)/Ntest
 map.Draw("colz")
+print("entries " + str(map.GetEntries()))
 plot3 = plot_shower(HAWCshower, "Shower with photon of 10TeV", 10, startHeight, "canv10TeV")
 print("HAWC radius results:")
 print("X Average radius = " + str(XaverageRadius))
