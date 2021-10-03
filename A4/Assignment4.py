@@ -273,7 +273,9 @@ EnergyList = [100000.0, 150000.0, 250000.0, 500000.0, 750000.0, 1250000.0, 30000
 #numpy.logspace(5, 7, 10, dtype = 'float', endpoint=True).tolist()
 print(EnergyList)
 EnergyCoord =array( 'd' )
+EnergyCoordErr =array( 'd' )
 HeightCoord = array( 'd' )
+HeightCoordErr = array( 'd' )
 BinRatio = startHeight/Nbins
 #DistE = []
 AverageHeight = [0]*Naverage
@@ -291,12 +293,16 @@ for i in range(Naverage):
         AverageHeight[i] += MaxBin*BinRatio/Naverage
         i += 1
 
-for j in AverageHeight : HeightCoord.append(j)
-for e in EnergyList: EnergyCoord.append(e)
+for j in AverageHeight : 
+    HeightCoord.append(j)
+    HeightCoordErr.append(j/sqrt(Naverage))
+for e in EnergyList: 
+    EnergyCoord.append(e)
+    EnergyCoordErr.append(0)
     
 
 CanvMaxParticles = ROOT.TCanvas("CanvMaxParticles","Height of max particles as function of E", 1000,1000 )
-Graph = ROOT.TGraph(10, EnergyCoord, HeightCoord)
+Graph = ROOT.TGraphError(10, EnergyCoord, HeightCoord, EnergyCoordErr, HeightCoordErr)
 CanvMaxParticles.SetLogx()
 Graph.SetLineColor( 2 )
 Graph.SetLineWidth( 4 )
@@ -305,15 +311,15 @@ Graph.SetMarkerStyle( 21 )
 Graph.SetTitle( 'a simple graph' )
 Graph.GetXaxis().SetTitle( 'X title' )
 Graph.GetYaxis().SetTitle( 'Y title' )
-Graph.Draw( 'ACP' )
+Graph.Draw( 'AP' )
 CanvMaxParticles.Update()
 CanvMaxParticles.Modified()
 
 ###############
 #TEST AREA ONLY, enter at your own risk
 ###############
-TestCanvas = ROOT.TCanvas("TestCanvas","Dummy Title", 1000,1000 )
+#TestCanvas = ROOT.TCanvas("TestCanvas","Dummy Title", 1000,1000 )
 #TestRanE = ROOT.TH1D("TestRanE", "distribution of random energy", 100, 0, 1)
 #for i in range(10000):
 #    TestRanE.Fill(RandomEnergy())
-TestRanT.Draw()
+#TestRanT.Draw()
