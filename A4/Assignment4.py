@@ -266,27 +266,34 @@ Hdist10TeV.Draw()
 #####################
 #assignment d
 #####################
-HeightDistCanvC = ROOT.TCanvas("HeightDistCanvC","Height dist. of 10TeV photon", 2000,500 )
-HeightDistCanvC.Divide(5,2)
-PANIC=0
+#HeightDistCanvC = ROOT.TCanvas("HeightDistCanvC","Height dist. of 10TeV photon", 2000,500 )
+#HeightDistCanvC.Divide(5,2)
+Naverage = 10
 EnergyList = [100000.0, 150000.0, 250000.0, 500000.0, 750000.0, 1250000.0, 3000000.0, 3500000.0, 6000000.0, 10000000.0]
 #numpy.logspace(5, 7, 10, dtype = 'float', endpoint=True).tolist()
 print(EnergyList)
 EnergyCoord =array( 'd' )
 HeightCoord = array( 'd' )
 BinRatio = startHeight/Nbins
-DistE = []
-for e in EnergyList:
-    ShowerE = Shower(e, startHeight)
-    DistE.append(CreateHeightDistribution(ShowerE, Nbins, startHeight))
-    HeightDistCanvC.cd(PANIC+1)
-    DistE[PANIC].Draw()
-    HeightDistCanvC.Modified()
-    HeightDistCanvC.Update()
-    MaxBin = DistE[PANIC].GetMaximumBin()
-    EnergyCoord.append(e)
-    HeightCoord.append(float(MaxBin*BinRatio))
-    PANIC += 1
+#DistE = []
+AverageHeight = [0]*Naverage
+
+for i in range(Naverage):
+    i=0
+    for e in EnergyList:
+        ShowerE = Shower(e, startHeight)
+        DistE = (CreateHeightDistribution(ShowerE, Nbins, startHeight))
+        #HeightDistCanvC.cd(PANIC+1)
+        #DistE[PANIC].Draw()
+        HeightDistCanvC.Modified()
+        HeightDistCanvC.Update()
+        MaxBin = DistE.GetMaximumBin()
+        AverageHeight[i] += MaxBin*BinRatio/Naverage
+        i += 1
+
+for j in AverageHeight : HeightCoord.append(j)
+for e in EnergyList: EnergyCoord.append(e)
+    
 
 CanvMaxParticles = ROOT.TCanvas("CanvMaxParticles","Height of max particles as function of E", 1000,1000 )
 Graph = ROOT.TGraph(10, EnergyCoord, HeightCoord)
