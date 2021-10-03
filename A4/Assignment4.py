@@ -230,9 +230,9 @@ startEnergy = 100000 #in MeV
 #Shower1TeV = Shower(startEnergy,startHeight)
 #plot2 = plot_shower(Shower1TeV, "Shower with photon of 1TeV", 10, startHeight, "canv1TeV")
 
-#startEnergy = 10000000 #in MeV
-#Shower10TeV = Shower(startEnergy,startHeight)
-#plot3 = plot_shower(Shower10TeV, "Shower with photon of 10TeV", 10, startHeight, "canv10TeV")
+startEnergy = 6000000 #in MeV
+Shower10TeV = Shower(startEnergy,startHeight)
+plot3 = plot_shower(Shower10TeV, "Shower with photon of 10TeV", 10, startHeight, "canv10TeV")
 
 #####################
 #assignment c
