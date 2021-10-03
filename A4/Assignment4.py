@@ -230,9 +230,9 @@ startEnergy = 100000 #in MeV
 #Shower1TeV = Shower(startEnergy,startHeight)
 #plot2 = plot_shower(Shower1TeV, "Shower with photon of 1TeV", 10, startHeight, "canv1TeV")
 
-startEnergy = 6000000 #in MeV
-Shower10TeV = Shower(startEnergy,startHeight)
-plot3 = plot_shower(Shower10TeV, "Shower with photon of 10TeV", 10, startHeight, "canv10TeV")
+#startEnergy = 10000000 #in MeV
+#Shower10TeV = Shower(startEnergy,startHeight)
+#plot3 = plot_shower(Shower10TeV, "Shower with photon of 10TeV", 10, startHeight, "canv10TeV")
 
 #####################
 #assignment c
@@ -253,7 +253,7 @@ Nbins = 100 #Slice the height in bins
 #####################
 #assignment d
 #####################
-Naverage = 10
+Naverage = 100
 EnergyList = [100000.0, 150000.0, 250000.0, 500000.0, 750000.0, 1250000.0, 2000000.0, 3500000.0, 6000000.0, 10000000.0]
 print(EnergyList)
 EnergyCoord =array( 'd' )
