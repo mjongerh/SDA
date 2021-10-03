@@ -268,8 +268,6 @@ for p in range(Naverage):
     for e in EnergyList:
         ShowerE = Shower(e, startHeight)
         DistE = (CreateHeightDistribution(ShowerE, Nbins, startHeight))
-        HeightDistCanvC.Modified()
-        HeightDistCanvC.Update()
         MaxBin = DistE.GetMaximumBin()
         AverageHeight[i] += MaxBin*BinRatio/Naverage
         i += 1
