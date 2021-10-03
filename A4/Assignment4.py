@@ -269,7 +269,8 @@ Hdist10TeV.Draw()
 HeightDistCanvC = ROOT.TCanvas("HeightDistCanvC","Height dist. of 10TeV photon", 2000,500 )
 HeightDistCanvC.Divide(5,2)
 PANIC=0
-EnergyList = numpy.logspace(5, 7, 10, dtype = 'float', endpoint=True).tolist()
+EnergyList = [100000.0, 150000.0, 250000.0, 500000.0, 750000.0, 1250000.0, 3000000.0, 3500000.0, 6000000.0, 10000000.0]
+#numpy.logspace(5, 7, 10, dtype = 'float', endpoint=True).tolist()
 print(EnergyList)
 EnergyCoord =array( 'd' )
 HeightCoord = array( 'd' )
