@@ -40,10 +40,10 @@ def plot_shower( shower ,
                   1, -xysize,xysize,
                   1, -xysize,xysize,
                   1, 0, zsize)
-    
+    TGaxis.SetMaxDigits(2)
     h.GetXaxis().SetTitleOffset(1.7)
     h.GetYaxis().SetTitleOffset(1.7)
-    #h.GetZaxis().SetTitleOffset(1.7)
+    h.GetZaxis().SetTitleOffset(1.7)
     h.SetXTitle("x-axis (km)")
     h.SetYTitle("y-axis (km)")
     h.SetZTitle("Height (m)")
@@ -339,7 +339,6 @@ for k in range(Ntest):
     XaverageRadius += map.GetRMS(1)/Ntest
     YaverageRadius += map.GetRMS(2)/Ntest
 MapCanvas = ROOT.TCanvas("MapCanvas","Map of XY plane HAWC", 1000,1000 )
-MapCanvas.SetOptStat()
 map.Draw("colz")
 MapCanvas/Modified()
 MapCanvas.Update()
