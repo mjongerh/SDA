@@ -148,8 +148,10 @@ def GenNewPart(oldparticle):
     NewParticle1.energy = RandomEnergy() * oldparticle.energy
     NewParticle2.energy = oldparticle.energy - NewParticle1.energy
     phiRan = ROOT.gRandom.Rndm() * 2 * pi #random direction for phi
-    NewParticle1.direction = direction_at_angle(oldparticle.direction, 0.510998950/NewParticle1.energy, phiRan)
-    NewParticle2.direction = direction_at_angle(oldparticle.direction, -0.510998950/NewParticle2.energy,  pi+phiRan)
+    Theta1 = 0.510998950/NewParticle1.energy
+    Theta2 = -0.510998950/NewParticle2.energy
+    NewParticle1.direction = direction_at_angle(oldparticle.direction, Theta1, phiRan)
+    NewParticle2.direction = direction_at_angle(oldparticle.direction, Theta2,  pi+phiRan)
     #print("NEW"+str(NewParticle1) + str(NewParticle2))
     return NewParticle1, NewParticle2
 
@@ -253,7 +255,7 @@ Hdist10TeV.Draw()
 HeightDistCanvC = ROOT.TCanvas("HeightDistCanvC","Height dist. of 10TeV photon", 2000,500 )
 HeightDistCanvC.Divide(5,2)
 PANIC=0
-EnergyList = numpy.logspace(5, 7, 10, dtype = 'float', endpoint=True).tolist()
+EnergyList = numpy.logspace(5, 7, 1, dtype = 'float', endpoint=True).tolist()
 print(EnergyList)
 EnergyCoord =array( 'd' )
 HeightCoord = array( 'd' )
@@ -272,7 +274,7 @@ for e in EnergyList:
     PANIC += 1
 
 CanvMaxParticles = ROOT.TCanvas("CanvMaxParticles","Height of max particles as function of E", 1000,1000 )
-Graph = ROOT.TGraph(10, EnergyCoord, HeightCoord)
+Graph = ROOT.TGraph(1, EnergyCoord, HeightCoord)
 CanvMaxParticles.SetLogx()
 Graph.SetLineColor( 2 )
 Graph.SetLineWidth( 4 )
