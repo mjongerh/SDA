@@ -282,49 +282,49 @@ AverageHeight = [0]*len(EnergyList)
 HAWCparticles = [0]*len(EnergyList)
 HAWCCoord = array( 'd' )
 
-for p in range(Naverage): #Generate showers, extract relevant values and average
-    i=0
-    for e in EnergyList:
-        ShowerE = Shower(e, startHeight)
-        DistE = (CreateHeightDistribution(ShowerE, Nbins, startHeight))
-        MaxBin = DistE.GetMaximumBin()
-        AverageHeight[i] += MaxBin*BinHeight/Naverage
-        HAWCparticles[i] += DistE.GetBinContent(int(4100/BinHeight))/Naverage
-        i += 1
+#for p in range(Naverage): #Generate showers, extract relevant values and average
+#    i=0
+#    for e in EnergyList:
+#        ShowerE = Shower(e, startHeight)
+#        DistE = (CreateHeightDistribution(ShowerE, Nbins, startHeight))
+#        MaxBin = DistE.GetMaximumBin()
+#        AverageHeight[i] += MaxBin*BinHeight/Naverage
+#        HAWCparticles[i] += DistE.GetBinContent(int(4100/BinHeight))/Naverage
+#        i += 1
 
-for j in AverageHeight : #turn data into arrays for graph
-    HeightCoord.append(j)
-    HeightCoordErr.append(j/sqrt(Naverage))
-for e in EnergyList: 
-    EnergyCoord.append(e)
-    EnergyCoordErr.append(0)
-for h in HAWCparticles:
-    HAWCCoord.append(h)
+#for j in AverageHeight : #turn data into arrays for graph
+#    HeightCoord.append(j)
+#    HeightCoordErr.append(j/sqrt(Naverage))
+#for e in EnergyList: 
+#    EnergyCoord.append(e)
+#    EnergyCoordErr.append(0)
+#for h in HAWCparticles:
+#    HAWCCoord.append(h)
 
-CanvMaxParticles = ROOT.TCanvas("CanvMaxParticles","Height of max particles as function of E", 1000,1000 )
-Graph = ROOT.TGraphErrors(len(EnergyList), EnergyCoord, HeightCoord, EnergyCoordErr, HeightCoordErr)
-CanvMaxParticles.SetLogx()
-GraphFit = Graph.Fit("pol2")
-Graph.SetMarkerStyle(3)
-Graph.SetTitle( 'H_{max} versus Energy' )
-Graph.GetXaxis().SetTitle( 'Energy initial photon (GeV/c^2)' )
-Graph.GetYaxis().SetTitle( 'Height of maximum amount of charged particles' )
-Graph.Draw("ap")
-CanvMaxParticles.Update()
-CanvMaxParticles.Modified()
+#CanvMaxParticles = ROOT.TCanvas("CanvMaxParticles","Height of max particles as function of E", 1000,1000 )
+#Graph = ROOT.TGraphErrors(len(EnergyList), EnergyCoord, HeightCoord, EnergyCoordErr, HeightCoordErr)
+#CanvMaxParticles.SetLogx()
+#GraphFit = Graph.Fit("pol2")
+#Graph.SetMarkerStyle(3)
+#Graph.SetTitle( 'H_{max} versus Energy' )
+#Graph.GetXaxis().SetTitle( 'Energy initial photon (GeV/c^2)' )
+#Graph.GetYaxis().SetTitle( 'Height of maximum amount of charged particles' )
+#Graph.Draw("ap")
+#CanvMaxParticles.Update()
+#CanvMaxParticles.Modified()
 
 
-CanvHAWC = ROOT.TCanvas("CanvHAWC","HAWC measured particles versus Energy", 1000,1000 )
-GraphHAWC = ROOT.TGraph(len(EnergyList), EnergyCoord, HAWCCoord)
-CanvHAWC.SetLogx()
-GraphHAWCFit = GraphHAWC.Fit("expo")
-GraphHAWC.SetMarkerStyle(3)
-GraphHAWC.SetTitle( 'HAWC measured particles versus Energy' )
-GraphHAWC.GetXaxis().SetTitle( 'Energy initial photon (GeV/c^2)' )
-GraphHAWC.GetYaxis().SetTitle( 'Number of particles measured by HAWC' )
-GraphHAWC.Draw("ap")
-CanvHAWC.Update()
-CanvHAWC.Modified()
+#CanvHAWC = ROOT.TCanvas("CanvHAWC","HAWC measured particles versus Energy", 1000,1000 )
+#GraphHAWC = ROOT.TGraph(len(EnergyList), EnergyCoord, HAWCCoord)
+#CanvHAWC.SetLogx()
+#GraphHAWCFit = GraphHAWC.Fit("expo")
+#GraphHAWC.SetMarkerStyle(3)
+#GraphHAWC.SetTitle( 'HAWC measured particles versus Energy' )
+#GraphHAWC.GetXaxis().SetTitle( 'Energy initial photon (GeV/c^2)' )
+#GraphHAWC.GetYaxis().SetTitle( 'Number of particles measured by HAWC' )
+#GraphHAWC.Draw("ap")
+#CanvHAWC.Update()
+#CanvHAWC.Modified()
 
 #####################
 #assignment e
