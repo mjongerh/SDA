@@ -149,15 +149,23 @@ def GenNewPart(oldparticle):
     NewParticle1.energy = RandomEnergy() * oldparticle.energy
     NewParticle2.energy = oldparticle.energy - NewParticle1.energy
     phiRan = ROOT.gRandom.Rndm() * 2 * pi #random direction for phi
-    Theta1 = 0.510998950/NewParticle1.energy
-    Theta2 = -0.510998950/NewParticle2.energy
-    TestRanT.Fill(Theta1)
-    TestRanT.Fill(Theta2)
-    if abs(Theta1) > 0.01 : print("T1= "+ str(Theta1) + "    E1= " + str(NewParticle1.energy))
-    if abs(Theta1) > 0.01 : print("T2= "+ str(Theta2) + "    E2= " + str(NewParticle2.energy))
-
-    NewParticle1.direction = direction_at_angle(oldparticle.direction, Theta1, phiRan)
-    NewParticle2.direction = direction_at_angle(oldparticle.direction, Theta2,  pi+phiRan)
+    if NewParticle1.energy >= 85.0 :
+        Theta1 = 0.510998950/NewParticle1.energy
+        TestRanT.Fill(Theta1)
+        if abs(Theta1) > 0.01 : print("T1= "+ str(Theta1) + "    E1= " + str(NewParticle1.energy))
+        NewParticle1.direction = direction_at_angle(oldparticle.direction, Theta1, phiRan)
+    else : 
+        NewParticle1.direction = oldparticle.direction
+        NewParticle1.end_pos = NewParticle1.start_pos
+    
+    if NewParticle2.energy >= 85.0 :
+        Theta2 = 0.510998950/NewParticle2.energy
+        TestRanT.Fill(Theta1)
+        if abs(Theta2) > 0.01 : print("T2= "+ str(Theta2) + "    E2= " + str(NewParticle2.energy))
+        NewParticle2.direction = direction_at_angle(oldparticle.direction, Theta2, pi + phiRan)
+    else : 
+        NewParticle2.direction = oldparticle.direction
+        NewParticle2.end_pos = NewParticle2.start_pos
     #print("NEW"+str(NewParticle1) + str(NewParticle2))
     return NewParticle1, NewParticle2
 
