@@ -202,7 +202,7 @@ def CreateHeightDistribution(generations, nbins, startheight):
     return HeightDist
 
 def HAWCmap(generations, heigth):
-    hHAWCmap = ROOT.TH2D(hHAWCmap, "distribution of particles at height of HAWC", 100, -10,10, 100, -10, 10)
+    hHAWCmap = ROOT.TH2D("hHAWCmap", "distribution of particles at height of HAWC", 100, -10,10, 100, -10, 10)
     for Gen in generations:
         for Part in Gen:
             if Part.end_pos.Z() < height and Part.start_pos.Z() > height:
@@ -331,12 +331,13 @@ Ntest =1
 XaverageRadius = 0.0
 YaverageRadius = 0.0
 TestCanvas = ROOT.TCanvas("TestCanvas","Dummy Title", 1000,1000 )
+map = 0
 for k in range(Ntest):
     HAWCshower = Shower(2000000, startHeight) #Energy at approx 100 particles@HAWC
     map = HAWCmap(HAWCshower, 4100)
     XaverageRadius += map.GetRMS(1)/Ntest
     YaverageRadius += map.GetRMS(2)/Ntest
-    map.draw()
+map.draw()
 print("HAWC radius results:")
 print("X Average radius = " + str(XaverageRadius))
 print("Y Average radius = " + str(YaverageRadius))
