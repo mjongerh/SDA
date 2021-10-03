@@ -280,13 +280,11 @@ BinRatio = startHeight/Nbins
 #DistE = []
 AverageHeight = [0]*Naverage
 
-for i in range(Naverage):
+for p in range(Naverage):
     i=0
     for e in EnergyList:
         ShowerE = Shower(e, startHeight)
         DistE = (CreateHeightDistribution(ShowerE, Nbins, startHeight))
-        #HeightDistCanvC.cd(PANIC+1)
-        #DistE[PANIC].Draw()
         HeightDistCanvC.Modified()
         HeightDistCanvC.Update()
         MaxBin = DistE.GetMaximumBin()
