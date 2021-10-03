@@ -337,7 +337,7 @@ for k in range(Ntest):
     map = HAWCmap(HAWCshower, 4100)
     XaverageRadius += map.GetRMS(1)/Ntest
     YaverageRadius += map.GetRMS(2)/Ntest
-map.draw()
+map.Draw()
 print("HAWC radius results:")
 print("X Average radius = " + str(XaverageRadius))
 print("Y Average radius = " + str(YaverageRadius))
