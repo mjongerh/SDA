@@ -271,7 +271,7 @@ for p in range(Naverage):
         DistE = (CreateHeightDistribution(ShowerE, Nbins, startHeight))
         MaxBin = DistE.GetMaximumBin()
         AverageHeight[i] += MaxBin*BinHeight/Naverage
-        HAWCparticles[i] += GetBinContent(int(4100/BinHeight))/Naverage
+        HAWCparticles[i] += DistE.GetBinContent(int(4100/BinHeight))/Naverage
         i += 1
 
 for j in AverageHeight : 
