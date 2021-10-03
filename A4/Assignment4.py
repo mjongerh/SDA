@@ -160,7 +160,7 @@ def GenNewPart(oldparticle):
     
     if NewParticle2.energy >= 85.0 :
         Theta2 = 0.510998950/NewParticle2.energy
-        TestRanT.Fill(Theta1)
+        TestRanT.Fill(Theta2)
         if abs(Theta2) > 0.01 : print("T2= "+ str(Theta2) + "    E2= " + str(NewParticle2.energy))
         NewParticle2.direction = direction_at_angle(oldparticle.direction, Theta2, pi + phiRan)
     else : 
