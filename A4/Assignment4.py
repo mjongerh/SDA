@@ -135,7 +135,6 @@ def RandomEnergy():
     quit()
 
 def GenNewPart(oldparticle):
-    #print("OLD" + str(oldparticle))
     NewParticle1 = Particle()
     NewParticle2 = Particle()
     if oldparticle.kind == 1 : #if old = photon, gen electron + positron
@@ -148,25 +147,13 @@ def GenNewPart(oldparticle):
     NewParticle2.start_pos = oldparticle.end_pos
     NewParticle1.energy = RandomEnergy() * oldparticle.energy
     NewParticle2.energy = oldparticle.energy - NewParticle1.energy
-    phiRan = ROOT.gRandom.Rndm() * 2 * pi #random direction for phi
-    if NewParticle1.energy >= 85.0 :
-        Theta1 = mc2/NewParticle1.energy
-        TestRanT.Fill(Theta1)
-        if abs(Theta1) > 0.01 : print("T1= "+ str(Theta1) + "    E1= " + str(NewParticle1.energy))
-        NewParticle1.direction = direction_at_angle(oldparticle.direction, Theta1, phiRan)
-    else : 
-        NewParticle1.direction = oldparticle.direction
-        NewParticle1.end_pos = NewParticle1.start_pos
     
-    if NewParticle2.energy >= 85.0 :
-        Theta2 = -mc2/NewParticle2.energy
-        TestRanT.Fill(Theta2)
-        if abs(Theta2) > 0.01 : print("T2= "+ str(Theta2) + "    E2= " + str(NewParticle2.energy))
-        NewParticle2.direction = direction_at_angle(oldparticle.direction, Theta2, pi + phiRan)
-    else : 
-        NewParticle2.direction = oldparticle.direction
-        NewParticle2.end_pos = NewParticle2.start_pos
-    #print("NEW"+str(NewParticle1) + str(NewParticle2))
+    phiRan = ROOT.gRandom.Rndm() * 2 * pi #random direction for phi
+    Theta1 = mc2/NewParticle1.energy
+    NewParticle1.direction = direction_at_angle(oldparticle.direction, Theta1, phiRan)
+    Theta2 = -mc2/NewParticle2.energy
+    NewParticle2.direction = direction_at_angle(oldparticle.direction, Theta2, pi + phiRan)
+
     return NewParticle1, NewParticle2
 
 def Shower(startenergy, startheight):
@@ -236,32 +223,32 @@ def CreateHeightDistribution(generations, nbins, startheight):
 startHeight = 50000 #in meter
 startEnergy = 100000 #in MeV
 
-Shower100GeV = Shower(startEnergy,startHeight)
-plot1 = plot_shower(Shower100GeV, "Shower with photon of 100GeV", 10, startHeight, "canv100GeV")
+#Shower100GeV = Shower(startEnergy,startHeight)
+#plot1 = plot_shower(Shower100GeV, "Shower with photon of 100GeV", 10, startHeight, "canv100GeV")
 
-startEnergy = 1000000 #in MeV
-Shower1TeV = Shower(startEnergy,startHeight)
-plot2 = plot_shower(Shower1TeV, "Shower with photon of 1TeV", 10, startHeight, "canv1TeV")
+#startEnergy = 1000000 #in MeV
+#Shower1TeV = Shower(startEnergy,startHeight)
+#plot2 = plot_shower(Shower1TeV, "Shower with photon of 1TeV", 10, startHeight, "canv1TeV")
 
-startEnergy = 10000000 #in MeV
-Shower10TeV = Shower(startEnergy,startHeight)
-plot3 = plot_shower(Shower10TeV, "Shower with photon of 10TeV", 10, startHeight, "canv10TeV")
+#startEnergy = 10000000 #in MeV
+#Shower10TeV = Shower(startEnergy,startHeight)
+#plot3 = plot_shower(Shower10TeV, "Shower with photon of 10TeV", 10, startHeight, "canv10TeV")
 
 #####################
 #assignment c
 #####################
 Nbins = 100 #Slice the height in bins
-HeightDistCanvA = ROOT.TCanvas("HeightDistCanvA","Height dist. of 100GeV photon", 1000,1000 )
-Hdist100GeV = CreateHeightDistribution(Shower100GeV, Nbins, startHeight)
-Hdist100GeV.Draw()
+#HeightDistCanvA = ROOT.TCanvas("HeightDistCanvA","Height dist. of 100GeV photon", 1000,1000 )
+#Hdist100GeV = CreateHeightDistribution(Shower100GeV, Nbins, startHeight)
+#Hdist100GeV.Draw()
 
-HeightDistCanvB = ROOT.TCanvas("HeightDistCanvB","Height dist. of 1TeV photon", 1000,1000 )
-Hdist1TeV = CreateHeightDistribution(Shower1TeV, Nbins, startHeight)
-Hdist1TeV.Draw()
+#HeightDistCanvB = ROOT.TCanvas("HeightDistCanvB","Height dist. of 1TeV photon", 1000,1000 )
+#Hdist1TeV = CreateHeightDistribution(Shower1TeV, Nbins, startHeight)
+#Hdist1TeV.Draw()
 
-HeightDistCanvC = ROOT.TCanvas("HeightDistCanvC","Height dist. of 10TeV photon", 1000,1000 )
-Hdist10TeV = CreateHeightDistribution(Shower10TeV, Nbins, startHeight)
-Hdist10TeV.Draw()
+#HeightDistCanvC = ROOT.TCanvas("HeightDistCanvC","Height dist. of 10TeV photon", 1000,1000 )
+#Hdist10TeV = CreateHeightDistribution(Shower10TeV, Nbins, startHeight)
+#Hdist10TeV.Draw()
 
 #####################
 #assignment d
@@ -301,7 +288,7 @@ CanvMaxParticles.SetLogx()
 #Graph.SetLineColor( 2 )
 #Graph.SetLineWidth( 4 )
 #Graph.SetMarkerColor( 4 )
-#Graph.SetMarkerStyle( 21 )
+Graph.SetMarkerStyle(3)
 Graph.SetTitle( 'H_{max} versus Energy' )
 Graph.GetXaxis().SetTitle( 'Energy initial photon (GeV/c^2)' )
 Graph.GetYaxis().SetTitle( 'Height of maximum amount of charged particles' )
