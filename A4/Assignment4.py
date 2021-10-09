@@ -304,7 +304,7 @@ for h in HAWCparticles:
 CanvMaxParticles = ROOT.TCanvas("CanvMaxParticles","Height of max particles as function of E", 1000,1000 )
 Graph = ROOT.TGraphErrors(len(EnergyList), EnergyCoord, HeightCoord, EnergyCoordErr, HeightCoordErr)
 CanvMaxParticles.SetLogx()
-GraphFit = Graph.Fit("pol1")
+GraphFit = Graph.Fit("pol2")
 Graph.SetMarkerStyle(3)
 Graph.SetTitle( 'H_{max} versus Energy' )
 Graph.GetXaxis().SetTitle( 'Energy initial photon (GeV/c^2)' )
