@@ -25,6 +25,7 @@ hData = infile.Get('hdata')
 hData.Fit('pol0')
 hData.Draw()
 Nbins = hData.GetNbinsX()
+Print("Nbins = "+ str(Nbins) + "with entries: " + str(hData.GetEntries()))
 BinWidthList = []
 mList = [] #mass at certain point
 yList = [] #how often that mass is measured
