@@ -7,7 +7,7 @@ from math import *
 # Global Settings
 ################
 bRange = numpy.linspace(1.0, 5.0, 100) #range over which to test b
-aRange = numpy.linspace(-5.0, -0.2, 100) #range over which to test a
+aRange = numpy.linspace(-50.0, -0.2, 100) #range over which to test a
 
 ################
 # Global Functions
@@ -71,15 +71,15 @@ while i < len(bRange):
     while j < len(aRange):
         test = Chi2Test(mList, yList, aRange[j], bRange[i], BinWidthList)
         print(test)
-        hABchi2.SetBinContent(j, i, test)
+        hABchi2.SetBinContent(j, i, 1/test)
         othertest = hABchi2.GetBinContent(j, i)
         print(othertest)
         j += 1
     i += 1
 
 CanvABchi2 = ROOT.TCanvas("CanvABchi2", "Chi^2 as function of a and b", 1000, 1000)
-hABchi2.SetMinimum(70);
-hABchi2.SetMaximum(100);
+#hABchi2.SetMinimum(70);
+#hABchi2.SetMaximum(100);
 hABchi2.Draw("colz")
 CanvABchi2.Modified()
 CanvABchi2.Update()
