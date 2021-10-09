@@ -72,7 +72,7 @@ for i in range(len(bRange)):
         othertest = hABchi2.GetBinContent(int(aRange[j]), int(bRange[i]))
         print(othertest)
 
-CanvABchi2 = ROOT.TCanvas("CanvABchi2", "Chi^2 as function of a and b", 1000, 1000)
+#CanvABchi2 = ROOT.TCanvas("CanvABchi2", "Chi^2 as function of a and b", 1000, 1000)
 hABchi2.Draw()
-CanvABchi2.Modified()
-CanvABchi2.Update()
+#CanvABchi2.Modified()
+#CanvABchi2.Update()
