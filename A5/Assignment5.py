@@ -6,6 +6,8 @@ from math import *
 ################
 # Global Settings
 ################
+bRange = numpy.linspace(1.0, 6.0, 100) #range over which to test b
+aRange = numpy.linspace(-5.0, 0.0, 100) #range over which to test a
 
 ################
 # Global Functions
@@ -14,10 +16,10 @@ def Chi2Test (m, y, a, b, binwidth) : #For function am+b
     chi2 = 0
     index = 0
     while index < len(m) :
-        mui = (a*m[index]+b)*binwidth[index]
+        mui = (a*m[index]+b) #*binwidth[index]
         chi2 += ((y[index]-mui)**2) / (mui**2)
-        print(mui)
-        print(chi2)
+        #print(mui)
+        #print(chi2)
         index += 1
     return chi2
 
@@ -40,7 +42,6 @@ for i in range(Nbins):  #Read the data and put in lists
     mList.append(hData.GetBinCenter(i+1))
     BinWidthList.append(hData.GetBinWidth(i+1))
 
-bRange = numpy.linspace(1.0, 6.0, 100) #range over which to test b
 LbFit = array( 'd' )
 bArray = array( 'd' )
 
@@ -58,3 +59,14 @@ GraphbFlatLikelihood.GetYaxis().SetTitle( 'likelihood response' )
 GraphbFlatLikelihood.Draw("ap")
 CanvbFlatLikelihood.Update()
 CanvbFlatLikelihood.Modified()
+
+################
+# Assignment b
+################
+CanvABchi2 = ROOT.TCanvas("CanvABchi2", "Chi^2 as function of a and b", 1000, 1000)
+hABchi2 = ROOT.TH2D("hABchi2", "Chi^2 as function of a and b", 100, aRange[0], aRange[-1], 100, bRange[0], bRange[-1])
+for i in range(len(bRange)):
+    for j in range(len(aRange)):
+        hABchi2.Fill(aRange[j], bRange[i], Chi2Test(mList, yList, aRange[j], bRange[i], BinWidthList) )
+
+hABchi2.Draw()
