@@ -14,7 +14,7 @@ def Chi2Test (m, y, a, b, binwidth) : #For function am+b
     chi2 = 0
     for i in range(len(m)) :
         mui = (a*m[i]+b)*binwidth[i]
-        chi2 += ((y[i]-mui)**2) / (mui)
+        chi2 += ((y[i]-mui)**2) / (2*mui**2)
     return chi2
 
 ################
