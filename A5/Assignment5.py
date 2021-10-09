@@ -77,7 +77,9 @@ while i < len(bRange):
         j += 1
     i += 1
 
-#CanvABchi2 = ROOT.TCanvas("CanvABchi2", "Chi^2 as function of a and b", 1000, 1000)
+CanvABchi2 = ROOT.TCanvas("CanvABchi2", "Chi^2 as function of a and b", 1000, 1000)
+hABchi2.SetMinimum(70);
+hABchi2.SetMaximum(100);
 hABchi2.Draw("colz")
-#CanvABchi2.Modified()
-#CanvABchi2.Update()
+CanvABchi2.Modified()
+CanvABchi2.Update()
