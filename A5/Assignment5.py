@@ -14,7 +14,7 @@ def Chi2Test (m, y, a, b, binwidth) : #For function am+b
     chi2 = 0
     for i in range(len(m)) :
         mui= (a*m[i]+b)*binwidth[i]
-        chi2 += (y[i]-mui)**2 / mui**2
+        chi2 += ((y[i]-mui)**2) / (mui**2)
     return chi2
 
 ################
@@ -35,12 +35,11 @@ for i in range(Nbins):  #Read the data and put in lists
     BinWidthList.append(hData.GetBinWidth(i))
     Expectedb += hData.GetBinContent(i)/Nbins  #expected value of b is average height of histo
 
-bRange = numpy.linspace(0.0, 10.0, 100) #range over which to test b
+bRange = numpy.linspace(1.0, 4.0, 100) #range over which to test b
 LbFit = array( 'd' )
 bArray = array( 'd' )
 
 for i in range(len(bRange)):
-    if bRange[i] == 0.0 : continue
     LbFit.append(Chi2Test(mList, yList, 0, bRange[i], BinWidthList))
     bArray.append(bRange[i])
 
