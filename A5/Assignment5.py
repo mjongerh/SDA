@@ -36,9 +36,9 @@ yList = [] #how often that mass is measured
 print("Expected for for 0th degree pol: y= " + str(sqrt(hData.GetEntries()/Nbins)))  #Expected (approx) value for y=0m+b = sqrt(Nevents/Nbins)
 
 for i in range(Nbins):  #Read the data and put in lists
-    yList.append(hData.GetBinContent(i))
-    mList.append(hData.GetBinCenter(i))
-    BinWidthList.append(hData.GetBinWidth(i))
+    yList.append(hData.GetBinContent(i+1))
+    mList.append(hData.GetBinCenter(i+1))
+    BinWidthList.append(hData.GetBinWidth(i+1))
 
 bRange = numpy.linspace(1.0, 4.0, 100) #range over which to test b
 LbFit = array( 'd' )
