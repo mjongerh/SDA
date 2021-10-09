@@ -67,6 +67,7 @@ hABchi2 = ROOT.TH2F("hABchi2", "Chi^2 as function of a and b", len(aRange), aRan
 i = 0
 j = 0
 while i < len(bRange):
+    j = 0
     while j < len(aRange):
         test = Chi2Test(mList, yList, aRange[j], bRange[i], BinWidthList)
         print(test)
