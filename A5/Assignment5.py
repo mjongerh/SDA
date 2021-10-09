@@ -7,7 +7,7 @@ from math import *
 # Global Settings
 ################
 bRange = numpy.linspace(1.0, 10.0, 100) #range over which to test b
-aRange = numpy.linspace(-0.1, -0.01, 100) #range over which to test a
+aRange = numpy.linspace(-2.0, -1.0, 100) #range over which to test a
 
 ################
 # Global Functions
@@ -17,9 +17,6 @@ def Chi2Test (m, y, a, b, binwidth) : #For function am+b
     index = 0
     while index < len(m) :
         mui = (a*m[index]+b) #*binwidth[index]
-        if mui == 0.0 : 
-            index += 1
-            continue
         chi2 += ((y[index]-mui)) / (mui)
         #print(mui)
         #print(chi2)
@@ -31,9 +28,6 @@ def LogLikelihood (m, y, a, b, binwidth) : #For function am+b
     index = 0
     while index < len(m) :
         mui = (a*m[index]+b) #*binwidth[index]
-        if mui == 0.0 : 
-            index += 1
-            continue
         LogL += -((y[index]-mui)**2) / (2*mui**2)
         LogL += -log(mui)
         index += 1
