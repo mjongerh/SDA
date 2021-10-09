@@ -12,9 +12,9 @@ from math import *
 ################
 def Chi2Test (m, y, a, b, binwidth) : #For function am+b
     chi2 = 0
-    for i in range(len(m)) :
-        mui = (a*m[i]+b)*binwidth[i]
-        chi2 += ((y[i]-mui)**2) / (mui**2)
+    for i in range(len(m)+1) :
+        mui = (a*m[i+1]+b) #*binwidth[i]
+        chi2 += ((y[i+1]-mui)**2) / (mui**2)
         print(mui)
         print(chi2)
     return chi2
