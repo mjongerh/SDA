@@ -63,12 +63,12 @@ CanvbFlatLikelihood.Modified()
 ################
 # Assignment b
 ################
-hABchi2 = ROOT.TH2F("hABchi2", "Chi^2 as function of a and b", 100, aRange[0], aRange[-1], 100, bRange[0], bRange[-1])
+hABchi2 = ROOT.TH2F("hABchi2", "Chi^2 as function of a and b", 101, aRange[0], aRange[-1], 101, bRange[0], bRange[-1])
 for i in range(len(bRange)):
     for j in range(len(aRange)):
         test = Chi2Test(mList, yList, aRange[j], bRange[i], BinWidthList)
         print(test)
-        hABchi2.SetBinContent(float(aRange[j]), float(bRange[i]), float(test))
+        hABchi2.SetBinContent(int(aRange[j]), int(bRange[i]), float(test))
         othertest = hABchi2.GetBinContent(int(aRange[j]), int(bRange[i]))
         print(othertest)
 
