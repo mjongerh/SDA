@@ -68,7 +68,7 @@ for i in range(len(bRange)):
     for j in range(len(aRange)):
         test = Chi2Test(mList, yList, aRange[j], bRange[i], BinWidthList)
         print(test)
-        hABchi2.SetBinContent(int(aRange[j]), int(bRange[i]), float(test))
+        hABchi2.SetBinContent(int(aRange[j]), int(bRange[i]), 1.123)
         othertest = hABchi2.GetBinContent(int(aRange[j]), int(bRange[i]))
         print(othertest)
 
