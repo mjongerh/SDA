@@ -28,7 +28,7 @@ def Chi2Test (m, y, a, b, binwidth) : #For function am+b
 ################
 infile = ROOT.TFile('assignment5-dataset.root')
 hData = infile.Get('hdata')
-hData.Fit('pol0')
+hData.Fit('pol1')
 hData.Draw()
 Nbins = hData.GetNbinsX()
 print("Nbins = "+ str(Nbins) + "  with entries: " + str(hData.GetEntries()))
@@ -70,10 +70,10 @@ while i < len(bRange):
     j = 0
     while j < len(aRange):
         test = Chi2Test(mList, yList, aRange[j], bRange[i], BinWidthList)
-        print(test)
+        #print(test)
         hABchi2.SetBinContent(j, i, 1/test)
         othertest = hABchi2.GetBinContent(j, i)
-        print(othertest)
+        #print(othertest)
         j += 1
     i += 1
 
