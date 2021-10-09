@@ -23,6 +23,15 @@ def Chi2Test (m, y, a, b, binwidth) : #For function am+b
         index += 1
     return chi2
 
+def LogLikelihood (m, y, a, b, binwidth) : #For function am+b
+    LogL = 0
+    index = 0
+    while index < len(m) :
+        mui = (a*m[index]+b) #*binwidth[index]
+        LogL += -((y[index]-mui)**2) / (2*mui**2)
+        LogL += -log(mui)
+    return LogL
+
 ################
 # Assignment a
 ################
@@ -46,7 +55,7 @@ LbFit = array( 'd' )
 bArray = array( 'd' )
 
 for i in range(len(bRange)):
-    LbFit.append(Chi2Test(mList, yList, 0, bRange[i], BinWidthList))
+    LbFit.append(LogLikelihood(mList, yList, 0, bRange[i], BinWidthList))
     bArray.append(bRange[i])
 
 
@@ -69,7 +78,7 @@ j = 0
 while i < len(bRange):
     j = 0
     while j < len(aRange):
-        test = Chi2Test(mList, yList, aRange[j], bRange[i], BinWidthList)
+        test = LogLikelihood(mList, yList, aRange[j], bRange[i], BinWidthList)
         #print(test)
         hABchi2.SetBinContent(j, i, test)
         othertest = hABchi2.GetBinContent(j, i)
