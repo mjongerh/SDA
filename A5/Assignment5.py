@@ -15,7 +15,7 @@ def Chi2Test (m, y, a, b, binwidth) : #For function am+b
     index = 0
     while index < len(m) :
         mui = (a*m[index]+b) #*binwidth[i]
-        chi2 += ((y[index]-mui)*(y[index]-mui)) / (mui*mui)
+        chi2 += ((y[index]-mui)*(y[index]-mui)) / (mui)
         print(mui)
         print(chi2)
         index += 1
