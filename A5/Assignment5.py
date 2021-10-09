@@ -17,6 +17,9 @@ def Chi2Test (m, y, a, b, binwidth) : #For function am+b
     index = 0
     while index < len(m) :
         mui = (a*m[index]+b) #*binwidth[index]
+        if mui == 0.0 : 
+            index += 1
+            continue
         chi2 += ((y[index]-mui)) / (mui)
         #print(mui)
         #print(chi2)
@@ -28,6 +31,9 @@ def LogLikelihood (m, y, a, b, binwidth) : #For function am+b
     index = 0
     while index < len(m) :
         mui = (a*m[index]+b) #*binwidth[index]
+        if mui == 0.0 : 
+            index += 1
+            continue
         LogL += -((y[index]-mui)**2) / (2*mui**2)
         LogL += -log(mui)
         index += 1
