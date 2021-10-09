@@ -15,7 +15,7 @@ def Chi2Test (m, y, a, b, binwidth) : #For function am+b
     index = 0
     while index < len(m) :
         mui = (a*m[index]+b) #*binwidth[i]
-        chi2 += ((y[index]-mui)*(y[index]-mui)) / (mui**4)
+        chi2 += ((y[index]-mui)*(y[index]-mui)) / (mui**2)
         print(mui)
         print(chi2)
         index += 1
@@ -40,7 +40,7 @@ for i in range(Nbins):  #Read the data and put in lists
     mList.append(hData.GetBinCenter(i+1))
     BinWidthList.append(hData.GetBinWidth(i+1))
 
-bRange = numpy.linspace(1.0, 4.0, 100) #range over which to test b
+bRange = numpy.linspace(1.0, 6.0, 100) #range over which to test b
 LbFit = array( 'd' )
 bArray = array( 'd' )
 
