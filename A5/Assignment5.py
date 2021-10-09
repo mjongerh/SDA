@@ -22,7 +22,7 @@ def Chi2Test (m, y, a, b, binwidth) : #For function am+b
 ################
 infile = ROOT.TFile('assignment5-dataset.root')
 hData = infile.Get('hdata')
-hData.Fit('pol1')
+hData.Fit('pol0')
 hData.Draw()
 Nbins = hData.GetNbinsX()
 BinWidthList = []
