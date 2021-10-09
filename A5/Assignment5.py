@@ -74,3 +74,5 @@ for i in range(len(bRange)):
         print(othertest)
 
 hABchi2.Draw('colz')
+CanvABchi2.Modified()
+CanvABchi2.Update()
