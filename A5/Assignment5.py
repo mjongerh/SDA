@@ -68,11 +68,11 @@ for i in range(len(bRange)):
     for j in range(len(aRange)):
         test = Chi2Test(mList, yList, aRange[j], bRange[i], BinWidthList)
         print(test)
-        hABchi2.SetBinContent(int(aRange[j]), int(bRange[i]), double_t(test))
+        hABchi2.SetBinContent(int(aRange[j]), int(bRange[i]), float(test))
         othertest = hABchi2.GetBinContent(int(aRange[j]), int(bRange[i]))
         print(othertest)
 
 CanvABchi2 = ROOT.TCanvas("CanvABchi2", "Chi^2 as function of a and b", 1000, 1000)
-hABchi2.Draw( 'colz' )
+hABchi2.Draw()
 CanvABchi2.Modified()
 CanvABchi2.Update()
