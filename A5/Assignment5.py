@@ -13,7 +13,7 @@ from math import *
 def Chi2Test (m, y, a, b, binwidth) : #For function am+b
     chi2 = 0
     for i in range(len(m)) :
-        mui= (a*m[i]+b)*binwidth[i]
+        mui= b*binwidth[i] #(a*m[i]+b)*binwidth[i]
         chi2 += ((y[i]-mui)**2) / (mui**2)
     return chi2
 
@@ -29,13 +29,12 @@ print("Nbins = "+ str(Nbins) + "  with entries: " + str(hData.GetEntries()))
 BinWidthList = []
 mList = [] #mass at certain point
 yList = [] #how often that mass is measured
-Expectedb = 0
+print("Expected for for 0th degree pol: y= " + str(sqrt(hData.GetEntries()/Nbins)))  #Expected (approx) value for y=0m+b = sqrt(Nevents/Nbins)
 
 for i in range(Nbins):  #Read the data and put in lists
     yList.append(hData.GetBinContent(i))
     mList.append(hData.GetBinCenter(i))
     BinWidthList.append(hData.GetBinWidth(i))
-    Expectedb += hData.GetBinContent(i)/Nbins  #expected value of b is average height of histo
 
 bRange = numpy.linspace(1.0, 4.0, 100) #range over which to test b
 LbFit = array( 'd' )
@@ -45,11 +44,11 @@ for i in range(len(bRange)):
     LbFit.append(Chi2Test(mList, yList, 0, bRange[i], BinWidthList))
     bArray.append(bRange[i])
 
-print("Expected value of b  is " + str(Expectedb))
-CanvbFlatLikelihood = ROOT.TCanvas("CanvbFlatLikelihood","likelihood as function of value of b", 1000,1000 )
+
+CanvbFlatLikelihood = ROOT.TCanvas("CanvbFlatLikelihood","chi^2  as function of value of b", 1000,1000 )
 GraphbFlatLikelihood = ROOT.TGraph(len(bArray), bArray, LbFit)
 GraphbFlatLikelihood.SetMarkerStyle(3)
-GraphbFlatLikelihood.SetTitle( 'likelihood as function of value of b' )
+GraphbFlatLikelihood.SetTitle( 'chi^2 as function of value of b' )
 GraphbFlatLikelihood.GetXaxis().SetTitle( 'Value of b' )
 GraphbFlatLikelihood.GetYaxis().SetTitle( 'likelihood response' )
 GraphbFlatLikelihood.Draw("ap")
