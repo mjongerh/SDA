@@ -5,4 +5,4 @@ from math import *
 
 infile = ROOT.TFile('assigment5-dataset.root')
 hData = infile.Get('hdata')
-h.Draw()
+hData.Draw()
