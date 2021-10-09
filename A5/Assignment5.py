@@ -39,6 +39,7 @@ LbFit = array( 'd' )
 bArray = array( 'd' )
 
 for i in range(len(bRange)):
+    if bRange[i] == 0.0 : continue
     LbFit.append(LogLikelihood(mList, 0, bRange[i]))
     bArray.append(bRange[i])
 
