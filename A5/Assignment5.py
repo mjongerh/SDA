@@ -29,7 +29,7 @@ def LogLikelihood (m, y, a, b, binwidth) : #For function am+b
     while index < len(m) :
         mui = (a*m[index]+b) #*binwidth[index]
         LogL += -((y[index]-mui)**2) / (2*mui**2)
-        LogL += -log(abs(mui))
+        #LogL += -log(abs(mui))
         index += 1
     return LogL
 
