@@ -22,7 +22,7 @@ def LogLikelihood (m, a, b) : #For function am+b
 infile = ROOT.TFile('assignment5-dataset.root')
 hData = infile.Get('hdata')
 hData.Draw()
-Nbins = h.GetNbinsX()
+Nbins = hData.GetNbinsX()
 BinWidthList = []
 mList = []
 yList = []
