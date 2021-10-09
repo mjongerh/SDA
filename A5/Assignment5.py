@@ -63,7 +63,7 @@ CanvbFlatLikelihood.Modified()
 ################
 # Assignment b
 ################
-hABchi2 = ROOT.TH2F("hABchi2", "Chi^2 as function of a and b", 101, aRange[0], aRange[-1], 101, bRange[0], bRange[-1])
+hABchi2 = ROOT.TH2F("hABchi2", "Chi^2 as function of a and b", len(aRange), aRange[0], aRange[-1], len(bRange), bRange[0], bRange[-1])
 for i in range(len(bRange)):
     for j in range(len(aRange)):
         test = Chi2Test(mList, yList, aRange[j], bRange[i], BinWidthList)
@@ -73,6 +73,6 @@ for i in range(len(bRange)):
         print(othertest)
 
 CanvABchi2 = ROOT.TCanvas("CanvABchi2", "Chi^2 as function of a and b", 1000, 1000)
-hABchi2.Draw( 'COL' )
+hABchi2.Draw( 'colz' )
 CanvABchi2.Modified()
 CanvABchi2.Update()
