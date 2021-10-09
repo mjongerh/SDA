@@ -10,11 +10,12 @@ from math import *
 ################
 # Global Functions
 ################
-def LogLikelihood (m, a, b) : #For function am+b
-    SumL = 0
-    for mi in m :
-        SumL += log(a*mi+b)
-    return SumL
+def Chi2Test (m, y, a, b, binwidth) : #For function am+b
+    chi2 = 0
+    for i in range(len(m)) :
+        mui= a*m[i]+b
+        chi2 += (y[i]-mui)**2 / mui**2
+    return chi2
 
 ################
 # Assignment a
@@ -24,8 +25,8 @@ hData = infile.Get('hdata')
 hData.Draw()
 Nbins = hData.GetNbinsX()
 BinWidthList = []
-mList = []
-yList = []
+mList = [] #mass at certain point
+yList = [] #how often that mass is measured
 Expectedb = 0
 
 for i in range(Nbins):  #Read the data and put in lists
@@ -40,7 +41,7 @@ bArray = array( 'd' )
 
 for i in range(len(bRange)):
     if bRange[i] == 0.0 : continue
-    LbFit.append(LogLikelihood(mList, 0, bRange[i]))
+    LbFit.append(Chi2Test(mList, yList, 0, bRange[i]), BinWidthList)
     bArray.append(bRange[i])
 
 print("Expected value of b  is " + str(Expectedb))
