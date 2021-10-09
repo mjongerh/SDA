@@ -71,7 +71,7 @@ while i < len(bRange):
     while j < len(aRange):
         test = Chi2Test(mList, yList, aRange[j], bRange[i], BinWidthList)
         #print(test)
-        hABchi2.SetBinContent(j, i, 1/test)
+        hABchi2.SetBinContent(j, i, test)
         othertest = hABchi2.GetBinContent(j, i)
         #print(othertest)
         j += 1
