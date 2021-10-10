@@ -28,7 +28,7 @@ def LogLikelihood (m, y, a, b, binwidth) : #For function am+b
     index = 0
     while index < len(m) :
         mui = (a*m[index]+b) #*binwidth[index]
-        LogL += ((y[index]-mui)**2) / (2*mui**2)
+        LogL += -((y[index]-mui)**2) / (2*mui**2)
         #LogL += log(abs(mui))
         index += 1
     return LogL
@@ -89,7 +89,7 @@ while i < len(bRange):
 
 
 CanvABchi2 = ROOT.TCanvas("CanvABchi2", "Chi^2 as function of a and b", 1000, 1000)
-maxbin = hABchi2.GetMinimumBin()
+maxbin = hABchi2.GetMaximumBin()
 print("value of max bin is:")
 print(hABchi2.GetBinContent(maxbin))
 CanvABchi2.SetLogz()
