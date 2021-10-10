@@ -215,5 +215,6 @@ FitFunc.Draw("same")
 ################
 # Assignment c
 ################
-AutoFitResult = minimize(LogLikelihood, verbose = True)
+ranges = [[-0.0085, -0.0041], [6.0, 9.0]]
+AutoFitResult = minimize(LogLikelihood, range = ranges, verbose = True)
 print ("Log Likelihood is minimal at ", AutoFitResult)
