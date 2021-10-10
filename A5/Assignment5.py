@@ -110,7 +110,7 @@ CanvABLogL.Update()
 CanvABLogLcontrour = ROOT.TCanvas("CanvABLogLcontrour", "contour plot for delta Log(L) < 0.5", 1000, 1000)
 CanvABLogLcontrour.SetLogz()
 hABLogLcontrour = hABLogL.Clone()
-for i in range(hABLogLcontrour.GetNins()) :
+for i in range(hABLogLcontrour.GetNBins()) :
     if hABLogLcontrour.GetBinContent(i) > minbin+0.5 :
         hABLogLcontrour.SetBinContent(i, 0.0)
 hABLogLcontrour.Draw("colz")
