@@ -97,19 +97,39 @@ print(hABLogL.GetBinContent(minbin))
 #print("x max = " + str(x) + "   y max = " + str(y))
 CanvABLogL.SetLogz()
 #hABLogL.GetBinXYZ(maxbin, xmax, ymax, zmax)
-hABLogL.SetMinimum( hABLogL.GetBinContent(minbin)-0.01) #10.0)
-hABLogL.SetMaximum(hABLogL.GetBinContent(minbin)+0.5) #20.0)
+hABLogL.SetMinimum(10.0) #hABLogL.GetBinContent(minbin)-0.01) Use these values for delta log = 0.5
+hABLogL.SetMaximum(20.0) #hABLogL.GetBinContent(minbin)+0.5)
 hABLogL.SetTitle("Log(L) for a fit y=am+b")
 hABLogL.Draw("colz")
-hABLogL.GetYaxis().SetTitle( 'value of b' )
-hABLogL.GetXaxis().SetTitle( 'Value of a' )
+hABLogL.GetYaxis().SetTitle( 'value of b [1/GeV]' )
+hABLogL.GetXaxis().SetTitle( 'Value of a [1/GeV^2]' )
 
 CanvABLogL.Modified()
 CanvABLogL.Update()
 
+CanvABLogLcontrour = ROOT.TCanvas("CanvABLogLcontrour", "contour plot for delta Log(L) < 0.5", 1000, 1000)
+CanvABLogLcontrour.SetLogz()
+hABLogLcontrour = hABLogL.Clone()
+for i in range(hABLogLcontrour.GetNins()) :
+    if hABLogLcontrour.GetBinContent(i) > minbin+0.5 :
+        hABLogLcontrour.SetBinContent(i, 0.0)
+hABLogLcontrour.Draw("colz")
+hABLogLcontrour.GetYaxis().SetTitle( 'value of b [1/GeV]' )
+hABLogLcontrour.GetXaxis().SetTitle( 'Value of a [1/GeV^2]' )
+
+CanvABLogLcontrour.Modified()
+CanvABLogLcontrour.Update()
+
 
 CanvDataFitL = ROOT.TCanvas("CanvDataFitL", "Data with a fit y=am+b", 1000, 1000)
 #hData.Fit('pol1')
-FitFunc = ROOT.TF1("FitFunc", "-0.0059*x+7.29", 100, 1000)
+FitFunc = ROOT.TF1("FitFunc", "-0.00589*x+7.29", 100, 1000) 
+FitFuncmin = ROOT.TF1("FitFuncmin", "-0.00589*x+7.29", 100, 1000) 
+FitFuncmax = ROOT.TF1("FitFuncmax", "-0.00589*x+7.29", 100, 1000) 
+#best fit -0.00589m + 7.29
+#-0.00449 6.248
+#-0.00749  +8.67885
+# a= -0.00589 +-.00160
+# b = 7.46 +-1.39 
 hData.Draw()
 FitFunc.Draw("same")
