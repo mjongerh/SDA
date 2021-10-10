@@ -236,7 +236,7 @@ FitFunc.Draw("same")
 #-0.005871357987983538)(7.300526145705545)
 
 
-StartNumbers = [0.0, 0.0, 0.0, 1.0]
+StartNumbers = [0.0, 0.0, -0.001, 5.0]
 AutoFitResultPol3 = minimize(LogLikelihoodPol3,start_values = StartNumbers, maxcalls = 100000)
 print ("Log Likelihood for Pol3 Fit is minimal at ", AutoFitResultPol3)
 
