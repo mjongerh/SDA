@@ -73,7 +73,7 @@ CanvbFlatLikelihood.Modified()
 ################
 # Assignment b
 ################
-hABLogL = ROOT.TH2F("hABLogL", "Chi^2 as function of a and b", len(aRange)-1, aRange[0], aRange[-1], len(bRange)-1, bRange[0], bRange[-1])
+hABLogL = ROOT.TH2F("hABLogL", "Log(L) as function of a and b", len(aRange)-1, aRange[0], aRange[-1], len(bRange)-1, bRange[0], bRange[-1])
 i = 0
 j = 0
 while i < len(bRange):
@@ -91,7 +91,7 @@ while i < len(bRange):
 CanvABLogL = ROOT.TCanvas("CanvABLogL", "Log(L) for a fit y=am+b", 1000, 1000)
 minbin = hABLogL.GetMinimumBin()
 print("value of min bin is:")
-print(hABLogL.GetBinContent(minbin))
+minval = hABLogL.GetBinContent(minbin)
 #x, y, z = ROOT.Long(), ROOT.Long(), ROOT.Long()
 #hABLogL.GetBinXYZ( maxbin, x, y, z )
 #print("x max = " + str(x) + "   y max = " + str(y))
@@ -110,9 +110,14 @@ CanvABLogL.Update()
 CanvABLogLcontrour = ROOT.TCanvas("CanvABLogLcontrour", "contour plot for delta Log(L) < 0.5", 1000, 1000)
 CanvABLogLcontrour.SetLogz()
 hABLogLcontrour = hABLogL.Clone()
-for i in range(len(aRange) * len(bRange) -1) :
-    if hABLogLcontrour.GetBinContent(i) > minbin+0.5 :
-        hABLogLcontrour.SetBinContent(i, 0.0)
+i, j = 0 , 0
+while i < len(bRange):
+    j = 0
+    while j < len(aRange):
+        if hABLogLcontrour.GetBinContent(j,i) < minval :
+            hABLogLcontrour.SetBinContent(j,i, 0.0)
+        j += 1
+    i += 1
 hABLogLcontrour.Draw("colz")
 hABLogLcontrour.GetYaxis().SetTitle( 'value of b [1/GeV]' )
 hABLogLcontrour.GetXaxis().SetTitle( 'Value of a [1/GeV^2]' )
