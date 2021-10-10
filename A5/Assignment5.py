@@ -28,8 +28,8 @@ def LogLikelihood (m, y, a, b, binwidth) : #For function am+b
     index = 0
     while index < len(m) :
         mui = (a*m[index]+b) #*binwidth[index]
-        LogL += -((y[index]-mui)**2) / (2*mui**2)
-        LogL += -log(abs(mui))
+        LogL += ((y[index]-mui)**2) / (2*mui**2)
+        LogL += log(abs(mui))
         index += 1
     return LogL
 
@@ -94,8 +94,8 @@ print("value of max bin is:")
 print(hABchi2.GetBinContent(maxbin))
 CanvABchi2.SetLogz()
 #hABchi2.GetBinXYZ(maxbin, xmax, ymax, zmax)
-hABchi2.SetMinimum(-1000000.0)
-hABchi2.SetMaximum(0.0)
+hABchi2.SetMinimum(0.0)
+hABchi2.SetMaximum(100000.0)
 hABchi2.Draw("colz")
 CanvABchi2.Modified()
 CanvABchi2.Update()
