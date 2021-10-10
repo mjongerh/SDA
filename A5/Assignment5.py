@@ -73,7 +73,7 @@ CanvbFlatLikelihood.Modified()
 ################
 # Assignment b
 ################
-hABchi2 = ROOT.TH2F("hABchi2", "Chi^2 as function of a and b", len(aRange), aRange[0], aRange[-1], len(bRange), bRange[0], bRange[-1])
+hABchi2 = ROOT.TH2F("hABchi2", "Chi^2 as function of a and b", len(aRange)-1, aRange[0], aRange[-1], len(bRange)-1, bRange[0], bRange[-1])
 i = 0
 j = 0
 while i < len(bRange):
