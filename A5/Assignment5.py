@@ -237,7 +237,7 @@ hData.Draw()
 FitFunc.Draw("same")
 #-0.005871357987983538)(7.300526145705545)
 
-AutoFitResultPol3 = minimize(LogLikelihoodPol3)
+AutoFitResultPol3 = minimize(LogLikelihoodPol3, maxcalls = 100000)
 print ("Log Likelihood for Pol3 Fit is minimal at ", AutoFitResultPol3)
 
 CanvDataFitLAUTOPol3 = ROOT.TCanvas("CanvDataFitLAUTOPol3", "Data with automatic fit y=am+b", 1000, 1000)
