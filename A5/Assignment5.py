@@ -35,7 +35,7 @@ def LogLikelihoodPol3 (a, b, c, d) : #For function am^3+bm^2 + cm +d
     while index < len(mList) :
         mui = (a*mList[index]**3 + b*mList[index]**2 + c*mList[index] + d)
         if mui == 0 :
-            return 1000.0
+            return 0.0
         LogL += ((yList[index]-mui)**2) / (2*mui**2)
         index += 1
     return LogL
