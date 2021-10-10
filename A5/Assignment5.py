@@ -125,8 +125,8 @@ for i in range(Nbins):  #Read the data and put in lists
     mList.append(hData.GetBinCenter(i+1))
     BinWidthList.append(hData.GetBinWidth(i+1))
 
-LbFit = array( 'd' )
-bArray = array( 'd' )
+LbFit = array.array( 'd' )
+bArray = array.array( 'd' )
 bFlatRange = numpy.linspace(3.0, 7.0, 100) #range over which to test b
 
 for i in range(len(bFlatRange)):
