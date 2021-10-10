@@ -87,14 +87,12 @@ while i < len(bRange):
         j += 1
     i += 1
 
-xmax =0
-ymax = 0
-zmax = 0
+
 CanvABchi2 = ROOT.TCanvas("CanvABchi2", "Chi^2 as function of a and b", 1000, 1000)
-maxbin = hABchi2.GetMaximumBin()
-hABchi2.GetBinXYZ(maxbin, xmax, ymax, zmax)
-hABchi2.SetMinimum(hABchi2.GetBinContent(xmax, ymax)*0.7);
-hABchi2.SetMaximum(hABchi2.GetBinContent(xmax, ymax));
+#maxbin = hABchi2.GetMaximumBin()
+#hABchi2.GetBinXYZ(maxbin, xmax, ymax, zmax)
+#hABchi2.SetMinimum(hABchi2.GetBinContent(xmax, ymax)*0.7);
+#hABchi2.SetMaximum(hABchi2.GetBinContent(xmax, ymax));
 hABchi2.Draw("colz")
 CanvABchi2.Modified()
 CanvABchi2.Update()
