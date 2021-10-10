@@ -91,7 +91,7 @@ while i < len(bRange):
 CanvABLogL = ROOT.TCanvas("CanvABLogL", "Log(L) for a fit y=am+b", 1000, 1000)
 minbin = hABLogL.GetMinimumBin()
 print("value of min bin is:")
-print(hABLogL.GetBinContent(maxbin))
+print(hABLogL.GetBinContent(minbin))
 #x, y, z = ROOT.Long(), ROOT.Long(), ROOT.Long()
 #hABLogL.GetBinXYZ( maxbin, x, y, z )
 #print("x max = " + str(x) + "   y max = " + str(y))
