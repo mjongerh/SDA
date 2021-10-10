@@ -93,8 +93,8 @@ maxbin = hABchi2.GetMaximumBin()
 print("value of max bin is:")
 print(hABchi2.GetBinContent(maxbin))
 #hABchi2.GetBinXYZ(maxbin, xmax, ymax, zmax)
-#hABchi2.SetMinimum(hABchi2.GetBinContent(xmax, ymax)*0.7);
-#hABchi2.SetMaximum(hABchi2.GetBinContent(xmax, ymax));
+hABchi2.SetMinimum(-100.0)
+hABchi2.SetMaximum(10.0)
 hABchi2.Draw("colz")
 CanvABchi2.Modified()
 CanvABchi2.Update()
