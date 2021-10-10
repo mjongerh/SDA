@@ -127,7 +127,7 @@ def fill_hist( func , nbinsx = 60, xmin = -5, xmax =5, nbinsy = 60, ymin= -5, ym
 ################
 # Assignment a
 ################
-print("Expected for for 0th degree pol: y= " + str(sqrt(hData.GetEntries()/Nbins)))  #Expected (approx) value for y=0m+b = sqrt(Nevents/Nbins)
+print("Expected for for 0th degree pol: y= " + str(hData.GetEntries()/Nbins))  #Expected (approx) value for y=0m+b = Nevents/Nbins
 
 for i in range(Nbins):  #Read the data and put in lists
     yList.append(hData.GetBinContent(i+1))
@@ -143,12 +143,12 @@ for i in range(len(bFlatRange)):
     bArray.append(bFlatRange[i])
 
 
-CanvbFlatLikelihood = ROOT.TCanvas("CanvbFlatLikelihood","Log(L) as function of value of b", 1000,1000 )
+CanvbFlatLikelihood = ROOT.TCanvas("CanvbFlatLikelihood","-Log(L) as function of value of b", 1000,1000 )
 GraphbFlatLikelihood = ROOT.TGraph(len(bArray), bArray, LbFit)
 GraphbFlatLikelihood.SetMarkerStyle(3)
-GraphbFlatLikelihood.SetTitle( 'Log(L) as function of value of b' )
+GraphbFlatLikelihood.SetTitle( '-Log(L) as function of value of b' )
 GraphbFlatLikelihood.GetXaxis().SetTitle( 'Value of b' )
-GraphbFlatLikelihood.GetYaxis().SetTitle( 'Log(likelihood)' )
+GraphbFlatLikelihood.GetYaxis().SetTitle( '-Log(likelihood)' )
 GraphbFlatLikelihood.Draw("ap")
 CanvbFlatLikelihood.Update()
 CanvbFlatLikelihood.Modified()
@@ -156,7 +156,7 @@ CanvbFlatLikelihood.Modified()
 ################
 # Assignment b
 ################
-hABLogL = ROOT.TH2F("hABLogL", "Log(L) as function of a and b", len(aRange)-1, aRange[0], aRange[-1], len(bRange)-1, bRange[0], bRange[-1])
+hABLogL = ROOT.TH2F("hABLogL", "-Log(L) as function of a and b", len(aRange)-1, aRange[0], aRange[-1], len(bRange)-1, bRange[0], bRange[-1])
 i = 0
 j = 0
 while i < len(bRange):
@@ -182,7 +182,7 @@ CanvABLogL.SetLogz()
 #hABLogL.GetBinXYZ(maxbin, xmax, ymax, zmax)
 hABLogL.SetMinimum(10.0) #hABLogL.GetBinContent(minbin)-0.01) Use these values for delta log = 0.5
 hABLogL.SetMaximum(20.0) #hABLogL.GetBinContent(minbin)+0.5)
-hABLogL.SetTitle("Log(L) for a fit y=am+b")
+hABLogL.SetTitle("-Log(L) for a fit y=am+b")
 hABLogL.Draw("colz")
 hABLogL.GetYaxis().SetTitle( 'value of b [1/GeV]' )
 hABLogL.GetXaxis().SetTitle( 'Value of a [1/GeV^2]' )
@@ -190,7 +190,7 @@ hABLogL.GetXaxis().SetTitle( 'Value of a [1/GeV^2]' )
 CanvABLogL.Modified()
 CanvABLogL.Update()
 
-CanvABLogLcontrour = ROOT.TCanvas("CanvABLogLcontrour", "contour plot for delta Log(L) < 0.5", 1000, 1000)
+CanvABLogLcontrour = ROOT.TCanvas("CanvABLogLcontrour", "contour plot for delta -Log(L) < 0.5", 1000, 1000)
 CanvABLogLcontrour.SetLogz()
 hABLogLcontrour = hABLogL.Clone()
 i, j = 0 , 0
@@ -204,7 +204,7 @@ while i < len(bRange):
 hABLogLcontrour.Draw("colz")
 hABLogLcontrour.GetYaxis().SetTitle( 'value of b [1/GeV]' )
 hABLogLcontrour.GetXaxis().SetTitle( 'Value of a [1/GeV^2]' )
-
+hABLogLcontrour.SetTitle("Area within #delta -Log(L) <0.5 w.r.t minimum")
 CanvABLogLcontrour.Modified()
 CanvABLogLcontrour.Update()
 
