@@ -204,7 +204,7 @@ while i < len(bRange):
 hABLogLcontrour.Draw("colz")
 hABLogLcontrour.GetYaxis().SetTitle( 'value of b [1/GeV]' )
 hABLogLcontrour.GetXaxis().SetTitle( 'Value of a [1/GeV^2]' )
-hABLogLcontrour.SetTitle("Area within #delta -Log(L) <0.5 w.r.t minimum")
+hABLogLcontrour.SetTitle("Area within #Delta (-Log(L)) <0.5 w.r.t minimum")
 CanvABLogLcontrour.Modified()
 CanvABLogLcontrour.Update()
 
