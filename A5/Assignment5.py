@@ -225,7 +225,7 @@ FitFunc.Draw("same")
 # Assignment c
 ################
 RangeValues = [[-0.0085, -0.0041], [6.0, 9.0]]
-AutoFitResult = minimize(LogLikelihood, ranges = RangeValues, verbose = True)
+AutoFitResult = minimize(LogLikelihood, ranges = RangeValues)
 print ("Log Likelihood is minimal at ", AutoFitResult)
 
 CanvDataFitLAUTO = ROOT.TCanvas("CanvDataFitLAUTO", "Data with automatic fit y=am+b", 1000, 1000)
@@ -235,7 +235,7 @@ hData.Draw()
 FitFunc.Draw("same")
 #-0.005871357987983538)(7.300526145705545)
 
-AutoFitResultPol3 = minimize(LogLikelihoodPol3, ranges = RangeValues, verbose = True)
+AutoFitResultPol3 = minimize(LogLikelihoodPol3)
 print ("Log Likelihood is minimal at ", AutoFitResultPol3)
 
 CanvDataFitLAUTOPol3 = ROOT.TCanvas("CanvDataFitLAUTOPol3", "Data with automatic fit y=am+b", 1000, 1000)
