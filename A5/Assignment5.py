@@ -35,7 +35,7 @@ def LogLikelihoodPol3 (a, b, c, d) : #For function am^3+bm^2 + cm +d
     while index < len(mList) :
         mui = (a*mList[index]**3 + b*mList[index]**2 + c*mList[index] + d)
         if mui == 0 :
-            return 1000000000.0
+            return 1000.0
         LogL += ((yList[index]-mui)**2) / (2*mui**2)
         index += 1
     return LogL
@@ -238,13 +238,13 @@ FitFunc.Draw("same")
 #-0.005871357987983538)(7.300526145705545)
 
 AutoFitResultPol3 = minimize(LogLikelihoodPol3)
-print ("Log Likelihood is minimal at ", AutoFitResultPol3)
+print ("Log Likelihood for Pol3 Fit is minimal at ", AutoFitResultPol3)
 
 CanvDataFitLAUTOPol3 = ROOT.TCanvas("CanvDataFitLAUTOPol3", "Data with automatic fit y=am+b", 1000, 1000)
 #hData.Fit('pol1')
-FitFuncAUTOPol3 = ROOT.TF1("FitFuncAUTOPol3", "-0.005871357987983538*x+7.300526145705545", 100, 1000)
+FitFuncAUTOPol3 = ROOT.TF1("FitFuncAUTOPol3", "7.007813425398543e-09*x**3+3.1805754269759665e-05*x**27.300526145705545", 100, 1000)
 hData.Draw()
 FitFunc.Draw("same")
 
-
+#[c_double(7.007813425398543e-09), c_double(3.1805754269759665e-05), c_double(0.014976020451973073), c_double(2.2033686982138296)]
 
