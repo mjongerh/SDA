@@ -6,6 +6,14 @@ from math import *
 ################
 # Global Settings
 ################
+infile = ROOT.TFile('assignment5-dataset.root')
+hData = infile.Get('hdata')
+Nbins = hData.GetNbinsX()
+print("Nbins = "+ str(Nbins) + "  with entries: " + str(hData.GetEntries()))
+BinWidthList = []
+mList = [] #mass at certain point
+yList = [] #how often that mass is measured
+
 bRange = numpy.linspace(6.0, 9.0, 100) #range over which to test b
 aRange = numpy.linspace(-0.0085, -0.0045, 100) #range over which to test a
 
@@ -36,15 +44,6 @@ def LogLikelihood (m, y, a, b, binwidth) : #For function am+b
 ################
 # Assignment a
 ################
-infile = ROOT.TFile('assignment5-dataset.root')
-hData = infile.Get('hdata')
-hData.Fit('pol1')
-hData.Draw()
-Nbins = hData.GetNbinsX()
-print("Nbins = "+ str(Nbins) + "  with entries: " + str(hData.GetEntries()))
-BinWidthList = []
-mList = [] #mass at certain point
-yList = [] #how often that mass is measured
 print("Expected for for 0th degree pol: y= " + str(sqrt(hData.GetEntries()/Nbins)))  #Expected (approx) value for y=0m+b = sqrt(Nevents/Nbins)
 
 for i in range(Nbins):  #Read the data and put in lists
@@ -54,7 +53,7 @@ for i in range(Nbins):  #Read the data and put in lists
 
 LbFit = array( 'd' )
 bArray = array( 'd' )
-bFlatRange = numpy.linspace(1.0, 8.0, 100) #range over which to test b
+bFlatRange = numpy.linspace(3.0, 7.0, 100) #range over which to test b
 
 for i in range(len(bFlatRange)):
     LbFit.append(LogLikelihood(mList, yList, 0, bFlatRange[i], BinWidthList))
@@ -105,7 +104,12 @@ hABLogL.Draw("colz")
 hABLogL.GetYaxis().SetTitle( 'value of b' )
 hABLogL.GetXaxis().SetTitle( 'Value of a' )
 
-
-
 CanvABLogL.Modified()
 CanvABLogL.Update()
+
+
+CanvDataFitL = ROOT.TCanvas("CanvDataFitL", "Data with a fit y=am+b", 1000, 1000)
+#hData.Fit('pol1')
+FitFunc = ROOT.TF1("FitFunc", "-0.0059*x+7.29", 100, 1000)
+hData.Draw()
+FitFunc.Draw("same")
