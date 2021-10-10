@@ -15,7 +15,7 @@ mList = [] #mass at certain point
 yList = [] #how often that mass is measured
 
 bRange = numpy.linspace(6.0, 9.0, 100) #range over which to test b
-aRange = numpy.linspace(-0.0085, -0.004, 100) #range over which to test a
+aRange = numpy.linspace(-0.0085, -0.0041, 100) #range over which to test a
 
 ################
 # Global Functions
