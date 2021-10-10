@@ -7,7 +7,7 @@ from math import *
 # Global Settings
 ################
 bRange = numpy.linspace(3.0, 10.0, 100) #range over which to test b
-aRange = numpy.linspace(-0.005, -0.000001, 100) #range over which to test a
+aRange = numpy.linspace(-0.001, -0.000001, 100) #range over which to test a
 
 ################
 # Global Functions
@@ -81,7 +81,7 @@ while i < len(bRange):
     while j < len(aRange):
         test = LogLikelihood(mList, yList, aRange[j], bRange[i], BinWidthList)
         #print(test)
-        hABchi2.SetBinContent(j, i, 1/test)
+        hABchi2.SetBinContent(j, i, test)
         othertest = hABchi2.GetBinContent(j, i)
         #print(othertest)
         j += 1
