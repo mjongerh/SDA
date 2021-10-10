@@ -74,7 +74,7 @@ CanvbFlatLikelihood.Modified()
 ################
 # Assignment b
 ################
-hABchi2 = ROOT.TH2F("hABchi2", "Chi^2 as function of a and b", len(aRange)-1, aRange[0], aRange[-1], len(bRange)-1, bRange[0], bRange[-1])
+hABLogL = ROOT.TH2F("hABLogL", "Chi^2 as function of a and b", len(aRange)-1, aRange[0], aRange[-1], len(bRange)-1, bRange[0], bRange[-1])
 i = 0
 j = 0
 while i < len(bRange):
@@ -82,24 +82,30 @@ while i < len(bRange):
     while j < len(aRange):
         test = LogLikelihood(mList, yList, aRange[j], bRange[i], BinWidthList)
         #print(test)
-        hABchi2.SetBinContent(j, i, test)
-        othertest = hABchi2.GetBinContent(j, i)
+        hABLogL.SetBinContent(j, i, test)
+        #othertest = hABLogL.GetBinContent(j, i)
         #print(othertest)
         j += 1
     i += 1
 
 
-CanvABchi2 = ROOT.TCanvas("CanvABchi2", "Chi^2 as function of a and b", 1000, 1000)
-maxbin = hABchi2.GetMinimumBin()
+CanvABLogL = ROOT.TCanvas("CanvABLogL", "LogL for a fit y=am+b", 1000, 1000)
+maxbin = hABLogL.GetMinimumBin()
 print("value of max bin is:")
-print(hABchi2.GetBinContent(maxbin))
+print(hABLogL.GetBinContent(maxbin))
 #x, y, z = ROOT.Long(), ROOT.Long(), ROOT.Long()
-#hABchi2.GetBinXYZ( maxbin, x, y, z )
+#hABLogL.GetBinXYZ( maxbin, x, y, z )
 #print("x max = " + str(x) + "   y max = " + str(y))
-CanvABchi2.SetLogz()
-#hABchi2.GetBinXYZ(maxbin, xmax, ymax, zmax)
-hABchi2.SetMinimum(10.0)
-hABchi2.SetMaximum(20.0)
-hABchi2.Draw("colz")
-CanvABchi2.Modified()
-CanvABchi2.Update()
+CanvABLogL.SetLogz()
+#hABLogL.GetBinXYZ(maxbin, xmax, ymax, zmax)
+hABLogL.SetMinimum(10.0)
+hABLogL.SetMaximum(20.0)
+hABLogL.SetTitle("LogL for a fit y=am+b")
+hABLogL.Draw("colz")
+hABLogL.GetYaxis().SetTitle( 'value of b' )
+hABLogL.GetXaxis().SetTitle( 'Value of a' )
+
+
+
+CanvABLogL.Modified()
+CanvABLogL.Update()
