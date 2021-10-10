@@ -128,7 +128,7 @@ def fill_hist( func , nbinsx = 60, xmin = -5, xmax =5, nbinsy = 60, ymin= -5, ym
 # Assignment a
 ################
 print("Expected for for 0th degree pol: y= " + str(hData.GetEntries()/Nbins))  #Expected (approx) value for y=0m+b = Nevents/Nbins
-
+#obtained: 5.0202
 for i in range(Nbins):  #Read the data and put in lists
     yList.append(hData.GetBinContent(i+1))
     mList.append(hData.GetBinCenter(i+1))
@@ -212,6 +212,7 @@ CanvABLogLcontrour.Update()
 CanvDataFitL = ROOT.TCanvas("CanvDataFitL", "Data with a fit y=am+b", 1000, 1000)
 #hData.Fit('pol1')
 FitFunc = ROOT.TF1("FitFunc", "-0.00589*x+7.29", 100, 1000)
+FitFuncAUTO = ROOT.TF1("FitFuncAUTO", "-0.005871357987983538*x+7.300526145705545", 100, 1000)
 #best fit -0.00589m + 7.29
 #-0.00449 6.248
 #-0.00749  +8.67885
@@ -219,8 +220,8 @@ FitFunc = ROOT.TF1("FitFunc", "-0.00589*x+7.29", 100, 1000)
 # b = 7.29 +-1.39 
 hData.Draw()
 FitFunc.Draw("same")
-
-
+FitFuncAUTO.SetLineColor(4)
+FitFuncAUTO.Draw("same")
 ################
 # Assignment c
 ################
@@ -232,7 +233,7 @@ CanvDataFitLAUTO = ROOT.TCanvas("CanvDataFitLAUTO", "Data with automatic fit y=a
 #hData.Fit('pol1')
 FitFuncAUTO = ROOT.TF1("FitFuncAUTO", "-0.005871357987983538*x+7.300526145705545", 100, 1000)
 hData.Draw()
-FitFunc.Draw("same")
+FitFuncAUTO.Draw("same")
 #-0.005871357987983538)(7.300526145705545)
 
 
