@@ -7,7 +7,7 @@ from math import *
 # Global Settings
 ################
 bRange = numpy.linspace(1.0, 10.0, 100) #range over which to test b
-aRange = numpy.linspace(-0.5, 0.5, 100) #range over which to test a
+aRange = numpy.linspace(-0.1, 0.01, 100) #range over which to test a
 
 ################
 # Global Functions
@@ -27,9 +27,9 @@ def LogLikelihood (m, y, a, b, binwidth) : #For function am+b
     LogL = 0
     index = 0
     while index < len(m) :
-        mui = (a*m[index]*binwidth[index]+b) #*binwidth[index]
+        mui = (a*m[index]+b) #*binwidth[index]
         LogL += ((y[index]-mui)**2) / (2*mui**2)
-        LogL += log(abs(mui))
+        #LogL += log(abs(mui))
         index += 1
     return LogL
 
