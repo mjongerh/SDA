@@ -54,10 +54,11 @@ for i in range(Nbins):  #Read the data and put in lists
 
 LbFit = array( 'd' )
 bArray = array( 'd' )
+bFlatRange = numpy.linspace(1.0, 8.0, 100) #range over which to test b
 
-for i in range(len(bRange)):
-    LbFit.append(LogLikelihood(mList, yList, 0, bRange[i], BinWidthList))
-    bArray.append(bRange[i])
+for i in range(len(bFlatRange)):
+    LbFit.append(LogLikelihood(mList, yList, 0, bFlatRange[i], BinWidthList))
+    bArray.append(bFlatRange[i])
 
 
 CanvbFlatLikelihood = ROOT.TCanvas("CanvbFlatLikelihood","chi^2  as function of value of b", 1000,1000 )
