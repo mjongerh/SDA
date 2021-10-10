@@ -87,7 +87,7 @@ while i < len(bRange):
         j += 1
     i += 1
 
-xmax, ymax, zmax = 0
+#xmax, ymax, zmax = 0
 CanvABchi2 = ROOT.TCanvas("CanvABchi2", "Chi^2 as function of a and b", 1000, 1000)
 maxbin = hABchi2.GetMaximumBin()
 hABchi2.GetBinXYZ(maxbin, xmax, ymax, zmax)
