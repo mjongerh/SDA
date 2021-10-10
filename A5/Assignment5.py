@@ -114,7 +114,7 @@ i, j = 0 , 0
 while i < len(bRange):
     j = 0
     while j < len(aRange):
-        if hABLogLcontrour.GetBinContent(j,i) < minval :
+        if hABLogLcontrour.GetBinContent(j,i) > minval+0.5 :
             hABLogLcontrour.SetBinContent(j,i, 0.0)
         j += 1
     i += 1
