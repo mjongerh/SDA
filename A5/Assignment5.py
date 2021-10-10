@@ -7,7 +7,7 @@ from math import *
 # Global Settings
 ################
 bRange = numpy.linspace(3.0, 10.0, 100) #range over which to test b
-aRange = numpy.linspace(-0.02, 0.0, 100) #range over which to test a
+aRange = numpy.linspace(-0.001, -0.000001, 100) #range over which to test a
 
 ################
 # Global Functions
