@@ -7,7 +7,7 @@ from math import *
 # Global Settings
 ################
 bRange = numpy.linspace(1.0, 10.0, 100) #range over which to test b
-aRange = numpy.linspace(-1.0, 1.00, 100) #range over which to test a
+aRange = numpy.linspace(-0.2, 0.2, 100) #range over which to test a
 
 ################
 # Global Functions
@@ -38,7 +38,7 @@ def LogLikelihood (m, y, a, b, binwidth) : #For function am+b
 ################
 infile = ROOT.TFile('assignment5-dataset.root')
 hData = infile.Get('hdata')
-hData.Fit('pol0')
+hData.Fit('pol1')
 hData.Draw()
 Nbins = hData.GetNbinsX()
 print("Nbins = "+ str(Nbins) + "  with entries: " + str(hData.GetEntries()))
