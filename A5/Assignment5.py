@@ -92,7 +92,7 @@ CanvABchi2 = ROOT.TCanvas("CanvABchi2", "Chi^2 as function of a and b", 1000, 10
 maxbin = hABchi2.GetMaximumBin()
 print("value of max bin is:")
 print(hABchi2.GetBinContent(maxbin))
-hABchi2.SetLogz()
+CanvABchi2.SetLogz()
 #hABchi2.GetBinXYZ(maxbin, xmax, ymax, zmax)
 hABchi2.SetMinimum(-100.0)
 hABchi2.SetMaximum(0.0)
