@@ -13,7 +13,7 @@ normalizationBkg = 200/(exp(-1)-exp(-3))
 normalizationSig = 10/(0.05 * sqrt(2* pi))
 Nbins = 50
 Random = True  # use random events
-offset = 1000 #offset to avoid negative Logs
+offset = 10 #offset to avoid negative Logs
 
 ################
 # Global Functions
