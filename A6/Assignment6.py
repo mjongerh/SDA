@@ -16,11 +16,10 @@ Nbins = 20
 # Global Functions
 ################
 def FillBkg(histo) :
-    nbins = histo.GetNBins()
     binwidth = histo.GetBinWidth(0) #assumed binwidth to be constant
     i=0
     Ntot = 0
-    while i < nbins :
+    while i < Nbins :
         nevents = int(round(binwidth * normalizationBkg * exp(-histo.GetBinCenter(i+1))))
         Ntot += nevents #check if reasonable amount of events are used
         histo.Fill(i+1, nevents)
@@ -29,11 +28,10 @@ def FillBkg(histo) :
     return histo
 
 def FillSig(histo) :
-    nbins = histo.GetNBins()
     binwidth = histo.GetBinWidth(0) #assumed binwidth to be constant
     i=0
     Ntot = 0
-    while i < nbins :
+    while i < Nbins :
         nevents = int(round(binwidth * normalizationSig * exp(-(histo.GetBinCenter(i+1)-2.1)**2 / (2*0.05**2)  )))
         Ntot += nevents #check if reasonable amount of events are used
         histo.Fill(i+1, nevents)
