@@ -13,6 +13,7 @@ normalizationBkg = 200/(exp(-1)-exp(-3))
 normalizationSig = 10/(0.05 * sqrt(2* pi))
 Nbins = 50
 Random = True  # use random events
+offset = 1000 #offset to avoid negative Logs
 
 ################
 # Global Functions
@@ -59,8 +60,8 @@ def LogLH0 (histo) :
     LogL = 0.0
     while i < Nbins :
         mass = histo.GetBinCenter(i+1)
-        ExpectedBkg = ExpecBkg(mass, binwidth)
-        MeasNev = histo.GetBinContent(i+1)
+        ExpectedBkg = ExpecBkg(mass, binwidth) + offset
+        MeasNev = histo.GetBinContent(i+1) + offset
         LogL += -ExpectedBkg - log(factorial(MeasNev)) + MeasNev*log(-ExpectedBkg)
         i += 1
     return LogL
@@ -71,9 +72,9 @@ def LogLH1 (histo) :
     LogL = 0.0
     while i < Nbins :
         mass = histo.GetBinCenter(i+1)
-        ExpectedBkg = ExpecBkg(mass, binwidth)
-        ExpectedSig = ExpecSig(mass, binwidth)
-        MeasNev = histo.GetBinContent(i+1)
+        ExpectedBkg = ExpecBkg(mass, binwidth) + offset
+        ExpectedSig = ExpecSig(mass, binwidth) + offset
+        MeasNev = histo.GetBinContent(i+1) + offset
         LogL += -ExpectedBkg -ExpectedSig - log(factorial(MeasNev)) + MeasNev*log(-ExpectedBkg-ExpectedSig)
         i += 1
     return LogL
