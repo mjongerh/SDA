@@ -7,7 +7,7 @@ from math import *
 ################
 # Global Settings
 ################
-ROOT.gRandom.SetSeed(time.time())
+ROOT.gRandom.SetSeed(int(time.time()))
 # normalization  200 events from 1 to 3 TeV
 normalizationBkg = 200/(exp(-1)-exp(-3))
 normalizationSig = 10/(0.05 * sqrt(2* pi))
