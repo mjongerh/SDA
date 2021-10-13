@@ -19,10 +19,11 @@ def FillBkg(histo) :
     binwidth = histo.GetBinWidth(0) #assumed binwidth to be constant
     i=0
     Ntot = 0
+    mass = histo.GetBinCenter(i+1)
     while i < Nbins :
-        nevents = int(round(binwidth * normalizationBkg * exp(-histo.GetBinCenter(i+1))))
+        nevents = int(round(binwidth * normalizationBkg * exp(-mass)))
         Ntot += nevents #check if reasonable amount of events are used
-        histo.Fill(i+1, nevents)
+        histo.Fill(mass, nevents)
         i += 1
     print("total bkg events: " + str(Ntot))
     return histo
@@ -31,10 +32,11 @@ def FillSig(histo) :
     binwidth = histo.GetBinWidth(0) #assumed binwidth to be constant
     i=0
     Ntot = 0
+    mass = histo.GetBinCenter(i+1)
     while i < Nbins :
-        nevents = int(round(binwidth * normalizationSig * exp(-(histo.GetBinCenter(i+1)-2.1)**2 / (2*0.05**2)  )))
+        nevents = int(round(binwidth * normalizationSig * exp(-(mass-2.1)**2 / (2*0.05**2)  )))
         Ntot += nevents #check if reasonable amount of events are used
-        histo.Fill(i+1, nevents)
+        histo.Fill(mass, nevents)
         i += 1
     print("total sig events: " + str(Ntot))
     return histo
