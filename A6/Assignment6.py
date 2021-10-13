@@ -9,7 +9,7 @@ from math import *
 # normalization  200 events from 1 to 3 TeV
 normalizationBkg = 200/(exp(-1)-exp(-3))
 normalizationSig = 10/(0.05 * sqrt(2* pi))
-Nbins = 20
+Nbins = 50
 
 
 ################
@@ -47,4 +47,4 @@ def FillSig(histo) :
 TestHisto = ROOT.TH1F("TestHisto", "data histo", Nbins, 1.0 , 3.0)
 TestHisto = FillBkg(TestHisto)
 TestHisto = FillSig(TestHisto)
-TestHisto.Draw()
+TestHisto.Draw("hist")
