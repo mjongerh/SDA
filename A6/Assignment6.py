@@ -33,7 +33,7 @@ def FillBkg(histo) :
     Ntot = 0
     while i < Nbins :
         mass = histo.GetBinCenter(i+1)
-        nevents = ExpecBkg(mass,binwidth)
+        nevents = ExpecBkg(mass, binwidth)
         Ntot += nevents #check if reasonable amount of events are used
         histo.Fill(mass, nevents)
         i += 1
@@ -46,7 +46,7 @@ def FillSig(histo) :
     Ntot = 0
     while i < Nbins :
         mass = histo.GetBinCenter(i+1)
-        nevents = ExpecSig(mass,binwidth)
+        nevents = ExpecSig(mass, binwidth)
         Ntot += nevents #check if reasonable amount of events are used
         histo.Fill(mass, nevents)
         i += 1
@@ -54,23 +54,25 @@ def FillSig(histo) :
     return histo
 
 def LogLH0 (histo) :
+    binwidth = histo.GetBinWidth(0)
     i=0
     LogL = 0.0
     while i < Nbins :
         mass = histo.GetBinCenter(i+1)
-        ExpectedBkg = ExpecBkg(mass)
+        ExpectedBkg = ExpecBkg(mass, binwidth)
         MeasNev = histo.GetBinContent(i+1)
         LogL += -ExpectedBkg - log(factorial(MeasNev)) + MeasNev*log(-ExpectedBkg)
         i += 1
     return LogL
 
 def LogLH1 (histo) :
+    binwidth = histo.GetBinWidth(0)
     i=0
     LogL = 0.0
     while i < Nbins :
         mass = histo.GetBinCenter(i+1)
-        ExpectedBkg = ExpecBkg(mass)
-        ExpectedSig = ExpecSig(mass)
+        ExpectedBkg = ExpecBkg(mass, binwidth)
+        ExpectedSig = ExpecSig(mass, binwidth)
         MeasNev = histo.GetBinContent(i+1)
         LogL += -ExpectedBkg -ExpectedSig - log(factorial(MeasNev)) + MeasNev*log(-ExpectedBkg-ExpectedSig)
         i += 1
