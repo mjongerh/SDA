@@ -17,13 +17,13 @@ Random = True  # use random events
 ################
 # Global Functions
 ################
-def ExpecBkg (mass) :
-    Nev = int(round(binwidth * normalizationBkg * exp(-mass)))
+def ExpecBkg (mass, binW) :
+    Nev = int(round(binW * normalizationBkg * exp(-mass)))
     if Random : return ROOT.gRandom.Poisson(Nev)
     else : return Nev
 
-def ExpecSig(mass) :
-    Nev = int(round(binwidth * normalizationSig * exp(-(mass-2.1)**2 / (2*0.05**2)  )))
+def ExpecSig(mass, binW) :
+    Nev = int(round(binW * normalizationSig * exp(-(mass-2.1)**2 / (2*0.05**2)  )))
     if Random : return ROOT.gRandom.Poisson(Nev)
     else : return Nev
 
@@ -33,7 +33,7 @@ def FillBkg(histo) :
     Ntot = 0
     while i < Nbins :
         mass = histo.GetBinCenter(i+1)
-        nevents = ExpecBkg(mass)
+        nevents = ExpecBkg(mass,binwidth)
         Ntot += nevents #check if reasonable amount of events are used
         histo.Fill(mass, nevents)
         i += 1
@@ -46,7 +46,7 @@ def FillSig(histo) :
     Ntot = 0
     while i < Nbins :
         mass = histo.GetBinCenter(i+1)
-        nevents = ExpecSig(mass)
+        nevents = ExpecSig(mass,binwidth)
         Ntot += nevents #check if reasonable amount of events are used
         histo.Fill(mass, nevents)
         i += 1
