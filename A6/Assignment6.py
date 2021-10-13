@@ -42,7 +42,7 @@ def FillSig(histo) :
 ################
 # Assignment a
 ################
-TestHisto = ROOT.TH1D("TestHisto", "data histo", Nbins, 1.0 , 3.0)
+TestHisto = ROOT.TH1F("TestHisto", "data histo", Nbins, 1.0 , 3.0)
 TestHisto = FillBkg(TestHisto)
 TestHisto = FillSig(TestHisto)
 TestHisto.Draw()
