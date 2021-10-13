@@ -10,7 +10,7 @@ from math import *
 normalizationBkg = 200/(exp(-1)-exp(-3))
 normalizationSig = 10/(0.05 * sqrt(2* pi))
 Nbins = 50
-
+Random = True  # use random events
 
 ################
 # Global Functions
@@ -22,6 +22,7 @@ def FillBkg(histo) :
     while i < Nbins :
         mass = histo.GetBinCenter(i+1)
         nevents = int(round(binwidth * normalizationBkg * exp(-mass)))
+        if Random : nevents = ROOT.gRandom.Poisson(nevents)
         Ntot += nevents #check if reasonable amount of events are used
         histo.Fill(mass, nevents)
         i += 1
@@ -35,6 +36,7 @@ def FillSig(histo) :
     while i < Nbins :
         mass = histo.GetBinCenter(i+1)
         nevents = int(round(binwidth * normalizationSig * exp(-(mass-2.1)**2 / (2*0.05**2)  )))
+        if Random : nevents = ROOT.gRandom.Poisson(nevents)
         Ntot += nevents #check if reasonable amount of events are used
         histo.Fill(mass, nevents)
         i += 1
