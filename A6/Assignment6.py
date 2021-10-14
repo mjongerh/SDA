@@ -112,12 +112,14 @@ TempHisto = ROOT.TH1F("TempHisto", "data histo", Nbins, 1.0 , 3.0)
 TempHisto2 = ROOT.TH1F("TempHisto2", "data histo", Nbins, 1.0 , 3.0)
 
 j = 0
-while j < 10000 :
+while j < 100 :
     TempHisto = FillBkg(TempHisto)
+    print("LLR H0 : " + str(LogLRTS(TempHisto)))
     LLRHistoH0.Fill(LogLRTS(TempHisto))
     TempHisto2 = FillSig(TempHisto2)
     TempHisto2 = FillBkg(TempHisto2)
     LLRHistoH1.Fill(LogLRTS(TempHisto2))
+    print("LLR H1 : " + str(LogLRTS(TempHisto2)))
     TempHisto.Reset("ICES")
     TempHisto2.Reset("ICES")
     j += 1
