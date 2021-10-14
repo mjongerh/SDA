@@ -156,5 +156,6 @@ TempHisto.Reset("ICES")
 
 infile = ROOT.TFile('assignment5-dataset.root')
 hData = infile.Get('hdata')
+print(hData.GetGetMaximumBin())
 print("P value of given data is: " + str(CalcPval(hData)))
 
