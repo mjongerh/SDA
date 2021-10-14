@@ -31,27 +31,27 @@ def ExpecSig(mass, binW) :
 def FillBkg(histo) :
     binwidth = histo.GetBinWidth(0) #assumed binwidth to be constant
     i=0
-    Ntot = 0
+    #Ntot = 0
     while i < Nbins :
         mass = histo.GetBinCenter(i+1)
         nevents = ExpecBkg(mass, binwidth)
-        Ntot += nevents #check if reasonable amount of events are used
+        #Ntot += nevents #check if reasonable amount of events are used
         histo.Fill(mass, nevents)
         i += 1
-    print("total bkg events: " + str(Ntot))
+    #print("total bkg events: " + str(Ntot))
     return histo
 
 def FillSig(histo) :
     binwidth = histo.GetBinWidth(0) #assumed binwidth to be constant
     i=0
-    Ntot = 0
+    #Ntot = 0
     while i < Nbins :
         mass = histo.GetBinCenter(i+1)
         nevents = ExpecSig(mass, binwidth)
-        Ntot += nevents #check if reasonable amount of events are used
+        #Ntot += nevents #check if reasonable amount of events are used
         histo.Fill(mass, nevents)
         i += 1
-    print("total sig events: " + str(Ntot))
+    #print("total sig events: " + str(Ntot))
     return histo
 
 def LogLH0 (histo) :
@@ -109,11 +109,12 @@ LLRHisto = ROOT.TH1F("LLRHisto", "data histo", Nbins, 1.0 , 0.0)
 TempHisto = ROOT.TH1F("TempHisto", "data histo", Nbins, 1.0 , 3.0)
 
 j = 0
-while j < 1000 :
+while j < 10 :
     TempHisto = FillBkg(TempHisto)
     TempHisto = FillSig(TempHisto)
     LLRHisto.Fill(LogLRTS(TempHisto))
     TempHisto.Reset("ICES")
+    j =+ 1
 LLRHisto.Draw()
 ################
 # Assignment d
