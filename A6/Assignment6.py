@@ -133,7 +133,7 @@ IntP = 0.0
 while j < Nbins :
     IntTot += LLRHistoH0.GetBinContent(j+1)
     if LLRHistoH0.GetBinCenter(j+1) >= IntStart :
-        IntP += CanvLLRHistoH0.GetBinContent(j+1)
+        IntP += LLRHistoH0.GetBinContent(j+1)
     j += 1
 Pvalue = IntP / IntTot
 print("P value is: " + str(Pvalue))
