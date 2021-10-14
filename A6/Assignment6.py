@@ -131,8 +131,8 @@ IntStart = LLRHistoH1.GetRMS()
 IntTot = 0.0
 IntP = 0.0
 while j < Nbins :
-    IntTot += CanvLLRHistoH0.GetBinContent(j+1)
-    if CanvLLRHistoH0.GetBinCenter(j+1) >= IntStart :
+    IntTot += LLRHistoH0.GetBinContent(j+1)
+    if LLRHistoH0.GetBinCenter(j+1) >= IntStart :
         IntP += CanvLLRHistoH0.GetBinContent(j+1)
     j += 1
 Pvalue = IntP / IntTot
