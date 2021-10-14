@@ -80,7 +80,7 @@ def LogLH1 (histo) :#Log likelihood guessing H1 is true
         ExpectedSig = ExpecSig(mass, binwidth)
         MeasNev = histo.GetBinContent(i+1)
         if (ExpectedBkg+ExpectedSig) <= 0 : 
-            LogL += -ExpectedBkg -ExpectedSig - log(factorial(MeasNev)) - PenaltyTerm
+            LogL += - PenaltyTerm
             i+=1
             continue
         LogL += -ExpectedBkg -ExpectedSig - log(factorial(MeasNev)) + MeasNev*log(ExpectedBkg+ExpectedSig)
