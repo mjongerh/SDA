@@ -23,8 +23,8 @@ def ExpecBkg (mass, binW) :
     Nev = binW * normalizationBkg * exp(-mass)
     return Nev
 
-def ExpecSig(mass, binW) :
-    Nev = binW * normalizationSig * exp(-(mass-2.1)**2 / (2*0.05**2))
+def ExpecSig(mass, binW, massguess = 2.1) :
+    Nev = binW * normalizationSig * exp(-(mass-massguess)**2 / (2*0.05**2))
     return Nev
 
 def FillBkg(histo) :
@@ -41,13 +41,13 @@ def FillBkg(histo) :
     #print("total bkg events: " + str(Ntot))
     return histo
 
-def FillSig(histo) :
+def FillSig(histo, massguess = 2.1) :
     binwidth = histo.GetBinWidth(0) #assumed binwidth to be constant
     i=0
     #Ntot = 0
     while i < Nbins :
         mass = histo.GetBinCenter(i+1)
-        nevents = ExpecSig(mass, binwidth)
+        nevents = ExpecSig(mass, binwidth, massguess)
         NEvents = ROOT.gRandom.Poisson(nevents)
         #Ntot += nevents #check if reasonable amount of events are used
         histo.Fill(mass, NEvents)
@@ -88,8 +88,28 @@ def LogLH1 (histo) :#Log likelihood guessing H1 is true
         i += 1
     return LogL
 
+def LogLHM (histo, massguess) :
+    binwidth = histo.GetBinWidth(1)
+    i=0
+    LogL = 0.0
+    while i < Nbins :
+        mass = histo.GetBinCenter(i+1)
+        ExpectedBkg = ExpecBkg(mass, binwidth) + offset
+        ExpectedSig = ExpecSig(mass, binwidth, massguess) + offset
+        MeasNev = histo.GetBinContent(i+1) + offset
+        if (ExpectedBkg + ExpectedSig) <= 0 : 
+            LogL += - PenaltyTerm
+            i+=1
+            continue
+        LogL += -ExpectedBkg -ExpectedSig - log(factorial(MeasNev)) + MeasNev*log(ExpectedBkg+ExpectedSig)
+        i += 1
+    return LogL
+
 def LogLRTS (histo) :
     return LogLH1(histo) - LogLH0(histo)
+
+def LLR(histo, massguess) :
+    return LogLHM(histo, massguess) - LogLH0(histo)
 
 def CalcPval(histo, nbins = Nbins) :
     j=0
@@ -129,7 +149,7 @@ TempHisto = ROOT.TH1F("TempHisto", "data histo", Nbins, 1.0 , 3.0)
 TempHisto2 = ROOT.TH1F("TempHisto2", "data histo", Nbins, 1.0 , 3.0)
 
 j = 0
-while j < 10000 :
+while j < 10 :
     TempHisto = FillBkg(TempHisto)
     #print("LLR H0 : " + str(LogLRTS(TempHisto)))
     LLRHistoH0.Fill(LogLRTS(TempHisto))
@@ -156,6 +176,27 @@ TempHisto.Reset("ICES")
 
 infile = ROOT.TFile('assignment6-dataset.root')
 hData = infile.Get('hdata')
-print(hData.GetMaximumBin())
 print("P value of given data is: " + str(CalcPval(hData)))
+
+################
+# Assignment e
+################
+MassArray = numpy.linspace(1.0, 3.0, 100)
+j = 0
+BestLLR = -99999999.0
+BestMass = 0.0
+while j < len(MassArray) :
+    #TempHisto = FillBkg(TempHisto)
+    #LLRHistoH0.Fill(LogLRTS(TempHisto))
+    TempHisto2 = FillSig(TempHisto2, MassArray[j])
+    TempHisto2 = FillBkg(TempHisto2)
+    llr = LLR(TempHisto2, MassArray[j])
+    if llr > BestLLR :
+        BestLLR = llr
+        BestMass = MassArray[j]
+    #TempHisto.Reset("ICES")
+    TempHisto2.Reset("ICES")
+    j += 1
+print("best mass found is :" + str(BestMass))
+
 
