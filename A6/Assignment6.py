@@ -56,7 +56,7 @@ def FillSig(histo) :
     return histo
 
 def LogLH0 (histo) : #Log likelihood guessing H0 is true
-    binwidth = histo.GetBinWidth(0)
+    binwidth = histo.GetBinWidth(1)
     i=0
     LogL = 0.0
     while i < Nbins :
@@ -72,7 +72,7 @@ def LogLH0 (histo) : #Log likelihood guessing H0 is true
     return LogL
 
 def LogLH1 (histo) :#Log likelihood guessing H1 is true
-    binwidth = histo.GetBinWidth(0)
+    binwidth = histo.GetBinWidth(1)
     i=0
     LogL = 0.0
     while i < Nbins :
