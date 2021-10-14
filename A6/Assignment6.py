@@ -54,7 +54,7 @@ def FillSig(histo) :
     #print("total sig events: " + str(Ntot))
     return histo
 
-def LogLH0 (histo) :
+def LogLH0 (histo) : #Log likelihood guessing H0 is true
     binwidth = histo.GetBinWidth(0)
     i=0
     LogL = 0.0
@@ -70,7 +70,7 @@ def LogLH0 (histo) :
         i += 1
     return LogL
 
-def LogLH1 (histo) :
+def LogLH1 (histo) :#Log likelihood guessing H1 is true
     binwidth = histo.GetBinWidth(0)
     i=0
     LogL = 0.0
@@ -88,7 +88,7 @@ def LogLH1 (histo) :
     return LogL
 
 def LogLRTS (histo) :
-    return (LogLH0(TestHisto)/LogLH1(TestHisto))
+    return LogLH1(TestHisto) - LogLH0(TestHisto)
 
 ################
 # Assignment a
@@ -126,8 +126,12 @@ LLRHistoH1.Draw()
 CanvLLRHistoH0 = ROOT.TCanvas("CanvLLRHistoH0","LLR given H0", 1000,1000 )
 LLRHistoH0.Draw()
 
+TempHisto = FillBkg(TempHisto)
+TempHisto = FillSig(TempHisto)
+IntStart = LogLRTS(TempHisto)
+TempHisto.Reset("ICES")
+
 j=0
-IntStart = LLRHistoH1.GetRMS()
 IntTot = 0.0
 IntP = 0.0
 while j < Nbins :
