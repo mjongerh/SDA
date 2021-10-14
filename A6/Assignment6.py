@@ -110,7 +110,7 @@ LLRHistoH1 = ROOT.TH1F("LLRHistoH1", "data histo", Nbins, 1.0 , 0.0)
 TempHisto = ROOT.TH1F("TempHisto", "data histo", Nbins, 1.0 , 3.0)
 
 j = 0
-while j < 1000 :
+while j < 10000 :
     TempHisto = FillBkg(TempHisto)
     LLRHistoH0.Fill(LogLRTS(TempHisto))
     TempHisto = FillSig(TempHisto)
