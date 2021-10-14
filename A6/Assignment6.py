@@ -19,12 +19,12 @@ PenaltyTerm = 100
 # Global Functions
 ################
 def ExpecBkg (mass, binW) :
-    Nev = int(round(binW * normalizationBkg * exp(-mass)))
+    Nev = binW * normalizationBkg * exp(-mass)
     if Random : return ROOT.gRandom.Poisson(Nev)
     else : return Nev
 
 def ExpecSig(mass, binW) :
-    Nev = int(round(binW * normalizationSig * exp(-(mass-2.1)**2 / (2*0.05**2)  )))
+    Nev = binW * normalizationSig * exp(-(mass-2.1)**2 / (2*0.05**2))
     if Random : return ROOT.gRandom.Poisson(Nev)
     else : return Nev
 
