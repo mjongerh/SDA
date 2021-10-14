@@ -14,20 +14,18 @@ normalizationSig = 10/(0.05 * sqrt(2* pi))
 Nbins = 50
 Random = True  # use random events
 PenaltyTerm = 10000
-offset = 1
+offset = 0
 
 ################
 # Global Functions
 ################
 def ExpecBkg (mass, binW) :
     Nev = binW * normalizationBkg * exp(-mass)
-    if Random : return ROOT.gRandom.Poisson(Nev)
-    else : return Nev
+    return Nev
 
 def ExpecSig(mass, binW) :
     Nev = binW * normalizationSig * exp(-(mass-2.1)**2 / (2*0.05**2))
-    if Random : return ROOT.gRandom.Poisson(Nev)
-    else : return Nev
+    return Nev
 
 def FillBkg(histo) :
     binwidth = histo.GetBinWidth(0) #assumed binwidth to be constant
@@ -36,6 +34,7 @@ def FillBkg(histo) :
     while i < Nbins :
         mass = histo.GetBinCenter(i+1)
         nevents = ExpecBkg(mass, binwidth)
+        if Random : nevents = ROOT.gRandom.Poisson(nevents)
         #Ntot += nevents #check if reasonable amount of events are used
         histo.Fill(mass, nevents)
         i += 1
@@ -49,6 +48,7 @@ def FillSig(histo) :
     while i < Nbins :
         mass = histo.GetBinCenter(i+1)
         nevents = ExpecSig(mass, binwidth)
+        if Random : nevents = ROOT.gRandom.Poisson(nevents)
         #Ntot += nevents #check if reasonable amount of events are used
         histo.Fill(mass, nevents)
         i += 1
