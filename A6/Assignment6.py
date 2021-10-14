@@ -101,38 +101,11 @@ TestHisto = FillSig(TestHisto)
 TestHisto.Draw("hist")
 print("T1: " + str(LogLRTS(TestHisto)))
 
-TestCanv1 = ROOT.TCanvas("TestCanv1","data test", 1000,1000 )
-TestHisto1 = ROOT.TH1F("TestHisto1", "data histo", Nbins, 1.0 , 3.0)
-TestHisto1 = FillBkg(TestHisto1)
-TestHisto1 = FillSig(TestHisto1)
-TestHisto1.Draw("hist")
-print("T2: " + str(LogLRTS(TestHisto1)))
-
-TestCanv2 = ROOT.TCanvas("TestCanv2","data test", 1000,1000 )
-TestHisto2 = ROOT.TH1F("TestHisto2", "data histo", Nbins, 1.0 , 3.0)
-TestHisto2 = FillBkg(TestHisto2)
-TestHisto2 = FillSig(TestHisto2)
-TestHisto2.Draw("hist")
-print("T3: " + str(LogLRTS(TestHisto2)))
-
-TestCanv3 = ROOT.TCanvas("TestCanv3","data test", 1000,1000 )
-TestHisto3 = ROOT.TH1F("TestHisto3", "data histo", Nbins, 1.0 , 3.0)
-TestHisto3 = FillBkg(TestHisto3)
-TestHisto3 = FillSig(TestHisto3)
-TestHisto3.Draw("hist")
-print("T4: " + str(LogLRTS(TestHisto3)))
-
-TestCanv4 = ROOT.TCanvas("TestCanv4","data test", 1000,1000 )
-TestHisto4 = ROOT.TH1F("TestHisto4", "data histo", Nbins, 1.0 , 3.0)
-TestHisto4 = FillBkg(TestHisto4)
-TestHisto4 = FillSig(TestHisto4)
-TestHisto4.Draw("hist")
-print("T5: " + str(LogLRTS(TestHisto4)))
 
 ################
 # Assignment b
 ################
-print(LogLRTS(TestHisto))
+print("LLR of test 1: " + str(LogLRTS(TestHisto)))
 
 ################
 # Assignment c
@@ -143,7 +116,7 @@ TempHisto = ROOT.TH1F("TempHisto", "data histo", Nbins, 1.0 , 3.0)
 TempHisto2 = ROOT.TH1F("TempHisto2", "data histo", Nbins, 1.0 , 3.0)
 
 j = 0
-while j < 100 :
+while j < 10000 :
     TempHisto = FillBkg(TempHisto)
     #print("LLR H0 : " + str(LogLRTS(TempHisto)))
     LLRHistoH0.Fill(LogLRTS(TempHisto))
