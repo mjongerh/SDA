@@ -7,7 +7,7 @@ from math import *
 ################
 # Global Settings
 ################
-#ROOT.gRandom.SetSeed(int(time.time()))
+ROOT.gRandom.SetSeed(int(time.time()))
 # normalization  200 events from 1 to 3 TeV
 normalizationBkg = 200/(exp(-1)-exp(-3))
 normalizationSig = 10/(0.05 * sqrt(2* pi))
@@ -110,8 +110,8 @@ print("LLR of test 1: " + str(LogLRTS(TestHisto)))
 ################
 # Assignment c
 ################
-LLRHistoH0 = ROOT.TH1F("LLRHistoH0", "LLR given H0 histo", 10*Nbins, -10.0 , 10.0)
-LLRHistoH1 = ROOT.TH1F("LLRHistoH1", "LLR given H1 histo", 10*Nbins, -10.0 , 10.0)
+LLRHistoH0 = ROOT.TH1F("LLRHistoH0", "LLR given H0 histo", Nbins, -10.0 , 10.0)
+LLRHistoH1 = ROOT.TH1F("LLRHistoH1", "LLR given H1 histo", Nbins, -10.0 , 10.0)
 TempHisto = ROOT.TH1F("TempHisto", "data histo", Nbins, 1.0 , 3.0)
 TempHisto2 = ROOT.TH1F("TempHisto2", "data histo", Nbins, 1.0 , 3.0)
 
@@ -144,10 +144,10 @@ TempHisto.Reset("ICES")
 j=0
 IntTot = 0.0
 IntP = 0.0
-while j < 10*Nbins :
-    IntTot += LLRHistoH0.GetBinContent(j+1)
-    if LLRHistoH0.GetBinCenter(j+1) >= IntStart :
-        IntP += LLRHistoH0.GetBinContent(j+1)
+while j < Nbins + 2 :
+    IntTot += LLRHistoH0.GetBinContent(j)
+    if LLRHistoH0.GetBinCenter(j) >= IntStart :
+        IntP += LLRHistoH0.GetBinContent(j)
     j += 1
 Pvalue = IntP / IntTot
 print("P value is: " + str(Pvalue))
