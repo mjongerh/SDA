@@ -62,7 +62,7 @@ def LogLH0 (histo) : #Log likelihood guessing H0 is true
     while i < Nbins :
         mass = histo.GetBinCenter(i+1)
         ExpectedBkg = ExpecBkg(mass, binwidth) + offset
-        MeasNev = histo.GetBinContent(i+1)
+        MeasNev = histo.GetBinContent(i+1) + offset
         if ExpectedBkg <= 0 : 
             LogL += - PenaltyTerm
             i+=1
@@ -79,8 +79,8 @@ def LogLH1 (histo) :#Log likelihood guessing H1 is true
         mass = histo.GetBinCenter(i+1)
         ExpectedBkg = ExpecBkg(mass, binwidth) + offset
         ExpectedSig = ExpecSig(mass, binwidth) + offset
-        MeasNev = histo.GetBinContent(i+1)
-        if (ExpectedBkg) <= 0 : 
+        MeasNev = histo.GetBinContent(i+1) + offset
+        if (ExpectedBkg + ExpectedSig) <= 0 : 
             LogL += - PenaltyTerm
             i+=1
             continue
