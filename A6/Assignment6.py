@@ -129,7 +129,7 @@ TempHisto = ROOT.TH1F("TempHisto", "data histo", Nbins, 1.0 , 3.0)
 TempHisto2 = ROOT.TH1F("TempHisto2", "data histo", Nbins, 1.0 , 3.0)
 
 j = 0
-while j < 10000 :
+while j < 10 :
     TempHisto = FillBkg(TempHisto)
     #print("LLR H0 : " + str(LogLRTS(TempHisto)))
     LLRHistoH0.Fill(LogLRTS(TempHisto))
@@ -156,6 +156,6 @@ TempHisto.Reset("ICES")
 
 infile = ROOT.TFile('assignment5-dataset.root')
 hData = infile.Get('hdata')
-print(hData.GetGetMaximumBin())
+print(hData.GetMaximumBin())
 print("P value of given data is: " + str(CalcPval(hData)))
 
