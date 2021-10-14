@@ -13,7 +13,7 @@ normalizationBkg = 200/(exp(-1)-exp(-3))
 normalizationSig = 10/(0.05 * sqrt(2* pi))
 Nbins = 50
 Random = True  # use random events
-offset = 10 #offset to avoid negative Logs
+PenaltyTerm = 100
 
 ################
 # Global Functions
@@ -60,8 +60,12 @@ def LogLH0 (histo) :
     LogL = 0.0
     while i < Nbins :
         mass = histo.GetBinCenter(i+1)
-        ExpectedBkg = ExpecBkg(mass, binwidth) + offset
-        MeasNev = histo.GetBinContent(i+1) + offset
+        ExpectedBkg = ExpecBkg(mass, binwidth)
+        MeasNev = histo.GetBinContent(i+1)
+        if ExpectedBkg <= 0 : 
+            LogL += -ExpectedBkg - log(factorial(MeasNev)) - PenaltyTerm
+            i+=1
+            continue
         LogL += -ExpectedBkg - log(factorial(MeasNev)) + MeasNev*log(ExpectedBkg)
         i += 1
     return LogL
@@ -72,12 +76,19 @@ def LogLH1 (histo) :
     LogL = 0.0
     while i < Nbins :
         mass = histo.GetBinCenter(i+1)
-        ExpectedBkg = ExpecBkg(mass, binwidth) + offset
-        ExpectedSig = ExpecSig(mass, binwidth) + offset
-        MeasNev = histo.GetBinContent(i+1) + offset
+        ExpectedBkg = ExpecBkg(mass, binwidth)
+        ExpectedSig = ExpecSig(mass, binwidth)
+        MeasNev = histo.GetBinContent(i+1)
+        if (ExpectedBkg+ExpectedSig) <= 0 : 
+            LogL += -ExpectedBkg -ExpectedSig - log(factorial(MeasNev)) - PenaltyTerm
+            i+=1
+            continue
         LogL += -ExpectedBkg -ExpectedSig - log(factorial(MeasNev)) + MeasNev*log(ExpectedBkg+ExpectedSig)
         i += 1
     return LogL
+
+def LogLRTS (histo) :
+    return (LogLH0(TestHisto)/LogLH1(TestHisto))
 
 ################
 # Assignment a
@@ -86,6 +97,24 @@ TestHisto = ROOT.TH1F("TestHisto", "data histo", Nbins, 1.0 , 3.0)
 TestHisto = FillBkg(TestHisto)
 TestHisto = FillSig(TestHisto)
 TestHisto.Draw("hist")
+################
+# Assignment b
+################
+print(LogLRTS(TestHisto))
 
-print("LogLH0 = " + str(LogLH0(TestHisto)))
-print("LogLH1 = " + str(LogLH1(TestHisto)))
+################
+# Assignment c
+################
+LLRHisto = ROOT.TH1F("LLRHisto", "data histo", Nbins, 1.0 , 0.0)
+TempHisto = ROOT.TH1F("TempHisto", "data histo", Nbins, 1.0 , 3.0)
+
+j = 0
+while j < 1000 :
+    TempHisto = FillBkg(TempHisto)
+    TempHisto = FillSig(TempHisto)
+    LLRHisto.Fill(LogLRTS(TempHisto))
+    TempHisto.Reset("ICES")
+LLRHisto.Draw()
+################
+# Assignment d
+################
