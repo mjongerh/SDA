@@ -105,8 +105,8 @@ print(LogLRTS(TestHisto))
 ################
 # Assignment c
 ################
-LLRHistoH0 = ROOT.TH1F("LLRHistoH0", "data histo", Nbins, 1.0 , 0.0)
-LLRHistoH1 = ROOT.TH1F("LLRHistoH1", "data histo", Nbins, 1.0 , 0.0)
+LLRHistoH0 = ROOT.TH1F("LLRHistoH0", "data histo", 10*Nbins, -1000.0 , 1000.0)
+LLRHistoH1 = ROOT.TH1F("LLRHistoH1", "data histo", 10*Nbins, -1000.0 , 1000.0)
 TempHisto = ROOT.TH1F("TempHisto", "data histo", Nbins, 1.0 , 3.0)
 
 j = 0
@@ -134,7 +134,7 @@ TempHisto.Reset("ICES")
 j=0
 IntTot = 0.0
 IntP = 0.0
-while j < Nbins :
+while j < 10*Nbins :
     IntTot += LLRHistoH0.GetBinContent(j+1)
     if LLRHistoH0.GetBinCenter(j+1) >= IntStart :
         IntP += LLRHistoH0.GetBinContent(j+1)
