@@ -14,6 +14,7 @@ normalizationSig = 10/(0.05 * sqrt(2* pi))
 Nbins = 50
 Random = True  # use random events
 PenaltyTerm = 10000
+offset = 1
 
 ################
 # Global Functions
@@ -60,7 +61,7 @@ def LogLH0 (histo) : #Log likelihood guessing H0 is true
     LogL = 0.0
     while i < Nbins :
         mass = histo.GetBinCenter(i+1)
-        ExpectedBkg = ExpecBkg(mass, binwidth)
+        ExpectedBkg = ExpecBkg(mass, binwidth) + offset
         MeasNev = histo.GetBinContent(i+1)
         if ExpectedBkg <= 0 : 
             LogL += - PenaltyTerm
@@ -76,8 +77,8 @@ def LogLH1 (histo) :#Log likelihood guessing H1 is true
     LogL = 0.0
     while i < Nbins :
         mass = histo.GetBinCenter(i+1)
-        ExpectedBkg = ExpecBkg(mass, binwidth)
-        ExpectedSig = ExpecSig(mass, binwidth)
+        ExpectedBkg = ExpecBkg(mass, binwidth) + offset
+        ExpectedSig = ExpecSig(mass, binwidth) + offset
         MeasNev = histo.GetBinContent(i+1)
         if (ExpectedBkg) <= 0 : 
             LogL += - PenaltyTerm
