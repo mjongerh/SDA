@@ -34,9 +34,9 @@ def FillBkg(histo) :
     while i < Nbins :
         mass = histo.GetBinCenter(i+1)
         nevents = ExpecBkg(mass, binwidth)
-        nevents = ROOT.gRandom.Poisson(nevents)
+        NEvents = ROOT.gRandom.Poisson(nevents)
         #Ntot += nevents #check if reasonable amount of events are used
-        histo.Fill(mass, nevents)
+        histo.Fill(mass, NEvents)
         i += 1
     #print("total bkg events: " + str(Ntot))
     return histo
@@ -48,9 +48,9 @@ def FillSig(histo) :
     while i < Nbins :
         mass = histo.GetBinCenter(i+1)
         nevents = ExpecSig(mass, binwidth)
-        nevents = ROOT.gRandom.Poisson(nevents)
+        NEvents = ROOT.gRandom.Poisson(nevents)
         #Ntot += nevents #check if reasonable amount of events are used
-        histo.Fill(mass, nevents)
+        histo.Fill(mass, NEvents)
         i += 1
     #print("total sig events: " + str(Ntot))
     return histo
