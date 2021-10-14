@@ -114,7 +114,7 @@ while j < 10 :
     TempHisto = FillSig(TempHisto)
     LLRHisto.Fill(LogLRTS(TempHisto))
     TempHisto.Reset("ICES")
-    j =+ 1
+    j += 1
 LLRHisto.Draw()
 ################
 # Assignment d
