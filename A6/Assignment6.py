@@ -94,10 +94,35 @@ def LogLRTS (histo) :
 ################
 # Assignment a
 ################
+TestCanv = ROOT.TCanvas("TestCanv","data test", 1000,1000 )
 TestHisto = ROOT.TH1F("TestHisto", "data histo", Nbins, 1.0 , 3.0)
 TestHisto = FillBkg(TestHisto)
 TestHisto = FillSig(TestHisto)
 TestHisto.Draw("hist")
+
+TestCanv1 = ROOT.TCanvas("TestCanv1","data test", 1000,1000 )
+TestHisto1 = ROOT.TH1F("TestHisto1", "data histo", Nbins, 1.0 , 3.0)
+TestHisto1 = FillBkg(TestHisto)
+TestHisto1 = FillSig(TestHisto)
+TestHisto1.Draw("hist")
+
+TestCanv2 = ROOT.TCanvas("TestCanv2","data test", 1000,1000 )
+TestHisto2 = ROOT.TH1F("TestHisto2", "data histo", Nbins, 1.0 , 3.0)
+TestHisto2 = FillBkg(TestHisto)
+TestHisto2 = FillSig(TestHisto)
+TestHisto2.Draw("hist")
+
+TestCanv3 = ROOT.TCanvas("TestCanv3","data test", 1000,1000 )
+TestHisto3 = ROOT.TH1F("TestHisto3", "data histo", Nbins, 1.0 , 3.0)
+TestHisto3 = FillBkg(TestHisto)
+TestHisto3 = FillSig(TestHisto)
+TestHisto3.Draw("hist")
+
+TestCanv4 = ROOT.TCanvas("TestCanv4","data test", 1000,1000 )
+TestHisto4 = ROOT.TH1F("TestHisto4", "data histo", Nbins, 1.0 , 3.0)
+TestHisto4 = FillBkg(TestHisto)
+TestHisto4 = FillSig(TestHisto)
+TestHisto4.Draw("hist")
 ################
 # Assignment b
 ################
