@@ -91,6 +91,19 @@ def LogLH1 (histo) :#Log likelihood guessing H1 is true
 def LogLRTS (histo) :
     return LogLH1(histo) - LogLH0(histo)
 
+def CalcPval(histo, nbins = Nbins) :
+    j=0
+    IntTot = 0.0
+    IntP = 0.0
+    IntStart = LogLRTS(histo)
+    while j < nbins + 2 :
+        IntTot += LLRHistoH0.GetBinContent(j)
+        if LLRHistoH0.GetBinCenter(j) >= IntStart :
+            IntP += LLRHistoH0.GetBinContent(j)
+        j += 1
+    Pvalue = IntP / IntTot
+    return Pvalue
+
 ################
 # Assignment a
 ################
@@ -138,17 +151,10 @@ LLRHistoH0.Draw()
 
 TempHisto = FillBkg(TempHisto)
 TempHisto = FillSig(TempHisto)
-IntStart = LogLRTS(TempHisto)
+print("P value of test is: " + str(CalcPval(TempHisto)))
 TempHisto.Reset("ICES")
 
-j=0
-IntTot = 0.0
-IntP = 0.0
-while j < Nbins + 2 :
-    IntTot += LLRHistoH0.GetBinContent(j)
-    if LLRHistoH0.GetBinCenter(j) >= IntStart :
-        IntP += LLRHistoH0.GetBinContent(j)
-    j += 1
-Pvalue = IntP / IntTot
-print("P value is: " + str(Pvalue))
+infile = ROOT.TFile('assignment5-dataset.root')
+hData = infile.Get('hdata')
+print("P value of given data is: " + str(CalcPval(hData)))
 
