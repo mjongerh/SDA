@@ -108,14 +108,17 @@ print(LogLRTS(TestHisto))
 LLRHistoH0 = ROOT.TH1F("LLRHistoH0", "data histo", 10*Nbins, -1000.0 , 1000.0)
 LLRHistoH1 = ROOT.TH1F("LLRHistoH1", "data histo", 10*Nbins, -1000.0 , 1000.0)
 TempHisto = ROOT.TH1F("TempHisto", "data histo", Nbins, 1.0 , 3.0)
+TempHisto2 = ROOT.TH1F("TempHisto", "data histo", Nbins, 1.0 , 3.0)
 
 j = 0
 while j < 10000 :
     TempHisto = FillBkg(TempHisto)
     LLRHistoH0.Fill(LogLRTS(TempHisto))
-    TempHisto = FillSig(TempHisto)
-    LLRHistoH1.Fill(LogLRTS(TempHisto))
+    TempHisto2 = FillSig(TempHisto2)
+    TempHisto2 = FillBkg(TempHisto2)
+    LLRHistoH1.Fill(LogLRTS(TempHisto2))
     TempHisto.Reset("ICES")
+    TempHisto2.Reset("ICES")
     j += 1
 CanvLLRHistoH1 = ROOT.TCanvas("CanvLLRHistoH1","LLR given H1", 1000,1000 )
 LLRHistoH1.Draw()
