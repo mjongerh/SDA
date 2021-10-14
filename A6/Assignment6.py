@@ -105,8 +105,8 @@ print(LogLRTS(TestHisto))
 ################
 # Assignment c
 ################
-LLRHistoH0 = ROOT.TH1F("LLRHistoH0", "LLR given H0 histo", 10*Nbins, -1000.0 , 1000.0)
-LLRHistoH1 = ROOT.TH1F("LLRHistoH1", "LLR given H1 histo", 10*Nbins, -1000.0 , 1000.0)
+LLRHistoH0 = ROOT.TH1F("LLRHistoH0", "LLR given H0 histo", 10*Nbins, -100.0 , 100.0)
+LLRHistoH1 = ROOT.TH1F("LLRHistoH1", "LLR given H1 histo", 10*Nbins, -100.0 , 100.0)
 TempHisto = ROOT.TH1F("TempHisto", "data histo", Nbins, 1.0 , 3.0)
 TempHisto2 = ROOT.TH1F("TempHisto2", "data histo", Nbins, 1.0 , 3.0)
 
