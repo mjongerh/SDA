@@ -126,5 +126,15 @@ LLRHistoH1.Draw()
 CanvLLRHistoH0 = ROOT.TCanvas("CanvLLRHistoH0","LLR given H0", 1000,1000 )
 LLRHistoH0.Draw()
 
-
+j=0
+IntStart = LLRHistoH1.GetRMS()
+IntTot = 0.0
+IntP = 0.0
+while j < Nbins :
+    IntTot += CanvLLRHistoH0.GetBinContent(j+1)
+    if CanvLLRHistoH0.GetBinCenter(j+1) >= IntStart :
+        IntP += CanvLLRHistoH0.GetBinContent(j+1)
+    j += 1
+Pvalue = IntP / IntTot
+print("P value is: " + str(Pvalue))
 
