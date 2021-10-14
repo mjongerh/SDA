@@ -89,7 +89,7 @@ def LogLH1 (histo) :#Log likelihood guessing H1 is true
     return LogL
 
 def LogLRTS (histo) :
-    return LogLH1(TestHisto) - LogLH0(TestHisto)
+    return LogLH1(histo) - LogLH0(histo)
 
 ################
 # Assignment a
