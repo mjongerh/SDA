@@ -181,7 +181,9 @@ print("P value of given data is: " + str(CalcPval(hData)))
 ################
 # Assignment e
 ################
-MassArray = numpy.linspace(1.0, 3.0, 100)
+LLRHistoHM = ROOT.TH1F("LLRHistoHM", "best LLR as function of mass histo", Nbins, -10.0 , 10.0)
+
+MassArray = numpy.linspace(1.0, 3.0, 10)
 j = 0
 BestLLR = -99999999.0
 BestMass = 0.0
@@ -190,13 +192,19 @@ while j < len(MassArray) :
     #LLRHistoH0.Fill(LogLRTS(TempHisto))
     TempHisto2 = FillSig(TempHisto2, MassArray[j])
     TempHisto2 = FillBkg(TempHisto2)
-    llr = LLR(TempHisto2, MassArray[j])
-    if llr > BestLLR :
-        BestLLR = llr
-        BestMass = MassArray[j]
-    #TempHisto.Reset("ICES")
+    k=0
+    while k < len(MassArray) :
+        llr = LLR(TempHisto2, MassArray[k])
+        if llr > BestLLR :
+            BestLLR = llr
+            BestMass = MassArray[k]
+        k += 1
+    
+        #TempHisto.Reset("ICES")
     TempHisto2.Reset("ICES")
     j += 1
 print("best mass found is :" + str(BestMass))
 
-
+# loop over mass and generate LLR plot of H0 and HM
+#          for each mass, loop over all masses and test their LLR, keep track of the best LLR and MASS
+#          get P value for each best sets
