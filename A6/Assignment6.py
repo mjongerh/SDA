@@ -222,7 +222,7 @@ while j < len(MassArray) :
         TempHisto2 = FillBkg(TempHisto2)
         TempHisto = FillBkg(TempHisto)
         BestH0 = GetBestLLRMass(TempHisto, MassArray) # Get best LLR given H0
-        LLRHistoH0M.Fill(BestResult[0])
+        LLRHistoH0M.Fill(BestH0[0])
         BestResult = GetBestLLRMass(TempHisto2, MassArray) # find best LLR for any mass
         LLRHistoHM.Fill(BestResult[0])
         
