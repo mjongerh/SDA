@@ -155,7 +155,7 @@ def GetBestLLRMass(histo, massarray) :
 TestCanv = ROOT.TCanvas("TestCanv","data test", 1000,1000 )
 TestHisto = ROOT.TH1F("TestHisto", "data histo", Nbins, 1.0 , 3.0)
 TestHisto = FillBkg(TestHisto)
-TestHisto = FillSig(TestHisto, 2.9)
+TestHisto = FillSig(TestHisto)
 TestHisto.Draw("hist")
 print("T1: " + str(LogLRTS(TestHisto)))
 
@@ -174,7 +174,7 @@ TempHisto = ROOT.TH1F("TempHisto", "data histo", Nbins, 1.0 , 3.0)
 TempHisto2 = ROOT.TH1F("TempHisto2", "data histo", Nbins, 1.0 , 3.0)
 
 j = 0
-while j < 10000 :
+while j < 100 :
     TempHisto = FillBkg(TempHisto)
     #print("LLR H0 : " + str(LogLRTS(TempHisto)))
     LLRHistoH0.Fill(LogLRTS(TempHisto))
@@ -212,7 +212,7 @@ LLRHistoH0M = ROOT.TH1F("LLRHistoH0M", "LLR of Hm given H0", Nbins, -10.0 , 10.0
 PvalHistoHM = ROOT.TH1F("PvalHistoHM", "p value as function of true mass", len(MassArray), 1.0 , 3.0)
 LLRHistoH0
 j = 0
-NtestSim = 1000
+NtestSim = 100
 while j < len(MassArray) :
     #TempHisto = FillBkg(TempHisto)
     #LLRHistoH0.Fill(LogLRTS(TempHisto))
