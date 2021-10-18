@@ -155,7 +155,7 @@ def GetBestLLRMass(histo, massarray) :
 TestCanv = ROOT.TCanvas("TestCanv","data test", 1000,1000 )
 TestHisto = ROOT.TH1F("TestHisto", "data histo", Nbins, 1.0 , 3.0)
 TestHisto = FillBkg(TestHisto)
-TestHisto = FillSig(TestHisto)
+TestHisto = FillSig(TestHisto, 2.9)
 TestHisto.Draw("hist")
 print("T1: " + str(LogLRTS(TestHisto)))
 
@@ -206,7 +206,7 @@ print("P value of given data is: " + str(CalcPval(hData)))
 ################
 # Assignment e
 ################
-MassArray = numpy.linspace(1.0, 3.0, 10)
+MassArray = numpy.linspace(1.0, 3.0, 20, endpoints = False)
 LLRHistoHM = ROOT.TH1F("LLRHistoHM", "best LLR as function of mass histo", Nbins, -10.0 , 10.0)
 PvalHistoHM = ROOT.TH1F("PvalHistoHM", "p value as function of true mass", len(MassArray), 1.0 , 3.0)
 
