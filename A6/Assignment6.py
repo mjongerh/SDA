@@ -124,7 +124,7 @@ def CalcPval(histo, nbins = Nbins) :
     Pvalue = IntP / IntTot
     return Pvalue
 
-def CalcPvalHM(histo, nbins = Nbins) :
+def CalcPvalHM(histo, massarray, nbins = Nbins) :
     j=0
     IntTot = 0.0
     IntP = 0.0
@@ -213,7 +213,7 @@ LLRHistoH0M = ROOT.TH1F("LLRHistoH0M", "LLR of Hm given H0", Nbins, -10.0 , 10.0
 PvalHistoHM = ROOT.TH1F("PvalHistoHM", "p value as function of true mass", len(MassArray), 1.0 , 3.0)
 LLRHistoH0
 j = 0
-NtestSim = 1000
+NtestSim = 100
 BestMassArray = [0] * len(MassArray)
 BestLLRArray = [0] * len(MassArray)
 
@@ -239,7 +239,7 @@ while j < len(MassArray) :
     for x in range(NtestSim):
         TempHisto2 = FillSig(TempHisto2, MassArray[j]) #Generate a p value
         TempHisto2 = FillBkg(TempHisto2)
-        PvalHM = CalcPvalHM(TempHisto2)
+        PvalHM = CalcPvalHM(TempHisto2, MassArray)
         PvalHistoHM.Fill(MassArray[j], PvalHM/NtestSim)
         TempHisto2.Reset("ICES")
     j += 1
