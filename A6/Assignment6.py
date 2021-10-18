@@ -213,7 +213,7 @@ LLRHistoH0M = ROOT.TH1F("LLRHistoH0M", "LLR of Hm given H0", Nbins, -10.0 , 10.0
 PvalHistoHM = ROOT.TH1F("PvalHistoHM", "p value as function of true mass", len(MassArray), 1.0 , 3.0)
 LLRHistoH0
 j = 0
-NtestSim = 100
+NtestSim = 1000
 BestMassArray = [0] * len(MassArray)
 BestLLRArray = [0] * len(MassArray)
 
