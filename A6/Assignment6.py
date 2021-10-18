@@ -237,8 +237,10 @@ while j < len(MassArray) :
         TempHisto2.Reset("ICES")
     j += 1
 
-CanvLLRHistoHM = ROOT.TCanvas("CanvLLRHistoHM","LLR given HM", 1000,1000 )
+CanvLLRHistoHM = ROOT.TCanvas("CanvLLRHistoHM","Best LLR given HM", 1000,1000 )
 LLRHistoHM.Draw()
+CanvLLRHistoH0M = ROOT.TCanvas("CanvLLRHistoH0M","Best LLR given H0", 1000,1000 )
+LLRHistoH0M.Draw()
 CanvPvalHistoHM = ROOT.TCanvas("CanvPvalHistoHM","p value as function of true mass", 1000,1000 )
 PvalHistoHM.Draw()
 
