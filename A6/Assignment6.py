@@ -195,10 +195,14 @@ LLRHistoH1.Draw()
 CanvLLRHistoH0 = ROOT.TCanvas("CanvLLRHistoH0","LLR given H0", 1000,1000 )
 LLRHistoH0.Draw()
 
-TempHisto = FillBkg(TempHisto)
-TempHisto = FillSig(TempHisto)
-print("P value of test is: " + str(CalcPval(TempHisto)))
-TempHisto.Reset("ICES")
+PvalHistoH1 = ROOT.TH1F("PvalHistoH1", "p value distribution in case of H1", 20, 1.0 , 0.0)
+for r in range(100) :
+    TempHisto = FillBkg(TempHisto)
+    TempHisto = FillSig(TempHisto)
+    PvalHistoH1.Fill(CalcPval(TempHisto))
+    TempHisto.Reset("ICES")
+CanvPvalHistoH1 = ROOT.TCanvas("CanvPvalHistoH1","p value distribution in case of H1", 1000,1000 )
+PvalHistoH1.Draw()
 
 infile = ROOT.TFile('assignment6-dataset.root')
 hData = infile.Get('hdata')
@@ -240,7 +244,7 @@ while j < len(MassArray) :
         TempHisto2 = FillSig(TempHisto2, MassArray[j]) #Generate a p value
         TempHisto2 = FillBkg(TempHisto2)
         PvalHM = CalcPvalHM(TempHisto2, MassArray)
-        PvalHistoHM.Fill(MassArray[j], PvalHM/NtestSim)
+        PvalHistoHM.Fill(MassArray[j]+0.001, PvalHM/NtestSim)  #small correction to fill in the correct bin
         TempHisto2.Reset("ICES")
     j += 1
 CanvLLRHistoHM = ROOT.TCanvas("CanvLLRHistoHM","Best LLR given HM", 1000,1000 )
