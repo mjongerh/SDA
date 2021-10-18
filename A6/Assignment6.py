@@ -128,7 +128,7 @@ def CalcPvalHM(histo, massarray, nbins = Nbins) :
     j=0
     IntTot = 0.0
     IntP = 0.0
-    T = GetBestLLRMass(histo)
+    T = GetBestLLRMass(histo, massarray)
     IntStart = T[0]
     while j < nbins + 2 :  #include under- and overflow bins
         IntTot += LLRHistoH0M.GetBinContent(j)
