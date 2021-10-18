@@ -124,11 +124,12 @@ def CalcPval(histo, nbins = Nbins) :
     Pvalue = IntP / IntTot
     return Pvalue
 
-def CalcPvalHM(histo, llrguess, nbins = Nbins) :
+def CalcPvalHM(histo, nbins = Nbins) :
     j=0
     IntTot = 0.0
     IntP = 0.0
-    IntStart = llrguess
+    T = GetBestLLRMass(histo)
+    IntStart = T[0]
     while j < nbins + 2 :  #include under- and overflow bins
         IntTot += LLRHistoH0M.GetBinContent(j)
         if LLRHistoH0M.GetBinCenter(j) >= IntStart :
@@ -212,10 +213,11 @@ LLRHistoH0M = ROOT.TH1F("LLRHistoH0M", "LLR of Hm given H0", Nbins, -10.0 , 10.0
 PvalHistoHM = ROOT.TH1F("PvalHistoHM", "p value as function of true mass", len(MassArray), 1.0 , 3.0)
 LLRHistoH0
 j = 0
-NtestSim = 100
+NtestSim = 1000
+BestMassArray = [0] * len(MassArray)
+BestLLRArray = [0] * len(MassArray)
+
 while j < len(MassArray) :
-    #TempHisto = FillBkg(TempHisto)
-    #LLRHistoH0.Fill(LogLRTS(TempHisto))
     p=0 
     while p < NtestSim : # Generate LLR plot with mass j
         TempHisto2 = FillSig(TempHisto2, MassArray[j])
@@ -225,18 +227,22 @@ while j < len(MassArray) :
         LLRHistoH0M.Fill(BestH0[0])
         BestResult = GetBestLLRMass(TempHisto2, MassArray) # find best LLR for any mass
         LLRHistoHM.Fill(BestResult[0])
-        
+        BestMassArray[j] += BestResult[1]/NtestSim
+        BestLLRArray[j] += BestResult[0]/NtestSim
         TempHisto2.Reset("ICES")
         TempHisto.Reset("ICES")
         p += 1
+    
+    j += 1
+j = 0
+while j < len(MassArray) :
     for x in range(NtestSim):
         TempHisto2 = FillSig(TempHisto2, MassArray[j]) #Generate a p value
         TempHisto2 = FillBkg(TempHisto2)
-        PvalHM = CalcPvalHM(TempHisto2, BestResult[0])
+        PvalHM = CalcPvalHM(TempHisto2)
         PvalHistoHM.Fill(MassArray[j], PvalHM/NtestSim)
         TempHisto2.Reset("ICES")
     j += 1
-
 CanvLLRHistoHM = ROOT.TCanvas("CanvLLRHistoHM","Best LLR given HM", 1000,1000 )
 LLRHistoHM.Draw()
 CanvLLRHistoH0M = ROOT.TCanvas("CanvLLRHistoH0M","Best LLR given H0", 1000,1000 )
