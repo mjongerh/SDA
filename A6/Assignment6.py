@@ -130,9 +130,9 @@ def CalcPvalHM(histo, llrguess, nbins = Nbins) :
     IntP = 0.0
     IntStart = llrguess
     while j < nbins + 2 :  #include under- and overflow bins
-        IntTot += LLRHistoH0.GetBinContent(j)
-        if LLRHistoH0.GetBinCenter(j) >= IntStart :
-            IntP += LLRHistoH0.GetBinContent(j)
+        IntTot += LLRHistoH0M.GetBinContent(j)
+        if LLRHistoH0M.GetBinCenter(j) >= IntStart :
+            IntP += LLRHistoH0M.GetBinContent(j)
         j += 1
     Pvalue = IntP / IntTot
     return Pvalue
@@ -208,8 +208,9 @@ print("P value of given data is: " + str(CalcPval(hData)))
 ################
 MassArray = numpy.linspace(1.0, 3.0, 20, endpoint = False)
 LLRHistoHM = ROOT.TH1F("LLRHistoHM", "best LLR as function of mass histo", Nbins, -10.0 , 10.0)
+LLRHistoH0M = ROOT.TH1F("LLRHistoH0M", "LLR of Hm given H0", Nbins, -10.0 , 10.0)
 PvalHistoHM = ROOT.TH1F("PvalHistoHM", "p value as function of true mass", len(MassArray), 1.0 , 3.0)
-
+LLRHistoH0
 j = 0
 NtestSim = 1000
 while j < len(MassArray) :
@@ -219,11 +220,14 @@ while j < len(MassArray) :
     while p < NtestSim : # Generate LLR plot with mass j
         TempHisto2 = FillSig(TempHisto2, MassArray[j])
         TempHisto2 = FillBkg(TempHisto2)
-
-        BestResult = GetBestLLRMass(TempHisto2, MassArray) # fnd best LLR for any mass
+        TempHisto = FillBkg(TempHisto)
+        BestH0 = GetBestLLRMass(TempHisto, MassArray) # Get best LLR given H0
+        LLRHistoH0M.Fill(BestResult[0])
+        BestResult = GetBestLLRMass(TempHisto2, MassArray) # find best LLR for any mass
         LLRHistoHM.Fill(BestResult[0])
         
         TempHisto2.Reset("ICES")
+        TempHisto.Reset("ICES")
         p += 1
     for x in range(NtestSim):
         TempHisto2 = FillSig(TempHisto2, MassArray[j]) #Generate a p value
