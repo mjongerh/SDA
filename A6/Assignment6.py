@@ -174,7 +174,7 @@ TempHisto = ROOT.TH1F("TempHisto", "data histo", Nbins, 1.0 , 3.0)
 TempHisto2 = ROOT.TH1F("TempHisto2", "data histo", Nbins, 1.0 , 3.0)
 
 j = 0
-while j < 100 :
+while j < 10000 :
     TempHisto = FillBkg(TempHisto)
     #print("LLR H0 : " + str(LogLRTS(TempHisto)))
     LLRHistoH0.Fill(LogLRTS(TempHisto))
@@ -227,10 +227,12 @@ while j < len(MassArray) :
         
         TempHisto2.Reset("ICES")
         p += 1
-    TempHisto2 = FillSig(TempHisto2, MassArray[j]) #Generate a p value
-    TempHisto2 = FillBkg(TempHisto2)
-    PvalHM = CalcPvalHM(TempHisto2, BestResult[0])
-    PvalHistoHM.Fill(MassArray[j], PvalHM)
+    for x in range(NtestSim):
+        TempHisto2 = FillSig(TempHisto2, MassArray[j]) #Generate a p value
+        TempHisto2 = FillBkg(TempHisto2)
+        PvalHM = CalcPvalHM(TempHisto2, BestResult[0])
+        PvalHistoHM.Fill(MassArray[j], PvalHM/NtestSim)
+        TempHisto2.Reset("ICES")
     j += 1
 #print("best mass found is :" + str(BestMass))
 CanvLLRHistoHM = ROOT.TCanvas("CanvLLRHistoHM","LLR given HM", 1000,1000 )
