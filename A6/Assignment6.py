@@ -206,7 +206,7 @@ print("P value of given data is: " + str(CalcPval(hData)))
 ################
 # Assignment e
 ################
-MassArray = numpy.linspace(1.0, 3.0, 20, endpoints = False)
+MassArray = numpy.linspace(1.0, 3.0, 20, endpoint = False)
 LLRHistoHM = ROOT.TH1F("LLRHistoHM", "best LLR as function of mass histo", Nbins, -10.0 , 10.0)
 PvalHistoHM = ROOT.TH1F("PvalHistoHM", "p value as function of true mass", len(MassArray), 1.0 , 3.0)
 
