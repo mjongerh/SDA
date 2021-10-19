@@ -10,21 +10,24 @@ from math import *
 ROOT.gRandom.SetSeed(int(time.time()))
 # normalization  200 events from 1 to 3 TeV
 normalizationBkg = 200/(exp(-1)-exp(-3))
-normalizationSig = 10/(0.05 * sqrt(2* pi))
+MassResolution = 0.05
+normalizationSig = 10/(MassResolution * sqrt(2* pi))
 Nbins = 50
 Random = True  # use random events
 PenaltyTerm = 10000
 offset = 0
+SignalMultiplier = 1.0
+BackgroundMultiplier = 1.0
 
 ################
 # Global Functions
 ################
 def ExpecBkg (mass, binW) :
-    Nev = binW * normalizationBkg * exp(-mass)
+    Nev = BackgroundMultiplier * binW * normalizationBkg * exp(-mass)
     return Nev
 
 def ExpecSig(mass, binW, massguess = 2.1) :
-    Nev = binW * normalizationSig * exp(-(mass-massguess)**2 / (2*0.05**2))
+    Nev = SignalMultiplier * binW * normalizationSig * exp(-(mass-massguess)**2 / (2*MassResolution**2))
     return Nev
 
 def FillBkg(histo) :
@@ -154,12 +157,23 @@ def GetBestLLRMass(histo, massarray) :
 # Assignment a
 ################
 TestCanv = ROOT.TCanvas("TestCanv","data test", 1000,1000 )
-TestHisto = ROOT.TH1F("TestHisto", "data histo", Nbins, 1.0 , 3.0)
+TestHisto = ROOT.TH1F("TestHisto", "Random events", Nbins, 1.0 , 3.0)
+TestHisto.GetXaxis().SetTitle("Invariant mass [TeV]")
+TestHisto.GetYaxis().SetTitle("Number of events")
 TestHisto = FillBkg(TestHisto)
 TestHisto = FillSig(TestHisto)
 TestHisto.Draw("hist")
-print("T1: " + str(LogLRTS(TestHisto)))
 
+Random = False
+TestCanv2 = ROOT.TCanvas("TestCanv2","data test", 1000,1000 )
+TestHisto2 = ROOT.TH1F("TestHisto", "Expected values", Nbins, 1.0 , 3.0)
+TestHisto2.GetXaxis().SetTitle("Invariant mass [TeV]")
+TestHisto2.GetYaxis().SetTitle("Number of events")
+TestHisto2 = FillBkg(TestHisto2)
+TestHisto2 = FillSig(TestHisto2)
+TestHisto2.Draw("hist")
+print("T1: " + str(LogLRTS(TestHisto)))
+Random = True
 
 ################
 # Assignment b
@@ -169,8 +183,8 @@ print("LLR of test 1: " + str(LogLRTS(TestHisto)))
 ################
 # Assignment c
 ################
-LLRHistoH0 = ROOT.TH1F("LLRHistoH0", "LLR given H0 histo", Nbins, -10.0 , 10.0)
-LLRHistoH1 = ROOT.TH1F("LLRHistoH1", "LLR given H1 histo", Nbins, -10.0 , 10.0)
+LLRHistoH0 = ROOT.TH1F("LLRHistoH0", "LLR given H0", Nbins, -10.0 , 10.0)
+LLRHistoH1 = ROOT.TH1F("LLRHistoH1", "LLR given H1", Nbins, -10.0 , 10.0)
 TempHisto = ROOT.TH1F("TempHisto", "data histo", Nbins, 1.0 , 3.0)
 TempHisto2 = ROOT.TH1F("TempHisto2", "data histo", Nbins, 1.0 , 3.0)
 
@@ -187,12 +201,16 @@ while j < 100 :
     TempHisto2.Reset("ICES")
     j += 1
 CanvLLRHistoH1 = ROOT.TCanvas("CanvLLRHistoH1","LLR given H1", 1000,1000 )
+LLRHistoH1.GetXaxis().SetTitle("Value of LLR")
+LLRHistoH1.GetYaxis().SetTitle("Number of occurances")
 LLRHistoH1.Draw()
 
 ################
 # Assignment d
 ################
 CanvLLRHistoH0 = ROOT.TCanvas("CanvLLRHistoH0","LLR given H0", 1000,1000 )
+LLRHistoH0.GetXaxis().SetTitle("Value of LLR")
+LLRHistoH0.GetYaxis().SetTitle("Number of occurances")
 LLRHistoH0.Draw()
 
 PvalHistoH1 = ROOT.TH1F("PvalHistoH1", "p value distribution in case of H1", 20, 1.0 , 0.0)
@@ -202,6 +220,8 @@ for r in range(100) :
     PvalHistoH1.Fill(CalcPval(TempHisto))
     TempHisto.Reset("ICES")
 CanvPvalHistoH1 = ROOT.TCanvas("CanvPvalHistoH1","p value distribution in case of H1", 1000,1000 )
+PvalHistoH1.GetXaxis().SetTitle("p-value")
+PvalHistoH1.GetYaxis().SetTitle("Number of occurances")
 PvalHistoH1.Draw()
 
 infile = ROOT.TFile('assignment6-dataset.root')
@@ -215,7 +235,7 @@ MassArray = numpy.linspace(1.0, 3.0, 20, endpoint = False)
 LLRHistoHM = ROOT.TH1F("LLRHistoHM", "best LLR as function of mass histo", Nbins, -10.0 , 10.0)
 LLRHistoH0M = ROOT.TH1F("LLRHistoH0M", "LLR of Hm given H0", Nbins, -10.0 , 10.0)
 PvalHistoHM = ROOT.TH1F("PvalHistoHM", "p value as function of true mass", len(MassArray), 1.0 , 3.0)
-LLRHistoH0
+
 j = 0
 NtestSim = 1000
 BestMassArray = [0] * len(MassArray)
@@ -248,10 +268,16 @@ while j < len(MassArray) :
         TempHisto2.Reset("ICES")
     j += 1
 CanvLLRHistoHM = ROOT.TCanvas("CanvLLRHistoHM","Best LLR given HM", 1000,1000 )
+LLRHistoHM.GetXaxis().SetTitle("Value of LLR")
+LLRHistoHM.GetYaxis().SetTitle("Number of occurances")
 LLRHistoHM.Draw()
 CanvLLRHistoH0M = ROOT.TCanvas("CanvLLRHistoH0M","Best LLR given H0", 1000,1000 )
+LLRHistoH0M.GetXaxis().SetTitle("Value of LLR")
+LLRHistoH0M.GetYaxis().SetTitle("Number of occurances")
 LLRHistoH0M.Draw()
 CanvPvalHistoHM = ROOT.TCanvas("CanvPvalHistoHM","p value as function of true mass", 1000,1000 )
+PvalHistoHM.GetXaxis().SetTitle("True invariant mass [TeV]")
+PvalHistoHM.GetYaxis().SetTitle("p-value")
 PvalHistoHM.Draw()
 
 # loop over mass and generate LLR plot of H0 and HM
