@@ -16,7 +16,7 @@ Nbins = 50
 Random = True  # use random events
 PenaltyTerm = 10000
 offset = 0
-SignalMultiplier = 1.0
+SignalMultiplier = 1.0 #for question g
 BackgroundMultiplier = 1.0
 
 ################
