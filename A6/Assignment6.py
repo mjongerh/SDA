@@ -1,4 +1,5 @@
 import ROOT, inspect, array, ctypes
+import RooStats
 import numpy
 import time
 #from array import array
@@ -127,6 +128,19 @@ def CalcPval(histo, nbins = Nbins) :
     Pvalue = IntP / IntTot
     return Pvalue
 
+def ExpectedPval(histo) :
+    j=0
+    IntTot = 0.0
+    IntP = 0.0
+    IntStart = RooStats.HybridPlots.GetMedian(histo)
+    while j < nbins + 2 :  #include under- and overflow bins
+        IntTot += LLRHistoH0.GetBinContent(j)
+        if LLRHistoH0.GetBinCenter(j) >= IntStart :
+            IntP += LLRHistoH0.GetBinContent(j)
+        j += 1
+    Pvalue = IntP / IntTot
+    return Pvalue
+
 def CalcPvalHM(histo, massarray, nbins = Nbins) :
     j=0
     IntTot = 0.0
@@ -212,9 +226,9 @@ CanvLLRHistoH0 = ROOT.TCanvas("CanvLLRHistoH0","LLR given H0", 1000,1000 )
 LLRHistoH0.GetXaxis().SetTitle("Value of LLR")
 LLRHistoH0.GetYaxis().SetTitle("Number of occurances")
 LLRHistoH0.Draw()
-
+print("Expected p value is: " +str(ExpectedPval(LLRHistoH1)))
 PvalHistoH1 = ROOT.TH1F("PvalHistoH1", "p value distribution in case of H1", 30, 1.0 , 0.0)
-for r in range(1000) :
+for r in range(10) :
     TempHisto = FillBkg(TempHisto)
     TempHisto = FillSig(TempHisto)
     PvalHistoH1.Fill(CalcPval(TempHisto))
@@ -237,7 +251,7 @@ LLRHistoHM = ROOT.TH1F("LLRHistoHM", "best LLR as function of mass histo", Nbins
 PvalHistoHM = ROOT.TH1F("PvalHistoHM", "p value as function of true mass", len(MassArray), 1.0 , 3.0)
 
 j = 0
-NtestSim = 1000
+NtestSim = 10
 BestMassArray = [0] * len(MassArray)
 BestLLRArray = [0] * len(MassArray)
 
