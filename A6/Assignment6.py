@@ -1,5 +1,4 @@
 import ROOT, inspect, array, ctypes
-import RooStats
 import numpy
 import time
 #from array import array
@@ -132,7 +131,7 @@ def ExpectedPval(histo) :
     j=0
     IntTot = 0.0
     IntP = 0.0
-    IntStart = RooStats.HybridPlots.GetMedian(histo)
+    IntStart = histo.GetMedian()
     while j < nbins + 2 :  #include under- and overflow bins
         IntTot += LLRHistoH0.GetBinContent(j)
         if LLRHistoH0.GetBinCenter(j) >= IntStart :
