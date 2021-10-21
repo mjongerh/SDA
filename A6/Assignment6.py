@@ -10,7 +10,7 @@ from math import *
 ROOT.gRandom.SetSeed(int(time.time()))
 # normalization  200 events from 1 to 3 TeV
 normalizationBkg = 200/(exp(-1)-exp(-3))
-MassResolution = 0.025
+MassResolution = 0.05 #resolution in GeV
 normalizationSig = 10/(MassResolution * sqrt(2* pi))
 Nbins = 50
 Random = True  # use random events
@@ -30,32 +30,26 @@ def ExpecSig(mass, binW, massguess = 2.1) :
     Nev = SignalMultiplier * binW * normalizationSig * exp(-(mass-massguess)**2 / (2*MassResolution**2))
     return Nev
 
-def FillBkg(histo) :
+def FillBkg(histo) : #Fill the histogram with background events
     binwidth = histo.GetBinWidth(0) #assumed binwidth to be constant
     i=0
-    #Ntot = 0
     while i < Nbins :
         mass = histo.GetBinCenter(i+1)
         nevents = ExpecBkg(mass, binwidth)
-        if Random == True : nevents = ROOT.gRandom.Poisson(nevents)
-        #Ntot += nevents #check if reasonable amount of events are used
+        if Random == True : nevents = ROOT.gRandom.Poisson(nevents) #get a random amount from Poisson dist with expected nevents
         histo.Fill(mass, nevents)
         i += 1
-    #print("total bkg events: " + str(Ntot))
     return histo
 
 def FillSig(histo, massguess = 2.1) :
     binwidth = histo.GetBinWidth(0) #assumed binwidth to be constant
     i=0
-    #Ntot = 0
     while i < Nbins :
         mass = histo.GetBinCenter(i+1)
         nevents = ExpecSig(mass, binwidth, massguess)
         if Random == True : nevents = ROOT.gRandom.Poisson(nevents)
-        #Ntot += nevents #check if reasonable amount of events are used
         histo.Fill(mass, nevents)
         i += 1
-    #print("total sig events: " + str(Ntot))
     return histo
 
 def LogLH0 (histo) : #Log likelihood assuming H0 is true
@@ -64,13 +58,13 @@ def LogLH0 (histo) : #Log likelihood assuming H0 is true
     LogL = 0.0
     while i < Nbins :
         mass = histo.GetBinCenter(i+1)
-        ExpectedBkg = ExpecBkg(mass, binwidth) + offset
-        MeasNev = histo.GetBinContent(i+1) + offset
+        ExpectedBkg = ExpecBkg(mass, binwidth) + offset #expected background
+        MeasNev = histo.GetBinContent(i+1) + offset # measured N events
         if ExpectedBkg <= 0 : #penalty term if the expecation is somehow negative
             LogL += - PenaltyTerm
             i+=1
             continue
-        LogL += -ExpectedBkg - log(factorial(MeasNev)) + MeasNev*log(ExpectedBkg)
+        LogL += -ExpectedBkg - log(factorial(MeasNev)) + MeasNev*log(ExpectedBkg) # add to the sum
         i += 1
     return LogL
 
@@ -108,13 +102,13 @@ def LogLHM (histo, massguess) :
         i += 1
     return LogL
 
-def LogLRTS (histo) :
+def LogLRTS (histo) : #log likelihood ratio test for H1
     return LogLH1(histo) - LogLH0(histo)
 
-def LLR(histo, massguess) :
+def LLR(histo, massguess) : #LLR to be used for Hm hypothesis
     return LogLHM(histo, massguess) - LogLH0(histo)
 
-def CalcPval(histo, nbins = Nbins) :
+def CalcPval(histo, nbins = Nbins) : #calc p value of one data set
     j=0
     IntTot = 0.0
     IntP = 0.0
@@ -127,20 +121,21 @@ def CalcPval(histo, nbins = Nbins) :
     Pvalue = IntP / IntTot
     return Pvalue
 
-def ExpectedPval(histo, nbins = Nbins) :
+def ExpectedPval(histo, nbins = Nbins) : # expected p value based on LLR distribution
     j=0
     IntTot = 0.0
     IntP = 0.0
     x = array.array('d', [0])
     p = array.array('d', [0.5])
-    IntStart = histo.GetQuantiles(1, x, p)
+    IntStart = histo.GetQuantiles(1, x, p)  #get the median
     while j < nbins + 2 :  #include under- and overflow bins
         IntTot += LLRHistoH0.GetBinContent(j)
-        if LLRHistoH0.GetBinCenter(j) >= IntStart :
+        if LLRHistoH0.GetBinCenter(j) >= IntStart : #integrate relevant part
             IntP += LLRHistoH0.GetBinContent(j)
         j += 1
-    Pvalue = IntP / IntTot
+    Pvalue = IntP / IntTot #normalization
     return Pvalue
+
 
 def CalcPvalHM(histo, massarray, nbins = Nbins) :
     j=0
@@ -156,7 +151,7 @@ def CalcPvalHM(histo, massarray, nbins = Nbins) :
     Pvalue = IntP / IntTot
     return Pvalue
 
-def GetBestLLRMass(histo, massarray) :
+def GetBestLLRMass(histo, massarray) : #Find the best LLR and mass for a data set
     k = 0
     BestLLR = -99999999.0
     BestMass = 0.0
@@ -171,6 +166,7 @@ def GetBestLLRMass(histo, massarray) :
 ################
 # Assignment a
 ################
+#Test the functions by producing a pseudo experiment
 TestCanv = ROOT.TCanvas("TestCanv","data test", 1000,1000 )
 TestHisto = ROOT.TH1F("TestHisto", "Random events", Nbins, 1.0 , 3.0)
 TestHisto.GetXaxis().SetTitle("Invariant mass [TeV]")
@@ -179,7 +175,7 @@ TestHisto = FillBkg(TestHisto)
 TestHisto = FillSig(TestHisto)
 TestHisto.Draw("hist")
 
-Random = False
+Random = False #test without randomness
 TestCanv2 = ROOT.TCanvas("TestCanv2","data test", 1000,1000 )
 TestHisto2 = ROOT.TH1F("TestHisto", "Expected values", Nbins, 1.0 , 3.0)
 TestHisto2.GetXaxis().SetTitle("Invariant mass [TeV]")
@@ -193,7 +189,7 @@ Random = True
 ################
 # Assignment b
 ################
-print("LLR of test 1: " + str(LogLRTS(TestHisto)))
+print("LLR of test 1: " + str(LogLRTS(TestHisto))) # get LLR of the test experiment
 
 ################
 # Assignment c
@@ -204,14 +200,12 @@ TempHisto = ROOT.TH1F("TempHisto", "data histo", Nbins, 1.0 , 3.0)
 TempHisto2 = ROOT.TH1F("TempHisto2", "data histo", Nbins, 1.0 , 3.0)
 
 j = 0
-while j < 1000 :
+while j < 1000 : # Generate experiments and determine LLR histograms
     TempHisto = FillBkg(TempHisto)
-    #print("LLR H0 : " + str(LogLRTS(TempHisto)))
     LLRHistoH0.Fill(LogLRTS(TempHisto))
     TempHisto2 = FillSig(TempHisto2)
     TempHisto2 = FillBkg(TempHisto2)
     LLRHistoH1.Fill(LogLRTS(TempHisto2))
-    #print("LLR H1 : " + str(LogLRTS(TempHisto2)))
     TempHisto.Reset("ICES")
     TempHisto2.Reset("ICES")
     j += 1
@@ -229,7 +223,7 @@ LLRHistoH0.GetYaxis().SetTitle("Number of occurances")
 LLRHistoH0.Draw()
 print("Expected p value is: " +str(ExpectedPval(LLRHistoH1)))
 PvalHistoH1 = ROOT.TH1F("PvalHistoH1", "p value distribution in case of H1", 30, 1.0 , 0.0)
-for r in range(1000) :
+for r in range(1000) :  # generate experiments and determine p value distribution
     TempHisto = FillBkg(TempHisto)
     TempHisto = FillSig(TempHisto)
     PvalHistoH1.Fill(CalcPval(TempHisto))
@@ -242,7 +236,7 @@ PvalHistoH1.Draw()
 infile = ROOT.TFile('assignment6-dataset.root')
 hData = infile.Get('hdata')
 pvalFile =  '{0:f}'.format(CalcPval(hData))
-print("P value of given data is: " + pvalFile)
+print("P value of given data is: " + pvalFile) # p value for given data set
 
 ################
 # Assignment e
@@ -253,8 +247,6 @@ PvalHistoHM = ROOT.TH1F("PvalHistoHM", "p value as function of true mass", len(M
 
 j = 0
 NtestSim = 1000
-BestMassArray = [0] * len(MassArray)
-BestLLRArray = [0] * len(MassArray)
 
 while j < len(MassArray) :
     p=0 
@@ -262,14 +254,12 @@ while j < len(MassArray) :
         TempHisto2 = FillSig(TempHisto2, MassArray[j])
         TempHisto2 = FillBkg(TempHisto2)
         BestResult = GetBestLLRMass(TempHisto2, MassArray) # find best LLR for any mass
-        LLRHistoHM.Fill(BestResult[0])
-        BestMassArray[j] += BestResult[1]/NtestSim
-        BestLLRArray[j] += BestResult[0]/NtestSim
+        LLRHistoHM.Fill(BestResult[0])                      #Fill LLR with this best estimate
         TempHisto2.Reset("ICES")
         TempHisto.Reset("ICES")
         p += 1
-    
     j += 1
+
 j = 0
 while j < len(MassArray) :
     for x in range(NtestSim):
