@@ -16,8 +16,8 @@ Nbins = 50
 Random = True  # use random events
 PenaltyTerm = 10000
 offset = 0
-SignalMultiplier = 2.0
-BackgroundMultiplier = 1.0
+SignalMultiplier = 1.0
+BackgroundMultiplier = 0.5
 
 ################
 # Global Functions
