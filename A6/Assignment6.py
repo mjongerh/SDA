@@ -16,7 +16,7 @@ Nbins = 50
 Random = True  # use random events
 PenaltyTerm = 10000
 offset = 0
-SignalMultiplier = 1.0
+SignalMultiplier = 2.0
 BackgroundMultiplier = 1.0
 
 ################
@@ -229,7 +229,7 @@ LLRHistoH0.GetYaxis().SetTitle("Number of occurances")
 LLRHistoH0.Draw()
 print("Expected p value is: " +str(ExpectedPval(LLRHistoH1)))
 PvalHistoH1 = ROOT.TH1F("PvalHistoH1", "p value distribution in case of H1", 30, 1.0 , 0.0)
-for r in range(10) :
+for r in range(1000) :
     TempHisto = FillBkg(TempHisto)
     TempHisto = FillSig(TempHisto)
     PvalHistoH1.Fill(CalcPval(TempHisto))
@@ -252,7 +252,7 @@ LLRHistoHM = ROOT.TH1F("LLRHistoHM", "best LLR as function of mass histo", Nbins
 PvalHistoHM = ROOT.TH1F("PvalHistoHM", "p value as function of true mass", len(MassArray), 1.0 , 3.0)
 
 j = 0
-NtestSim = 10
+NtestSim = 1000
 BestMassArray = [0] * len(MassArray)
 BestLLRArray = [0] * len(MassArray)
 
