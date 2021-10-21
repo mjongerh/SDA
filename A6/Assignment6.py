@@ -37,7 +37,7 @@ def FillBkg(histo) :
     while i < Nbins :
         mass = histo.GetBinCenter(i+1)
         nevents = ExpecBkg(mass, binwidth)
-        NEvents = ROOT.gRandom.Poisson(nevents)
+        if Random == True : nevents = ROOT.gRandom.Poisson(nevents)
         #Ntot += nevents #check if reasonable amount of events are used
         histo.Fill(mass, NEvents)
         i += 1
@@ -51,14 +51,14 @@ def FillSig(histo, massguess = 2.1) :
     while i < Nbins :
         mass = histo.GetBinCenter(i+1)
         nevents = ExpecSig(mass, binwidth, massguess)
-        NEvents = ROOT.gRandom.Poisson(nevents)
+        if Random == True : NEvents = ROOT.gRandom.Poisson(nevents)
         #Ntot += nevents #check if reasonable amount of events are used
         histo.Fill(mass, NEvents)
         i += 1
     #print("total sig events: " + str(Ntot))
     return histo
 
-def LogLH0 (histo) : #Log likelihood guessing H0 is true
+def LogLH0 (histo) : #Log likelihood assuming H0 is true
     binwidth = histo.GetBinWidth(1)
     i=0
     LogL = 0.0
@@ -66,7 +66,7 @@ def LogLH0 (histo) : #Log likelihood guessing H0 is true
         mass = histo.GetBinCenter(i+1)
         ExpectedBkg = ExpecBkg(mass, binwidth) + offset
         MeasNev = histo.GetBinContent(i+1) + offset
-        if ExpectedBkg <= 0 : 
+        if ExpectedBkg <= 0 : #penalty term if the expecation is somehow negative
             LogL += - PenaltyTerm
             i+=1
             continue
@@ -74,7 +74,7 @@ def LogLH0 (histo) : #Log likelihood guessing H0 is true
         i += 1
     return LogL
 
-def LogLH1 (histo) :#Log likelihood guessing H1 is true
+def LogLH1 (histo) :#Log likelihood assuming H1 is true
     binwidth = histo.GetBinWidth(1)
     i=0
     LogL = 0.0
@@ -83,7 +83,7 @@ def LogLH1 (histo) :#Log likelihood guessing H1 is true
         ExpectedBkg = ExpecBkg(mass, binwidth) + offset
         ExpectedSig = ExpecSig(mass, binwidth) + offset
         MeasNev = histo.GetBinContent(i+1) + offset
-        if (ExpectedBkg + ExpectedSig) <= 0 : 
+        if (ExpectedBkg + ExpectedSig) <= 0 :
             LogL += - PenaltyTerm
             i+=1
             continue
@@ -214,7 +214,7 @@ LLRHistoH0.GetYaxis().SetTitle("Number of occurances")
 LLRHistoH0.Draw()
 
 PvalHistoH1 = ROOT.TH1F("PvalHistoH1", "p value distribution in case of H1", 20, 1.0 , 0.0)
-for r in range(100) :
+for r in range(1000) :
     TempHisto = FillBkg(TempHisto)
     TempHisto = FillSig(TempHisto)
     PvalHistoH1.Fill(CalcPval(TempHisto))
@@ -237,7 +237,7 @@ LLRHistoH0M = ROOT.TH1F("LLRHistoH0M", "LLR of Hm given H0", Nbins, -10.0 , 10.0
 PvalHistoHM = ROOT.TH1F("PvalHistoHM", "p value as function of true mass", len(MassArray), 1.0 , 3.0)
 
 j = 0
-NtestSim = 1000
+NtestSim = 10
 BestMassArray = [0] * len(MassArray)
 BestLLRArray = [0] * len(MassArray)
 
