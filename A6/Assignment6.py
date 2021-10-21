@@ -127,7 +127,7 @@ def CalcPval(histo, nbins = Nbins) :
     Pvalue = IntP / IntTot
     return Pvalue
 
-def ExpectedPval(histo) :
+def ExpectedPval(histo, nbins = Nbins) :
     j=0
     IntTot = 0.0
     IntP = 0.0
