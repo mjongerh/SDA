@@ -226,7 +226,8 @@ PvalHistoH1.Draw()
 
 infile = ROOT.TFile('assignment6-dataset.root')
 hData = infile.Get('hdata')
-print("P value of given data is: " + str(CalcPval(hData)))
+pvalFile =  '{0:f}'.format(CalcPval(hData))
+print("P value of given data is: " + pvalFile)
 
 ################
 # Assignment e
