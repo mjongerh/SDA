@@ -131,7 +131,9 @@ def ExpectedPval(histo) :
     j=0
     IntTot = 0.0
     IntP = 0.0
-    IntStart = histo.GetMedian()
+    x = array('d', [0])
+    p = array('d', [0.5])
+    IntStart = histo.GetQuantiles(1, x, p)
     while j < nbins + 2 :  #include under- and overflow bins
         IntTot += LLRHistoH0.GetBinContent(j)
         if LLRHistoH0.GetBinCenter(j) >= IntStart :
