@@ -10,14 +10,14 @@ from math import *
 ROOT.gRandom.SetSeed(int(time.time()))
 # normalization  200 events from 1 to 3 TeV
 normalizationBkg = 200/(exp(-1)-exp(-3))
-MassResolution = 0.05
+MassResolution = 0.025
 normalizationSig = 10/(MassResolution * sqrt(2* pi))
 Nbins = 50
 Random = True  # use random events
 PenaltyTerm = 10000
 offset = 0
 SignalMultiplier = 1.0
-BackgroundMultiplier = 0.5
+BackgroundMultiplier = 1.0
 
 ################
 # Global Functions
