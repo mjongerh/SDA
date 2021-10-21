@@ -213,7 +213,7 @@ LLRHistoH0.GetXaxis().SetTitle("Value of LLR")
 LLRHistoH0.GetYaxis().SetTitle("Number of occurances")
 LLRHistoH0.Draw()
 
-PvalHistoH1 = ROOT.TH1F("PvalHistoH1", "p value distribution in case of H1", 100, 1.0 , 0.0)
+PvalHistoH1 = ROOT.TH1F("PvalHistoH1", "p value distribution in case of H1", 30, 1.0 , 0.0)
 for r in range(10000) :
     TempHisto = FillBkg(TempHisto)
     TempHisto = FillSig(TempHisto)
