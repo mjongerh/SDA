@@ -200,7 +200,7 @@ TempHisto = ROOT.TH1F("TempHisto", "data histo", Nbins, 1.0 , 3.0)
 TempHisto2 = ROOT.TH1F("TempHisto2", "data histo", Nbins, 1.0 , 3.0)
 
 j = 0
-while j < 1000 : # Generate experiments and determine LLR histograms
+while j < 10 : # Generate experiments and determine LLR histograms, 1000 for analysis
     TempHisto = FillBkg(TempHisto)
     LLRHistoH0.Fill(LogLRTS(TempHisto))
     TempHisto2 = FillSig(TempHisto2)
@@ -223,7 +223,7 @@ LLRHistoH0.GetYaxis().SetTitle("Number of occurances")
 LLRHistoH0.Draw()
 print("Expected p value is: " +str(ExpectedPval(LLRHistoH1)))
 PvalHistoH1 = ROOT.TH1F("PvalHistoH1", "p value distribution in case of H1", 30, 1.0 , 0.0)
-for r in range(1000) :  # generate experiments and determine p value distribution
+for r in range(10) :  # generate experiments and determine p value distribution, 1000 for analysis
     TempHisto = FillBkg(TempHisto)
     TempHisto = FillSig(TempHisto)
     PvalHistoH1.Fill(CalcPval(TempHisto))
@@ -246,7 +246,7 @@ LLRHistoHM = ROOT.TH1F("LLRHistoHM", "best LLR as function of mass histo", Nbins
 PvalHistoHM = ROOT.TH1F("PvalHistoHM", "p value as function of true mass", len(MassArray), 1.0 , 3.0)
 
 j = 0
-NtestSim = 1000
+NtestSim = 10  # 1000 for analysis
 
 while j < len(MassArray) :
     p=0 
