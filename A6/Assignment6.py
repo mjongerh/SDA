@@ -131,8 +131,8 @@ def ExpectedPval(histo) :
     j=0
     IntTot = 0.0
     IntP = 0.0
-    x = array('d', [0])
-    p = array('d', [0.5])
+    x = array.array('d', [0])
+    p = array.array('d', [0.5])
     IntStart = histo.GetQuantiles(1, x, p)
     while j < nbins + 2 :  #include under- and overflow bins
         IntTot += LLRHistoH0.GetBinContent(j)
